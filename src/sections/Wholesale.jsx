@@ -8,12 +8,12 @@ export function Wholesale() {
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
 
   return (
-    <section id="wholesale" style={{ background: 'var(--paper-200)', padding: '96px 40px', scrollMarginTop: 72 }}>
-      <div style={{ maxWidth: 1120, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
+    <section id="wholesale" className="sect" style={{ background: 'var(--paper-200)', padding: '96px 40px', scrollMarginTop: 72 }}>
+      <div className="grid-split" style={{ maxWidth: 1120, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
         {/* Pitch */}
         <div>
           <p style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-500)', margin: '0 0 14px' }}>Wholesale</p>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-900)', margin: '0 0 18px', lineHeight: 1.06 }}>Pour Stancraft at your bar.</h2>
+          <h2 className="h2" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-900)', margin: '0 0 18px', lineHeight: 1.06 }}>Pour Stancraft at your bar.</h2>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 18, lineHeight: 1.62, color: 'var(--ink-700)', margin: '0 0 28px', maxWidth: '46ch' }}>
             Cafés, offices, and restaurants: we roast to your order on a standing schedule, dial espresso with your team, and keep the origins on your menu honest. Whole bean, delivered fresh.
           </p>
@@ -43,11 +43,11 @@ export function Wholesale() {
           ) : (
             <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
               <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 24, color: 'var(--ink-900)', margin: '0 0 2px' }}>Wholesale inquiry</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              <div className="grid-split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                 <WInput label="Your name" value={form.name} onChange={set('name')} required placeholder="Jordan Vega" />
                 <WInput label="Business" value={form.business} onChange={set('business')} required placeholder="Meridian Café" />
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              <div className="grid-split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                 <WInput label="Email" type="email" value={form.email} onChange={set('email')} required placeholder="you@cafe.com" />
                 <WInput label="City / State" value={form.city} onChange={set('city')} placeholder="Austin, TX" />
               </div>

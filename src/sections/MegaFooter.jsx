@@ -28,8 +28,8 @@ function SocialLink({ icon, label, href }) {
 export function MegaFooter() {
   return (
     <footer style={{ background: 'var(--espresso-900)', color: 'var(--paper-200)' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '72px 40px 40px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'start' }}>
+      <div className="foot-inner" style={{ maxWidth: 1200, margin: '0 auto', padding: '72px 40px 40px' }}>
+        <div className="grid-split" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'start' }}>
           {/* Brand + makers blurb */}
           <div style={{ maxWidth: 460 }}>
             <img src={(window.__resources && window.__resources.logoWhite) || "../../assets/logo-stancraft-white.svg"} alt="Stancraft Coffee Co" style={{ height: 28, marginBottom: 20 }} />

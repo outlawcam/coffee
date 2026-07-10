@@ -34,7 +34,7 @@ function CoffeeGroup({ label, list }) {
       <div style={{ paddingBottom: 16, borderBottom: '1px solid var(--border-hairline)', marginBottom: 40 }}>
         <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--ink-500)', margin: 0 }}>{label}</h3>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px 30px' }}>
+      <div className="grid-products" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px 30px' }}>
         {list.map(c => <CoffeeCard key={c.id} c={c} />)}
       </div>
     </div>
@@ -54,11 +54,11 @@ export function Products() {
   const empty = organic.length === 0 && nonOrganic.length === 0;
 
   return (
-    <section id="products" style={{ background: 'var(--paper-100)', padding: '96px 40px', scrollMarginTop: 72 }}>
+    <section id="products" className="sect" style={{ background: 'var(--paper-100)', padding: '96px 40px', scrollMarginTop: 72 }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ maxWidth: 620, marginBottom: 40 }}>
           <p style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-500)', margin: '0 0 14px' }}>The lineup</p>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-900)', margin: '0 0 14px', lineHeight: 1.04 }}>The coffees.</h2>
+          <h2 className="h2" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-900)', margin: '0 0 14px', lineHeight: 1.04 }}>The coffees.</h2>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 18, lineHeight: 1.6, color: 'var(--ink-500)', margin: 0 }}>
             Whole bean, roasted to order. Prices are per 12 oz bag unless noted.
           </p>

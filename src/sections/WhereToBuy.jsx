@@ -15,17 +15,17 @@ export function WhereToBuy() {
       links: [{ label: 'tyler@stancraftcoffee.com', href: 'mailto:tyler@stancraftcoffee.com' }] },
   ];
   return (
-    <section id="where" style={{ background: 'var(--paper-100)', padding: '96px 40px', borderTop: '1px solid var(--border-hairline)', scrollMarginTop: 72 }}>
+    <section id="where" className="sect" style={{ background: 'var(--paper-100)', padding: '96px 40px', borderTop: '1px solid var(--border-hairline)', scrollMarginTop: 72 }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ maxWidth: 620, marginBottom: 52 }}>
           <p style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-500)', margin: '0 0 12px' }}>Where to buy</p>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-900)', margin: '0 0 14px', lineHeight: 1.04 }}>Three ways to get it.</h2>
+          <h2 className="h2" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-900)', margin: '0 0 14px', lineHeight: 1.04 }}>Three ways to get it.</h2>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 18, lineHeight: 1.6, color: 'var(--ink-500)', margin: 0 }}>
             Whole bean, roasted to order — at the market, from a shop that brews us, or straight from the roastery.
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 30 }}>
+        <div className="grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 30 }}>
           {channels.map((ch, i) => {
             const isMail = (ch.links[0] || {}).href && ch.links[0].href.indexOf('mailto:') === 0;
             return (

@@ -33,6 +33,39 @@
 
   /* Brew-method filter pills (unselected pills darken their border on hover) */
   .brewpill:hover { border-color: var(--ink-900) !important; }
+
+  /* ---------- Responsive ---------- */
+  img { max-width: 100%; }
+  input, select, textarea, button { box-sizing: border-box; }
+
+  /* Nav collapses into a hamburger + drawer below the breakpoint */
+  .nav-menu-btn { display: none; }
+  .drawer-link { transition: color var(--dur) var(--ease-standard); }
+  .drawer-link:hover { color: var(--accent) !important; }
+  @media (max-width: 768px) {
+    .nav-desktop { display: none !important; }
+    .nav-menu-btn { display: inline-flex !important; }
+  }
+
+  /* Multi-column grids stack; gutters + headings shrink */
+  @media (max-width: 900px) {
+    .grid-products { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+  @media (max-width: 768px) {
+    .appheader { padding-left: 22px !important; padding-right: 22px !important; }
+    .sect { padding: 60px 22px !important; }
+    .hero-sect { padding: 88px 22px 64px !important; }
+    .foot-inner { padding: 52px 22px 32px !important; }
+    .grid-split { grid-template-columns: 1fr !important; }
+    .grid-3 { grid-template-columns: 1fr !important; }
+    .h1 { font-size: 42px !important; }
+    .h2 { font-size: 30px !important; }
+    .hero-lead { font-size: 17px !important; }
+  }
+  @media (max-width: 540px) {
+    .grid-products { grid-template-columns: 1fr !important; }
+    .h1 { font-size: 34px !important; }
+  }
 </style>
 </head>
 <body>
