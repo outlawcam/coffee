@@ -21,7 +21,7 @@ function Nav() {
         {links.map(([href, label]) => (
           <a key={href} href={href} className="navlink" style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 13, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-900)', textDecoration: 'none' }}>{label}</a>
         ))}
-        <NavButton as="a" href="#wholesale" variant="primary" size="sm">Wholesale inquiry</NavButton>
+        <NavButton as="a" href="#wholesale" variant="primary" size="sm" className="btn-primary">Wholesale inquiry</NavButton>
       </nav>
     </header>
   );
@@ -44,8 +44,8 @@ function Hero() {
           We're standing up our online store. Until then, here's the whole lineup, the way we work, and how to pour Stancraft at your café. Whole bean, roasted to order.
         </p>
         <div style={{ display: 'flex', gap: 14, pointerEvents: 'auto' }}>
-          <NavButton as="a" href="#products" variant="primary" size="lg">See the coffee</NavButton>
-          <NavButton as="a" href="#craft" variant="outline" size="lg" style={{ color: 'var(--paper-100)', borderColor: 'var(--paper-100)' }}>Our craft</NavButton>
+          <NavButton as="a" href="#products" variant="primary" size="lg" className="btn-primary">See the coffee</NavButton>
+          <NavButton as="a" href="#craft" variant="outline" size="lg" className="btn-outline-light" style={{ color: 'var(--paper-100)', borderColor: 'var(--paper-100)' }}>Our craft</NavButton>
         </div>
       </div>
     </section>

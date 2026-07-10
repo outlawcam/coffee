@@ -70,7 +70,7 @@ export function Products() {
           {BREW_METHODS.map(([key, label]) => {
             const on = active.includes(key);
             return (
-              <button key={key} onClick={() => toggle(key)} style={{
+              <button key={key} onClick={() => toggle(key)} className="brewpill" style={{
                 fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase',
                 padding: '9px 16px', borderRadius: 'var(--radius-pill)', cursor: 'pointer', whiteSpace: 'nowrap',
                 background: on ? 'var(--ink-900)' : 'transparent',

@@ -37,7 +37,7 @@ export function WhereToBuy() {
               <p style={{ fontFamily: 'var(--font-body)', fontSize: 16, lineHeight: 1.56, color: 'var(--ink-500)', margin: 0 }}>{ch.body}</p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 'auto', paddingTop: 6 }}>
                 {ch.links.map((l, j) => (
-                  <a key={j} href={l.href} {...(l.href.indexOf('mailto:') === 0 ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+                  <a key={j} href={l.href} className="link-accent" {...(l.href.indexOf('mailto:') === 0 ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 13, letterSpacing: '0.04em', color: 'var(--accent)', textDecoration: 'none' }}>
                     <i data-lucide={l.href.indexOf('mailto:') === 0 ? 'mail' : 'arrow-up-right'} style={{ width: 15, height: 15 }}></i>
                     {l.label}

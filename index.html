@@ -10,9 +10,29 @@
   html, body { margin: 0; background: var(--paper-100); }
   a { color: var(--accent); }
   a:hover { color: var(--accent-hover); }
-  .navlink { position: relative; }
+  .navlink { position: relative; transition: color var(--dur) var(--ease-standard); }
   .navlink::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform var(--dur) var(--ease-standard); }
   .navlink:hover::after { transform: scaleX(1); }
+  .navlink:hover { color: var(--accent) !important; }
+
+  /* Buttons — the design-system Button renders inline styles with no hover, so
+     hover/press feedback lives here and uses !important to beat those inline
+     background/color values. */
+  .btn-primary, .btn-outline, .btn-outline-light { transition: background var(--dur) var(--ease-standard), border-color var(--dur) var(--ease-standard), color var(--dur) var(--ease-standard), transform var(--dur-fast) var(--ease-standard); }
+  .btn-primary:hover { background: var(--red-600) !important; border-color: var(--red-600) !important; }
+  .btn-outline:hover { background: var(--ink-900) !important; color: var(--paper-100) !important; }
+  .btn-outline-light:hover { background: var(--paper-100) !important; color: var(--espresso-900) !important; }
+  .btn-primary:active, .btn-outline:active, .btn-outline-light:active { transform: translateY(1px); }
+
+  /* Text links */
+  .link-accent { transition: color var(--dur) var(--ease-standard); }
+  .link-accent:hover { color: var(--accent-hover) !important; }
+  .link-footer { transition: color var(--dur) var(--ease-standard); }
+  .link-footer:hover { color: var(--accent) !important; }
+  .link-footer:hover span { border-color: var(--accent) !important; }
+
+  /* Brew-method filter pills (unselected pills darken their border on hover) */
+  .brewpill:hover { border-color: var(--ink-900) !important; }
 </style>
 </head>
 <body>

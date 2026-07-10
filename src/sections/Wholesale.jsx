@@ -38,7 +38,7 @@ export function Wholesale() {
               <p style={{ fontFamily: 'var(--font-body)', fontSize: 16, color: 'var(--ink-500)', margin: '0 0 22px' }}>
                 We'll be in touch within two business days, {form.name ? form.name.split(' ')[0] : 'thanks'}.
               </p>
-              <WButton variant="outline" onClick={() => setSent(false)}>Send another</WButton>
+              <WButton variant="outline" className="btn-outline" onClick={() => setSent(false)}>Send another</WButton>
             </div>
           ) : (
             <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
@@ -62,7 +62,7 @@ export function Wholesale() {
                 <textarea value={form.message} onChange={set('message')} rows={3} placeholder="Brew method, current roaster, timeline…"
                   style={{ fontFamily: 'var(--font-body)', fontSize: 17, color: 'var(--ink-900)', background: 'var(--paper-000)', border: '1px solid var(--ink-200)', borderRadius: 'var(--radius-sm)', padding: '11px 14px', outline: 'none', resize: 'vertical' }} />
               </label>
-              <WButton variant="primary" size="lg" fullWidth type="submit" style={{ marginTop: 4 }}>Send inquiry</WButton>
+              <WButton variant="primary" size="lg" fullWidth type="submit" className="btn-primary" style={{ marginTop: 4 }}>Send inquiry</WButton>
               <p style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'var(--ink-500)', margin: 0, textAlign: 'center' }}>Or email <strong style={{ color: 'var(--ink-900)' }}>tyler@stancraftcoffee.com</strong></p>
             </form>
           )}
