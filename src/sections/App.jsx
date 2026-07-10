@@ -32,7 +32,7 @@ function Hero() {
   return (
     <section id="top" style={{ position: 'relative', overflow: 'hidden', background: 'var(--espresso-900)', padding: '116px 40px 108px', borderBottom: '1px solid rgba(255,255,255,0.10)' }}>
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-        <image-slot id="land-hero-bg" shape="rect" fit="cover" placeholder="Hero background — drop a dark, full-bleed photo"></image-slot>
+        <image-slot id="land-hero-bg" shape="rect" fit="cover" src="/assets/hero.jpg" placeholder="Hero background — drop a dark, full-bleed photo"></image-slot>
       </div>
       <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', background: 'linear-gradient(90deg, rgba(26,20,15,0.90) 0%, rgba(26,20,15,0.72) 44%, rgba(26,20,15,0.38) 100%)' }}></div>
       <div style={{ position: 'relative', zIndex: 2, maxWidth: 1200, margin: '0 auto', pointerEvents: 'none' }}>

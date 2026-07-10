@@ -12,7 +12,7 @@ export function Craft() {
       <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
         {/* Image */}
         <div style={{ position: 'relative', width: '100%', aspectRatio: '4 / 5', borderRadius: 'var(--radius-lg)', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-          <image-slot id="land-craft" shape="rect" placeholder="Roastery / makers photo"></image-slot>
+          <image-slot id="land-craft" shape="rect" fit="cover" src="/assets/craft.jpg" placeholder="Roastery / makers photo"></image-slot>
         </div>
         {/* Text */}
         <div>
