@@ -39,12 +39,12 @@
   input, select, textarea, button { box-sizing: border-box; }
 
   /* Nav collapses into a hamburger + drawer below the breakpoint */
-  .nav-menu-btn { display: none; }
+  .nav-mobile { display: none; }
   .drawer-link { transition: color var(--dur) var(--ease-standard); }
   .drawer-link:hover { color: var(--accent) !important; }
   @media (max-width: 768px) {
     .nav-desktop { display: none !important; }
-    .nav-menu-btn { display: inline-flex !important; }
+    .nav-mobile { display: flex !important; }
   }
 
   /* Multi-column grids stack; gutters + headings shrink */

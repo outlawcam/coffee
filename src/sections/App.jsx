@@ -35,11 +35,14 @@ function Nav() {
         <NavButton as="a" href="#wholesale" variant="primary" size="sm" className="btn-primary">Wholesale inquiry</NavButton>
       </nav>
 
-      {/* Mobile menu trigger */}
-      <button type="button" className="nav-menu-btn" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen(true)}
-        style={{ alignItems: 'center', justifyContent: 'center', width: 44, height: 44, padding: 0, margin: '-6px -8px -6px 0', background: 'none', border: 'none', color: 'var(--ink-900)', cursor: 'pointer' }}>
-        <MenuIcon />
-      </button>
+      {/* Mobile actions: wholesale CTA stays visible in the header + menu trigger */}
+      <div className="nav-mobile" style={{ alignItems: 'center', gap: 12 }}>
+        <NavButton as="a" href="#wholesale" variant="primary" size="sm" className="btn-primary">Wholesale</NavButton>
+        <button type="button" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen(true)}
+          style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44, padding: 0, margin: '-6px -10px -6px 0', background: 'none', border: 'none', color: 'var(--ink-900)', cursor: 'pointer' }}>
+          <MenuIcon />
+        </button>
+      </div>
 
       {/* Drawer backdrop */}
       <div onClick={close} aria-hidden="true" style={{ position: 'fixed', inset: 0, zIndex: 40, background: 'rgba(26,20,15,0.5)', opacity: open ? 1 : 0, pointerEvents: open ? 'auto' : 'none', transition: 'opacity 280ms var(--ease-standard)' }}></div>
@@ -54,7 +57,6 @@ function Nav() {
           {links.map(([href, label]) => (
             <a key={href} href={href} onClick={close} className="drawer-link" style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 15, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-900)', textDecoration: 'none', padding: '15px 0', borderBottom: '1px solid var(--border-hairline)' }}>{label}</a>
           ))}
-          <NavButton as="a" href="#wholesale" variant="primary" fullWidth className="btn-primary" onClick={close} style={{ marginTop: 22 }}>Wholesale inquiry</NavButton>
         </nav>
       </aside>
     </header>
