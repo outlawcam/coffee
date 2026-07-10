@@ -1,0 +1,45 @@
+/* Stancraft Coffee — Spacing, radius, shadow, layout
+ * Craft/print sensibility: generous whitespace, restrained rounding (paper &
+ * kraft labels have soft-but-square corners), quiet shadows. */
+
+:root {
+  /* Spacing scale (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* Radius — small, label-like. Nothing pill-round except deliberate tags. */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+
+  /* Borders */
+  --border-w: 1px; /* @kind other */
+  --border-w-bold: 2px; /* @kind other */
+
+  /* Shadows — soft, warm-tinted, low. Craft, not glossy SaaS. */
+  --shadow-xs: 0 1px 2px rgba(36, 27, 20, 0.06);
+  --shadow-sm: 0 2px 6px rgba(36, 27, 20, 0.08);
+  --shadow-md: 0 8px 20px rgba(36, 27, 20, 0.10);
+  --shadow-lg: 0 18px 44px rgba(36, 27, 20, 0.14);
+
+  /* Layout */
+  --container: 1200px; /* @kind other */
+  --container-narrow: 720px; /* @kind other */
+  --gutter: var(--space-6);
+
+  /* Motion — measured, no bounce. Espresso pours smoothly. */
+  --ease-standard: cubic-bezier(0.2, 0, 0.1, 1); /* @kind other */
+  --dur-fast: 120ms; /* @kind other */
+  --dur: 200ms; /* @kind other */
+  --dur-slow: 320ms; /* @kind other */
+}

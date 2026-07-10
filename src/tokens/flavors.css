@@ -1,0 +1,45 @@
+/* Stancraft Coffee — Flavor language
+ *
+ * Conceptual system derived from the Taster's Flavor Wheel. Rather than reprint
+ * the wheel, PDPs describe cup character with 2-4 flavor notes, each belonging
+ * to a FAMILY. Every family gets a muted, paper-friendly swatch (never neon) so
+ * a row of flavor tags reads as a warm editorial palette, not a candy shelf.
+ * Text tokens are the accessible on-paper ink for each family. */
+
+:root {
+  --flavor-fruit:      #C0455E; /* berry / stone fruit — deep rose */
+  --flavor-fruit-wash: #F6DEE3;
+  --flavor-fruit-ink:  #8F2C42;
+
+  --flavor-floral:      #B08AB8; /* jasmine / blossom — soft mauve */
+  --flavor-floral-wash: #EEE2F0;
+  --flavor-floral-ink:  #6E4E77;
+
+  --flavor-sweet:      #D99A3D; /* caramel / sugar — amber */
+  --flavor-sweet-wash: #F8E8CC;
+  --flavor-sweet-ink:  #8C5E14;
+
+  --flavor-chocolate:      #6F4A33; /* cocoa / dark chocolate — cacao */
+  --flavor-chocolate-wash: #E7DAD1;
+  --flavor-chocolate-ink:  #4A2E1D;
+
+  --flavor-nutty:      #A98253; /* almond / hazelnut — toasted tan */
+  --flavor-nutty-wash: #EEE1CE;
+  --flavor-nutty-ink:  #6E4E2B;
+
+  --flavor-spice:      #B65534; /* clove / cinnamon — terracotta */
+  --flavor-spice-wash: #F3DED2;
+  --flavor-spice-ink:  #7E3418;
+
+  --flavor-roast:      #4B4038; /* smoky / toast — charred umber */
+  --flavor-roast-wash: #DDD6CE;
+  --flavor-roast-ink:  #2E251E;
+
+  --flavor-vegetal:      #6F8C4E; /* herb / green — sage */
+  --flavor-vegetal-wash: #E2EAD3;
+  --flavor-vegetal-ink:  #46592E;
+
+  --flavor-citrus:      #E0A83B; /* lemon / bright — zest gold */
+  --flavor-citrus-wash: #F8EBC9;
+  --flavor-citrus-ink:  #8C6410;
+}
