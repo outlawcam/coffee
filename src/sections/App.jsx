@@ -53,6 +53,9 @@ function Hero() {
 }
 
 export function App() {
+  // Runs once at mount: converts every <i data-lucide> present in the initial render.
+  // App never re-renders, so any conditionally-rendered icon (e.g. Wholesale's success
+  // checkmark) must trigger its own createIcons — see Wholesale.jsx.
   useEffect(() => { createIcons({ icons: LUCIDE_ICONS }); });
   return (
     <div style={{ fontFamily: 'var(--font-body)' }}>

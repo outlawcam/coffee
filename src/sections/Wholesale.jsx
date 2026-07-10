@@ -1,11 +1,16 @@
 // Wholesale section — pitch + inquiry form. Global React.
 import React from 'react';
+import { createIcons, Check } from 'lucide';
 
 export function Wholesale() {
   const { Button: WButton, Input: WInput, Select: WSelect, Badge: WBadge } = window.StancraftCoffeeDesignSystem_65aedf;
   const [sent, setSent] = React.useState(false);
   const [form, setForm] = React.useState({ name: '', business: '', email: '', city: '', volume: '20–50 lb / mo', message: '' });
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
+  // App's createIcons runs once at mount, so the success-state <i data-lucide="check">
+  // (rendered only after `sent` flips) would stay unconverted. Re-run on toggle; scoped
+  // to the Check glyph so already-converted icons elsewhere are untouched.
+  React.useEffect(() => { createIcons({ icons: { Check } }); }, [sent]);
 
   return (
     <section id="wholesale" style={{ background: 'var(--paper-200)', padding: '96px 40px', scrollMarginTop: 72 }}>
