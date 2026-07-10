@@ -36,10 +36,13 @@ static-assets deploy instead.)
 3. Save & deploy. Add a custom domain later under the project's **Domains &
    Routes** (Settings) tab if desired.
 
-## Content follow-ups (placeholders from the design)
+## Content follow-ups (remaining placeholders)
 
-- `src/sections/WhereToBuy.jsx` — real café names + shop URLs; market/email links.
-- `src/sections/MegaFooter.jsx` — real Facebook & Instagram URLs.
-- Image slots (hero background, Our Craft photo, per-coffee photos) ship as
-  placeholders; drop real photography by setting `src` on the `<image-slot>`s.
-- Confirm `orders@stancraft.co` / `wholesale@stancraft.co` are live addresses.
+- `src/sections/WhereToBuy.jsx` — real café names + shop URLs, and the
+  farmer's-market info link (still `href="#"`). The order-by-email address is
+  set (`tyler@stancraftcoffee.com`).
+- Per-coffee photos: the coffee cards currently share the bean placeholder;
+  drop real per-card photos by setting `src` on each `land-<coffeeId>` slot.
+
+Done: hero + Our Craft photos, email (`tyler@stancraftcoffee.com`), and the
+Facebook/Instagram links.

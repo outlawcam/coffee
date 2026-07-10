@@ -46,9 +46,8 @@ export function MegaFooter() {
             <div>
               <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 12, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--yellow-500)', margin: '0 0 16px' }}>Follow along</p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                {/* TODO: replace href="#" with the real Facebook & Instagram URLs */}
-                <SocialLink icon="facebook" label="Facebook" href="#" />
-                <SocialLink icon="instagram" label="Instagram" href="#" />
+                <SocialLink icon="facebook" label="Facebook" href="https://www.facebook.com/profile.php?id=61590952605387" />
+                <SocialLink icon="instagram" label="Instagram" href="https://www.instagram.com/stancraftcoffee/" />
               </div>
             </div>
 

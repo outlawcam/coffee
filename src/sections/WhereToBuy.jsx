@@ -12,7 +12,7 @@ export function WhereToBuy() {
       links: [{ label: 'Coffee shop one', href: '#' }, { label: 'Coffee shop two', href: '#' }, { label: 'Coffee shop three', href: '#' }] },
     { icon: 'mail', title: 'Order by email', link: false,
       body: 'Want beans shipped or held for pickup? Email us what you’re after and we’ll sort it out.',
-      links: [{ label: 'orders@stancraft.co', href: 'mailto:orders@stancraft.co' }] },
+      links: [{ label: 'tyler@stancraftcoffee.com', href: 'mailto:tyler@stancraftcoffee.com' }] },
   ];
   return (
     <section id="where" style={{ background: 'var(--paper-100)', padding: '96px 40px', borderTop: '1px solid var(--border-hairline)', scrollMarginTop: 72 }}>

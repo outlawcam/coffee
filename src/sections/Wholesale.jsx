@@ -63,7 +63,7 @@ export function Wholesale() {
                   style={{ fontFamily: 'var(--font-body)', fontSize: 17, color: 'var(--ink-900)', background: 'var(--paper-000)', border: '1px solid var(--ink-200)', borderRadius: 'var(--radius-sm)', padding: '11px 14px', outline: 'none', resize: 'vertical' }} />
               </label>
               <WButton variant="primary" size="lg" fullWidth type="submit" style={{ marginTop: 4 }}>Send inquiry</WButton>
-              <p style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'var(--ink-500)', margin: 0, textAlign: 'center' }}>Or email <strong style={{ color: 'var(--ink-900)' }}>wholesale@stancraft.co</strong></p>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'var(--ink-500)', margin: 0, textAlign: 'center' }}>Or email <strong style={{ color: 'var(--ink-900)' }}>tyler@stancraftcoffee.com</strong></p>
             </form>
           )}
         </div>
