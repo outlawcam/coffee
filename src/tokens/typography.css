@@ -1,0 +1,42 @@
+/* Stancraft Coffee — Typography
+ * Montserrat: headlines, CTAs, labels, badges — often uppercase, tight tracking.
+ * Spectral:   body copy, tasting notes, editorial prose — warm humanist serif. */
+
+:root {
+  --font-display: 'Montserrat', system-ui, sans-serif;   /* heads / UI / CTAs */
+  --font-body: 'Spectral', Georgia, 'Times New Roman', serif; /* prose */
+
+  /* Weights */
+  --fw-body: 400; /* @kind font */
+  --fw-body-medium: 500; /* @kind font */
+  --fw-label: 600; /* @kind font */
+  --fw-head: 700; /* @kind font */
+  --fw-black: 800; /* @kind font */
+  --fw-ultra: 900; /* @kind font */
+
+  /* Type scale (rem, 16px base) — display uses tight leading, body relaxed */
+  --fs-display: 4.25rem;   /* 68px hero */
+  --fs-h1: 3rem;           /* 48px */
+  --fs-h2: 2.125rem;       /* 34px */
+  --fs-h3: 1.5rem;         /* 24px */
+  --fs-h4: 1.125rem;       /* 18px */
+  --fs-body-lg: 1.1875rem; /* 19px lead paragraph */
+  --fs-body: 1.0625rem;    /* 17px default serif body */
+  --fs-small: 0.9375rem;   /* 15px */
+  --fs-label: 0.8125rem;   /* 13px uppercase label */
+  --fs-micro: 0.6875rem;   /* 11px eyebrow / tag */
+
+  --lh-tight: 1.02; /* @kind font */
+  --lh-head: 1.1; /* @kind font */
+  --lh-snug: 1.35; /* @kind font */
+  --lh-body: 1.62; /* @kind font */
+
+  /* Tracking — condensed display wants negative; labels want positive */
+  --tracking-display: -0.02em; /* @kind font */
+  --tracking-head: -0.01em; /* @kind font */
+  --tracking-label: 0.14em; /* @kind font */
+  --tracking-eyebrow: 0.22em; /* @kind font */
+
+  /* Semantic roles */
+  --text-eyebrow: var(--fw-label) var(--fs-micro)/1 var(--font-display); /* @kind font */
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stancraft Coffee Co</title>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<style>
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; background: var(--paper-100); }
+  a { color: var(--accent); }
+  a:hover { color: var(--accent-hover); }
+  .navlink { position: relative; }
+  .navlink::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform var(--dur) var(--ease-standard); }
+  .navlink:hover::after { transform: scaleX(1); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
