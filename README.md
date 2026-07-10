@@ -32,7 +32,7 @@ static-assets deploy instead.)
 2. Build settings:
    - **Build command:** `npm run build`
    - **Deploy command:** `npx wrangler deploy` (reads `wrangler.jsonc`)
-   - Node version is pinned by `.nvmrc` (20).
+   - Node version is pinned by `.nvmrc` (**22** — current Wrangler requires Node ≥ 22).
 3. Save & deploy. Add a custom domain later under the project's **Domains &
    Routes** (Settings) tab if desired.
 
