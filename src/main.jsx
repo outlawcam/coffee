@@ -4,8 +4,6 @@ import './vendor/_ds_bundle.js';   // its guarded image-slot registration now no
 import './data/coffees.js';
 
 import './styles.css';
-
-// Self-hosted fonts (weights used by the design tokens).
 import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/500.css';
 import '@fontsource/montserrat/600.css';
@@ -20,11 +18,12 @@ import '@fontsource/spectral/500.css';
 import '@fontsource/spectral/600.css';
 
 import { createRoot } from 'react-dom/client';
-const { Button } = window.StancraftCoffeeDesignSystem_65aedf;
-createRoot(document.getElementById('root')).render(
-  <div style={{ padding: 40 }}>
-    <Button variant="primary">Add to cart</Button>
-    <image-slot id="smoke" style={{ display: 'block', width: 200, height: 200 }} src="/assets/bean-placeholder-50.png" fit="contain"></image-slot>
-    <image-slot id="smoke-empty" style={{ display: 'block', width: 200, height: 200 }}></image-slot>
-  </div>
-);
+import { App } from './sections/App.jsx';
+
+window.__resources = {
+  logoDark: '/assets/logo-stancraft.svg',
+  logoWhite: '/assets/logo-stancraft-white.svg',
+  scaLogo: '/assets/sca-member-white.png',
+};
+
+createRoot(document.getElementById('root')).render(<App />);
