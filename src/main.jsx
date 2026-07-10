@@ -1,7 +1,7 @@
 import './vendor/react-global.js';
-import './vendor/_ds_bundle.js';
+import './vendor/image-slot.js';   // register OUR shim first
+import './vendor/_ds_bundle.js';   // its guarded image-slot registration now no-ops
 import './data/coffees.js';
-import './vendor/image-slot.js';
 
 import './styles.css';
 
@@ -24,6 +24,7 @@ const { Button } = window.StancraftCoffeeDesignSystem_65aedf;
 createRoot(document.getElementById('root')).render(
   <div style={{ padding: 40 }}>
     <Button variant="primary">Add to cart</Button>
-    <image-slot style={{ display: 'block', width: 200, height: 200 }} src="/assets/bean-placeholder-50.png" fit="contain"></image-slot>
+    <image-slot id="smoke" style={{ display: 'block', width: 200, height: 200 }} src="/assets/bean-placeholder-50.png" fit="contain"></image-slot>
+    <image-slot id="smoke-empty" style={{ display: 'block', width: 200, height: 200 }}></image-slot>
   </div>
 );
