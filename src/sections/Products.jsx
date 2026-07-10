@@ -4,8 +4,10 @@ import React from 'react';
 function CoffeeCard({ c }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <div style={{ width: '100%', aspectRatio: '1 / 1', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
-        <image-slot id={`land-${c.id}`} shape="rect" fit="contain" src="/assets/bean-placeholder-50.png" placeholder={`${c.region} — bean or region photo`}></image-slot>
+      <div style={{ width: '100%', aspectRatio: '1 / 1', borderRadius: 'var(--radius-md)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ width: '30%', aspectRatio: '1 / 1' }}>
+          <image-slot id={`land-${c.id}`} shape="rect" fit="contain" src="/assets/bean-placeholder-50.png" placeholder={`${c.region} — bean or region photo`}></image-slot>
+        </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '18px 0 0' }}>
         <div>
