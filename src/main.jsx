@@ -1,3 +1,8 @@
+import './vendor/react-global.js';
+import './vendor/_ds_bundle.js';
+import './data/coffees.js';
+import './vendor/image-slot.js';
+
 import './styles.css';
 
 // Self-hosted fonts (weights used by the design tokens).
@@ -15,8 +20,10 @@ import '@fontsource/spectral/500.css';
 import '@fontsource/spectral/600.css';
 
 import { createRoot } from 'react-dom/client';
+const { Button } = window.StancraftCoffeeDesignSystem_65aedf;
 createRoot(document.getElementById('root')).render(
-  <div style={{ padding: 40, fontFamily: 'var(--font-body)', background: 'var(--paper-100)' }}>
-    Tokens + fonts OK
+  <div style={{ padding: 40 }}>
+    <Button variant="primary">Add to cart</Button>
+    <image-slot style={{ display: 'block', width: 200, height: 200 }} src="/assets/bean-placeholder-50.png" fit="contain"></image-slot>
   </div>
 );
