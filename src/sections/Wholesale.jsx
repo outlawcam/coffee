@@ -1,16 +1,11 @@
 // Wholesale section — pitch + inquiry form. Global React.
 import React from 'react';
-import { createIcons, Check } from 'lucide';
 
 export function Wholesale() {
   const { Button: WButton, Input: WInput, Select: WSelect, Badge: WBadge } = window.StancraftCoffeeDesignSystem_65aedf;
   const [sent, setSent] = React.useState(false);
   const [form, setForm] = React.useState({ name: '', business: '', email: '', city: '', volume: '20–50 lb / mo', message: '' });
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
-  // App's createIcons runs once at mount, so the success-state <i data-lucide="check">
-  // (rendered only after `sent` flips) would stay unconverted. Re-run on toggle; scoped
-  // to the Check glyph so already-converted icons elsewhere are untouched.
-  React.useEffect(() => { createIcons({ icons: { Check } }); }, [sent]);
 
   return (
     <section id="wholesale" style={{ background: 'var(--paper-200)', padding: '96px 40px', scrollMarginTop: 72 }}>
@@ -37,7 +32,7 @@ export function Wholesale() {
           {sent ? (
             <div style={{ padding: '40px 8px', textAlign: 'center' }}>
               <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'var(--accent)', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 18 }}>
-                <i data-lucide="check"></i>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
               </div>
               <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 26, color: 'var(--ink-900)', margin: '0 0 8px' }}>Inquiry received.</h3>
               <p style={{ fontFamily: 'var(--font-body)', fontSize: 16, color: 'var(--ink-500)', margin: '0 0 22px' }}>
