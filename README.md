@@ -1,7 +1,7 @@
 # Stancraft Coffee Co — Landing Site
 
 Temporary one-page site (pre-Shopify), built from the Stancraft design system.
-Vite + React, deployed to Cloudflare Pages from `main`.
+Vite + React, deployed to Cloudflare (Workers static assets) from `main`.
 
 ## Develop
 
@@ -12,23 +12,29 @@ npm run build    # production build → dist/
 npm run preview  # serve the built dist/
 ```
 
-## Deploy — Cloudflare Pages (GitHub integration)
+## Deploy — Cloudflare (GitHub integration)
 
-Every push to `main` on `github.com/outlawcam/coffee` builds and deploys; pull
-requests get preview URLs. **One-time setup (manual, in the Cloudflare
-dashboard — cannot be scripted):**
+Every push to `main` on `github.com/outlawcam/coffee` builds and deploys.
 
-1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** →
-   **Connect to Git**. Authorize Cloudflare's GitHub app for the `outlawcam`
-   account and select the `coffee` repository.
+This is a **static-assets deploy**: `wrangler.jsonc` declares `assets.directory:
+./dist` with no server-side Worker (`main` is intentionally omitted), so
+`wrangler deploy` uploads the built `dist/` directly. This is what the connected
+Cloudflare project runs as its deploy command. (An explicit `wrangler.jsonc` is
+required — without it, `wrangler deploy` tries to auto-configure the Cloudflare
+Vite plugin, which needs Vite ≥ 6; we pin Vite 5, so we route it to a plain
+static-assets deploy instead.)
+
+**One-time setup (manual, in the Cloudflare dashboard — cannot be scripted):**
+
+1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Import a
+   repository**. Authorize Cloudflare's GitHub app for the `outlawcam` account
+   and select the `coffee` repository.
 2. Build settings:
-   - **Framework preset:** Vite (or None)
    - **Build command:** `npm run build`
-   - **Build output directory:** `dist`
-   - **Production branch:** `main`
+   - **Deploy command:** `npx wrangler deploy` (reads `wrangler.jsonc`)
    - Node version is pinned by `.nvmrc` (20).
-3. Save & deploy. Add a custom domain later under the project's **Custom
-   domains** tab if desired.
+3. Save & deploy. Add a custom domain later under the project's **Domains &
+   Routes** (Settings) tab if desired.
 
 ## Content follow-ups (placeholders from the design)
 
