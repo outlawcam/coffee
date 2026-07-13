@@ -8,7 +8,7 @@ export function Craft() {
     ['bean', 'Whole bean, always', 'We do not grind. Fresh grinding at home is the single biggest upgrade to your cup, so we leave it in your hands.'],
   ];
   return (
-    <section id="craft" className="sect" style={{ background: 'var(--espresso-900)', color: 'var(--paper-100)', padding: '96px 40px', scrollMarginTop: 72 }}>
+    <section id="craft" className="sect" style={{ background: 'var(--dark-900)', color: 'var(--paper-100)', padding: '96px 40px', scrollMarginTop: 72 }}>
       <div className="grid-split" style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
         {/* Image */}
         <div style={{ position: 'relative', width: '100%', aspectRatio: '4 / 5', borderRadius: 'var(--radius-lg)', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>

@@ -1,0 +1,36 @@
+/* Stancraft Coffee — Botanical palette (coffee-tree schemes)
+ *
+ * The full brand palette drawn from the coffee-tree photography: cherry red,
+ * paper cream, harvest gold, leaf green, sage, pine, and mulberry. It extends
+ * the ink & paper spine in colors.css with the living colors of the plant.
+ *
+ * TWO SCHEMES, identical except the GOLD:
+ *   Scheme A (default) — gold #D3A345, a deeper harvest amber (more roasted).
+ *   Scheme B           — gold #E5BE7A, a softer honey (more milk-and-sugar).
+ * Switch by setting data-scheme="b" on <html> or any container; leave it off
+ * (or "a") for the default. Everything else is shared. */
+
+:root {
+  /* --- Shared botanical hues --- */
+  --cherry-500: #711514;  /* coffee-cherry red — deep, ripe */
+  --cherry-700: #420C1E;  /* mulberry — darkest cherry, dark surface */
+
+  --cream-100: #F8E6D2;   /* blossom cream — warm light surface */
+
+  --leaf-500: #7EA366;    /* coffee-leaf green — fresh, mid */
+  --sage-300: #B6BEB1;    /* dusty sage — muted grey-green */
+  --pine-900: #17330D;    /* deep pine — dark botanical ground */
+
+  /* Gold text/ink shared across schemes (readable on cream) */
+  --gold-700: #7A5316;    /* gold ink for labels on light */
+
+  /* --- Scheme A (default) : deeper harvest gold --- */
+  --gold-500: #D3A345;    /* harvest amber */
+  --gold-300: #E7CE97;    /* amber wash */
+}
+
+/* --- Scheme B : softer honey gold --- */
+[data-scheme="b"] {
+  --gold-500: #E5BE7A;    /* honey */
+  --gold-300: #F1DCB6;    /* honey wash */
+}

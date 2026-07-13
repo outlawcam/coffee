@@ -27,7 +27,7 @@ function SocialLink({ icon, label, href }) {
 
 export function MegaFooter() {
   return (
-    <footer style={{ background: 'var(--espresso-900)', color: 'var(--paper-200)' }}>
+    <footer style={{ background: 'var(--dark-900)', color: 'var(--paper-200)' }}>
       <div className="foot-inner" style={{ maxWidth: 1200, margin: '0 auto', padding: '72px 40px 40px' }}>
         <div className="grid-split" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'start' }}>
           {/* Brand + makers blurb */}

@@ -66,7 +66,7 @@ function Nav() {
 function Hero() {
   const { Button: NavButton } = window.StancraftCoffeeDesignSystem_65aedf;
   return (
-    <section id="top" className="hero-sect" style={{ position: 'relative', overflow: 'hidden', background: 'var(--espresso-900)', padding: '116px 40px 108px', borderBottom: '1px solid rgba(255,255,255,0.10)' }}>
+    <section id="top" className="hero-sect" style={{ position: 'relative', overflow: 'hidden', background: 'var(--dark-900)', padding: '116px 40px 108px', borderBottom: '1px solid rgba(255,255,255,0.10)' }}>
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
         <image-slot id="land-hero-bg" shape="rect" fit="cover" src="/assets/hero.jpg" placeholder="Hero background — drop a dark, full-bleed photo"></image-slot>
       </div>

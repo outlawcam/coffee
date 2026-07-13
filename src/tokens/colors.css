@@ -2,16 +2,18 @@
  *
  * PHILOSOPHY / JUSTIFICATION
  * The wordmark is pure black on white, so the system is grounded in INK & PAPER
- * plus the warm neutrals of the craft: kraft-paper cream, roasted espresso brown.
- * That neutral spine is what "brings it together." On top of it sit the three
+ * plus the warm neutrals of the craft: kraft-paper cream and a deep MULBERRY
+ * (coffee-cherry) dark for reversed sections — NOT a literal coffee brown, and
+ * not a flat charcoal. That warm spine is what "brings it together." On top of it sit the three
  * highlights the brief named, each with a JOB so they never fight:
- *   - Ferrari red  = the single BRAND accent. Confident, appetizing, matches the
- *                    energy of a heavy condensed wordmark. Used sparingly for
- *                    primary CTAs, the small-batch flag, key emphasis.
+ *   - Cherry red    = the single BRAND accent. Deep coffee-cherry from the
+ *                    botanical palette — confident and appetizing without the
+ *                    novelty of a fire-engine red. Primary CTAs, small-batch
+ *                    flag, key emphasis. Used sparingly.
  *   - Pastel blue  = FUNCTIONAL, cool. Codes cold-brew / bright-clean profiles.
- *   - Butter yellow= FUNCTIONAL, warm. Codes decaf / mellow-sweet emphasis and
+ *   - Gold         = FUNCTIONAL, warm. Codes decaf / mellow-sweet emphasis and
  *                    pairs with blue as the cool/warm axis of the flavor language.
- * Red is identity; blue + yellow are a support pair for wayfinding & flavor. */
+ * Cherry is identity; blue + gold are a support pair for wayfinding & flavor. */
 
 :root {
   /* --- Ink & paper (core neutral spine) --- */
@@ -26,30 +28,32 @@
   --paper-200: #F4EEE1; /* raised card cream */
   --paper-300: #ECE3D2; /* kraft tint, wells */
 
-  /* --- Espresso (warm brand neutral / dark surfaces) --- */
-  --espresso-900: #241B14; /* darkest roast, dark sections */
-  --espresso-700: #3E2E22; /* dark surface */
-  --espresso-500: #6F4E37; /* classic coffee brown */
+  /* --- Dark surface (deep mulberry / coffee-cherry — dark sections) --- */
+  --dark-900: #2C0A14; /* deepest mulberry, dark sections */
+  --dark-700: #420C1E; /* mulberry — dark surface (from botanical palette) */
+  --dark-500: #6B2233; /* lifted mulberry, marks & meters */
 
   /* --- Highlights (each has one job — see header) --- */
-  --red-600: #C4361F;   /* pressed */
-  --red-500: #E23411;   /* Ferrari red — primary brand accent */
-  --red-100: #FBE0DA;   /* red wash */
+  /* Cherry red — primary brand accent (was Ferrari red; now the botanical cherry) */
+  --red-600: #560F0F;   /* cherry pressed */
+  --red-500: #711514;   /* Cherry — primary brand accent */
+  --red-100: #F1DAD7;   /* cherry wash */
 
   --blue-500: #A9C7E0;  /* pastel blue — cool / cold-brew */
   --blue-300: #CBDDEC;  /* pastel blue wash */
   --blue-700: #4E7BA6;  /* blue text/ink on light */
 
-  --yellow-500: #F2CE5B; /* butter yellow — warm / decaf */
-  --yellow-300: #FAECC0; /* yellow wash */
-  --yellow-700: #9A7A1E; /* yellow text/ink on light */
+  /* Gold — warm / decaf (was butter yellow; now the lighter botanical gold) */
+  --yellow-500: #E5BE7A; /* gold (honey) — warm / decaf */
+  --yellow-300: #F1DCB6; /* gold wash */
+  --yellow-700: #7A5316; /* gold text/ink on light */
 
   /* --- Semantic aliases --- */
   --bg-page: var(--paper-100);
   --bg-inset: var(--paper-300);
   --surface-card: var(--paper-000);
   --surface-raised: var(--paper-200);
-  --surface-dark: var(--espresso-900);
+  --surface-dark: var(--dark-900);
 
   --text-strong: var(--ink-900);
   --text-body: var(--ink-700);
@@ -66,4 +70,12 @@
   --on-accent: #FFFFFF;
 
   --focus-ring: var(--red-500);
+
+  /* --- Legacy espresso aliases ---
+   * The vendored DS bundle (src/vendor/_ds_bundle.js) was compiled against
+   * --espresso-*; map those onto the botanical darks so its components render
+   * in the new mulberry palette. Our own code uses --dark-* directly. */
+  --espresso-900: var(--dark-900);
+  --espresso-700: var(--dark-700);
+  --espresso-500: var(--dark-500);
 }
