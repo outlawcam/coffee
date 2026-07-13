@@ -80,7 +80,7 @@ function Hero() {
           We're standing up our online store. Until then, here's the whole lineup, the way we work, and how to pour Stancraft at your café. Whole bean, roasted to order.
         </p>
         <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', pointerEvents: 'auto' }}>
-          <NavButton as="a" href="#products" variant="primary" size="lg" className="btn-primary">See the coffee</NavButton>
+          <NavButton as="a" href="#products" variant="gold" size="lg" className="btn-gold" style={{ background: 'var(--yellow-500)', color: 'var(--dark-900)', border: '2px solid var(--yellow-500)' }}>See the coffee</NavButton>
           <NavButton as="a" href="#craft" variant="outline" size="lg" className="btn-outline-light" style={{ color: 'var(--paper-100)', borderColor: 'var(--paper-100)' }}>Our craft</NavButton>
         </div>
       </div>
