@@ -16,6 +16,13 @@ import '@fontsource/spectral/400.css';
 import '@fontsource/spectral/400-italic.css';
 import '@fontsource/spectral/500.css';
 import '@fontsource/spectral/600.css';
+// Broadsheet direction: Playfair Display (nameplate/headlines) + Courier Prime (wire/utility).
+import '@fontsource/playfair-display/700.css';
+import '@fontsource/playfair-display/800.css';
+import '@fontsource/playfair-display/900.css';
+import '@fontsource/playfair-display/400-italic.css';
+import '@fontsource/courier-prime/400.css';
+import '@fontsource/courier-prime/700.css';
 
 import { createRoot } from 'react-dom/client';
 import { App } from './sections/App.jsx';

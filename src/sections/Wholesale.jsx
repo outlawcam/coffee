@@ -13,7 +13,7 @@ export function Wholesale() {
         {/* Pitch */}
         <div>
           <p style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-500)', margin: '0 0 14px' }}>Wholesale</p>
-          <h2 className="h2" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-900)', margin: '0 0 18px', lineHeight: 1.06 }}>Pour Stancraft at your bar.</h2>
+          <h2 className="h2" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-fill)', WebkitTextStroke: '0.9px var(--ink-edge)', margin: '0 0 18px', lineHeight: 1.06 }}>Pour Stancraft at your bar.</h2>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 18, lineHeight: 1.62, color: 'var(--ink-700)', margin: '0 0 28px', maxWidth: '46ch' }}>
             Cafés, offices, and restaurants: we roast to your order on a standing schedule, dial espresso with your team, and keep the origins on your menu honest. Whole bean, delivered fresh.
           </p>

@@ -1,0 +1,123 @@
+/* Stancraft Coffee — BROADSHEET direction (design/broadsheet-side-nav)
+ *
+ * A 1920s coffee-trade broadsheet: warm black ink on aged bone newsprint, a
+ * single oxblood press-red used only as a flag, zero radius, hairline rules.
+ * This layer OVERRIDES the botanical semantic tokens so the existing sections
+ * shift to the newsprint palette; the shell/masthead add the rest.
+ *
+ * Imported LAST in styles.css so it wins the cascade. */
+
+:root {
+  /* --- Bone newsprint & warm ink --- */
+  --paper-000: #F2ECDD;  /* raised card — lightest bone */
+  --paper-100: #EBE4D3;  /* page — aged bone newsprint */
+  --paper-200: #E4DCC7;  /* furniture wells / raised cream */
+  --paper-300: #DBD1B8;  /* inset / kraft tint */
+
+  --ink-900: #211C17;    /* warm near-black newspaper ink */
+  --ink-700: #453E34;    /* strong body ink */
+  --ink-500: #6B6355;    /* secondary text */
+  --ink-300: #8C836F;    /* muted captions */
+  --ink-200: #B9AE93;    /* faded hairline rules */
+
+  /* Reverse ("black box") panels — ink ground, bone type */
+  --dark-900: #201B16;
+  --dark-700: #2C251E;
+  --dark-500: #4A4034;
+
+  /* --- Spot red: oxblood press flag, used sparingly --- */
+  --red-600: #5E100E;    /* pressed */
+  --red-500: #7A1512;    /* oxblood — dateline flag, limited tags */
+  --red-100: #E7D8C6;    /* wash (bone-leaning) */
+
+  /* Functional accents dulled to period inks (cold / decaf coding) */
+  --blue-500: #5E6E78;
+  --blue-700: #3C4A54;
+  --yellow-500: #A8842F; /* warm ochre for decaf/gold coding on bone */
+  --yellow-700: #6E5416;
+
+  /* --- Semantic remaps --- */
+  --bg-page: var(--paper-100);
+  --surface-card: var(--paper-000);
+  --surface-raised: var(--paper-200);
+  --border-hairline: var(--ink-200);
+  --border-strong: var(--ink-900);
+  --accent: var(--red-500);
+  --accent-hover: var(--red-600);
+  --focus-ring: var(--red-500);
+
+  /* --- Type roles ---
+   * head = Playfair Display (Didone nameplate/headlines)
+   * body = Spectral (editorial prose)
+   * wire = Courier Prime (datelines, kickers, nav, prices, captions)
+   * --font-display aliases to wire so DS component labels read as press copy. */
+  --font-head: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Spectral', Georgia, 'Times New Roman', serif;
+  --font-wire: 'Courier Prime', 'Courier New', ui-monospace, monospace;
+  /* Existing sections use --font-display for their headings; point it at the
+     Playfair nameplate face. Small labels get --font-wire via targeted edits. */
+  --font-display: var(--font-head);
+
+  /* --- Flatten: broadsheet has no rounded corners --- */
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+
+  /* Quiet the glossy shadows — paper doesn't float */
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: 0 1px 0 var(--ink-200);
+  --shadow-lg: 0 2px 0 var(--ink-200);
+
+  /* Rules */
+  --rule-hair: 1px solid var(--ink-200);
+  --rule-ink: 1px solid var(--ink-900);
+  --rule-heavy: 3px solid var(--ink-900);
+
+  --rail-w: 244px;       /* left nav rail, expanded */
+  --rail-w-collapsed: 66px;
+
+  /* --- Letterpress ink-edge ---
+   * Real presses lay a slightly lighter fill with ink pooling darker at the
+   * perimeter. We fake it: a dark-gray FILL + a near-black EDGE, applied as a
+   * thin centered text-stroke on thick type and an inset ring on solid fills.
+   * Use only on heavy display type / boxes — it muddies small text. */
+  --ink-fill: #3E352C;   /* warm gray — the fill (lighter, so the edge reads) */
+  --ink-edge: #0D0A06;   /* black — the denser pooled edge */
+  /* Reverse (light ink on dark panels): paper fill, ink settling darker at rim */
+  --ink-fill-rev: #F2ECDD;
+  --ink-edge-rev: rgba(10, 7, 4, 0.6);
+}
+
+/* Thick display type: lighter fill, darker edge. Tune weight per size with
+   --press-w (default 1px). */
+.ink-press {
+  color: var(--ink-fill);
+  -webkit-text-stroke: var(--press-w, 1px) var(--ink-edge);
+  text-stroke: var(--press-w, 1px) var(--ink-edge);
+}
+/* Reverse press — light type on the dark (Craft/footer) panels. */
+.ink-press-rev {
+  color: var(--ink-fill-rev);
+  -webkit-text-stroke: var(--press-w, 0.8px) var(--ink-edge-rev);
+  text-stroke: var(--press-w, 0.8px) var(--ink-edge-rev);
+}
+/* Solid ink fills (buttons, tags, boxes): gray field, black pooled edge +
+   a soft inner halo so the ink reads denser toward the rim. */
+.ink-box {
+  background: var(--ink-fill) !important;
+  box-shadow: inset 0 0 0 2px var(--ink-edge), inset 0 0 7px rgba(10, 7, 4, 0.28);
+}
+
+/* Newsprint halftone/engraving for photographs — grayscale, high contrast,
+   then a bone duotone via multiply so images read as period woodcuts. */
+.halftone { position: relative; filter: grayscale(1) contrast(1.28) brightness(1.02); }
+.halftone::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: var(--paper-100); mix-blend-mode: multiply; opacity: 0.30;
+}
+.halftone image-slot, .halftone img { display: block; width: 100%; height: 100%; }
+
+/* Column rule helper */
+.col-rule { border-left: var(--rule-hair); }
