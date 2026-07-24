@@ -8,7 +8,7 @@ export function Wholesale() {
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
 
   return (
-    <section id="wholesale" className="sect" style={{ background: 'var(--paper-200)', padding: '96px 40px', scrollMarginTop: 72 }}>
+    <section id="wholesale" className="sect" style={{ background: 'var(--paper-200)', padding: '96px 40px', scrollMarginTop: 0 }}>
       <div className="grid-split" style={{ maxWidth: 1120, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
         {/* Pitch */}
         <div>
@@ -62,7 +62,7 @@ export function Wholesale() {
                 <textarea value={form.message} onChange={set('message')} rows={3} placeholder="Brew method, current roaster, timeline…"
                   style={{ fontFamily: 'var(--font-body)', fontSize: 17, color: 'var(--ink-900)', background: 'var(--paper-000)', border: '1px solid var(--ink-200)', borderRadius: 'var(--radius-sm)', padding: '11px 14px', outline: 'none', resize: 'vertical' }} />
               </label>
-              <WButton variant="primary" size="lg" fullWidth type="submit" className="btn-primary" style={{ marginTop: 4 }}>Send inquiry</WButton>
+              <WButton variant="primary" size="lg" fullWidth type="submit" className="btn-primary ink-box-accent" style={{ marginTop: 4 }}>Send inquiry</WButton>
               <p style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'var(--ink-500)', margin: 0, textAlign: 'center' }}>Or email <strong style={{ color: 'var(--ink-900)' }}>tyler@stancraftcoffee.com</strong></p>
             </form>
           )}

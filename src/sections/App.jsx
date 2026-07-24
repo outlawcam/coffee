@@ -1,14 +1,13 @@
 import React from 'react';
-import { createIcons, Flame, Sprout, Bean, Tent, Coffee, Mail, ArrowUpRight, Check } from 'lucide';
+import { createIcons, Check } from 'lucide';
 import { Products } from './Products.jsx';
 import { Club } from './Club.jsx';
-import { Craft } from './Craft.jsx';
-import { WhereToBuy } from './WhereToBuy.jsx';
 import { Wholesale } from './Wholesale.jsx';
 import { MegaFooter } from './MegaFooter.jsx';
+import { TexasStamp } from './TexasStamp.jsx';
 
 const { useEffect, useState } = React;
-const LUCIDE_ICONS = { Flame, Sprout, Bean, Tent, Coffee, Mail, ArrowUpRight, Check };
+const LUCIDE_ICONS = { Check };
 
 /* --- Nav model: content-accurate labels mapped to real section anchors --- */
 const NAV = [
@@ -48,7 +47,7 @@ const CloseIcon = () => (
   </svg>
 );
 
-function LeftRail({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) {
+function LeftRail({ collapsed, setCollapsed, mobileOpen, setMobileOpen, activeHref }) {
   const wireLabel = { fontFamily: 'var(--font-wire)', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' };
   const closeMobile = () => setMobileOpen(false);
 
@@ -74,10 +73,16 @@ function LeftRail({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) {
       ) : (
         <>
           <nav style={{ display: 'flex', flexDirection: 'column' }}>
-            {NAV.map(([href, label]) => (
-              <a key={href} href={href} onClick={closeMobile} className="bs-navlink"
-                style={{ ...wireLabel, fontSize: 15, color: 'var(--ink-900)', textDecoration: 'none', padding: '11px 0', borderBottom: '1px solid var(--ink-200)' }}>{label}</a>
-            ))}
+            {NAV.map(([href, label]) => {
+              const active = href === activeHref;
+              return (
+                <a key={href} href={href} onClick={closeMobile} className="bs-navlink" aria-current={active ? 'true' : undefined}
+                  style={{ ...wireLabel, position: 'relative', fontSize: 15, color: active ? 'var(--accent)' : 'var(--ink-900)', textDecoration: 'none', padding: '11px 0', borderBottom: '1px solid var(--ink-200)' }}>
+                  <span aria-hidden="true" style={{ position: 'absolute', left: -14, top: '50%', width: 2, height: 20, transform: 'translateY(-50%)', background: active ? 'var(--accent)' : 'transparent', transition: 'background var(--dur) var(--ease-standard)' }} />
+                  {label}
+                </a>
+              );
+            })}
           </nav>
 
           <div style={{ marginTop: 28 }}>
@@ -89,9 +94,12 @@ function LeftRail({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) {
           </div>
 
           {/* Proudly-roasted colophon, pinned to the foot of the rail */}
-          <div style={{ marginTop: 'auto', border: '1px solid var(--ink-900)', padding: '16px 14px', textAlign: 'center' }}>
-            <p style={{ ...wireLabel, fontSize: 11, letterSpacing: '0.2em', color: 'var(--ink-700)', margin: 0, lineHeight: 1.9 }}>
-              Proudly Roasted<br /><span style={{ fontWeight: 400, textTransform: 'none', letterSpacing: '0.04em', fontStyle: 'italic', fontFamily: 'var(--font-body)', fontSize: 13 }}>in</span><br />Lufkin, TX
+          <div style={{ marginTop: 'auto', border: '1px solid var(--ink-900)', padding: '18px 16px 16px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <p style={{ ...wireLabel, fontSize: 11, letterSpacing: '0.2em', color: 'var(--ink-700)', margin: 0 }}>Proudly Roasted</p>
+            <p style={{ fontFamily: 'var(--font-body)', fontStyle: 'italic', fontSize: 13, color: 'var(--ink-700)', margin: '3px 0 12px' }}>in</p>
+            <TexasStamp width={118} />
+            <p style={{ fontFamily: "'Montserrat', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--accent)', margin: '14px 0 0' }}>
+              L<span style={{ verticalAlign: '0.32em', fontSize: '0.72em', borderBottom: '1.5px solid var(--accent)', paddingBottom: '1px', margin: '0 0.5px' }}>U</span>FKIN, TX
             </p>
           </div>
         </>
@@ -112,9 +120,8 @@ function MobileBar({ onOpen }) {
   );
 }
 
-/* The nameplate flag — dateline & edition furniture flanking a Didone wordmark. */
+/* The nameplate flag — dateline strip above a centered Didone wordmark. */
 function Masthead() {
-  const cell = { display: 'flex', flexDirection: 'column', justifyContent: 'center' };
   const meta = { fontFamily: 'var(--font-wire)', fontWeight: 700, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--ink-700)', lineHeight: 1.7, margin: 0 };
   return (
     <header id="top" style={{ borderTop: '3px solid var(--ink-900)', borderBottom: '3px solid var(--ink-900)' }}>
@@ -125,24 +132,10 @@ function Masthead() {
         <span style={{ ...meta }}>Vol. I · No. 1</span>
       </div>
 
-      {/* Nameplate row */}
-      <div className="bs-flag" style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'stretch' }}>
-        <div className="bs-flag-side" style={{ ...cell, padding: '18px 20px', borderRight: '1px solid var(--ink-900)' }}>
-          <p style={{ ...meta }}>Est. small-batch · roasted to order</p>
-          <p style={{ fontFamily: 'var(--font-body)', fontStyle: 'italic', fontSize: 15, color: 'var(--ink-500)', margin: '6px 0 0' }}>Whole bean, roasted the week you buy.</p>
-        </div>
-
-        <div style={{ ...cell, alignItems: 'center', padding: '14px 26px', textAlign: 'center' }}>
-          <h1 style={{ fontFamily: 'var(--font-head)', fontWeight: 900, fontSize: 'clamp(40px, 6vw, 78px)', letterSpacing: '0.02em', textTransform: 'uppercase', color: 'var(--ink-fill)', WebkitTextStroke: '1.5px var(--ink-edge)', margin: 0, lineHeight: 0.94 }}>Stancraft</h1>
-          <p style={{ fontFamily: 'var(--font-wire)', fontWeight: 700, fontSize: 12, letterSpacing: '0.34em', textTransform: 'uppercase', color: 'var(--ink-700)', margin: '10px 0 0' }}>Small-Batch Coffee Roasters</p>
-        </div>
-
-        <div className="bs-flag-side" style={{ ...cell, alignItems: 'flex-end', textAlign: 'right', padding: '18px 20px', borderLeft: '1px solid var(--ink-900)' }}>
-          <p style={{ ...meta, color: 'var(--accent)' }}>Farmer's Market</p>
-          <p style={{ ...meta, fontWeight: 400, marginBottom: 8 }}>Nacogdoches, TX</p>
-          <p style={{ ...meta }}>The Full Shop</p>
-          <p style={{ ...meta, fontWeight: 400 }}>Brewing Soon</p>
-        </div>
+      {/* Nameplate */}
+      <div className="bs-flag" style={{ padding: '18px 26px', textAlign: 'center' }}>
+        <h1 style={{ fontFamily: 'var(--font-head)', fontWeight: 900, fontSize: 'clamp(40px, 6vw, 78px)', letterSpacing: '0.02em', textTransform: 'uppercase', color: 'var(--ink-fill)', WebkitTextStroke: '1.5px var(--ink-edge)', margin: 0, lineHeight: 0.94 }}>Stancraft</h1>
+        <p style={{ fontFamily: 'var(--font-wire)', fontWeight: 700, fontSize: 12, letterSpacing: '0.34em', textTransform: 'uppercase', color: 'var(--ink-700)', margin: '10px 0 0' }}>Small-Batch Coffee Roasters</p>
       </div>
     </header>
   );
@@ -161,8 +154,8 @@ function Lead() {
           e're standing up our online store. Until then, here's the whole lineup, the way we work, and how to pour Stancraft at your café. Whole bean, roasted to order.
         </p>
         <div style={{ display: 'flex', gap: 22, alignItems: 'center', marginTop: 28, flexWrap: 'wrap' }}>
-          <a href="#products" className="bs-btn bs-btn-solid ink-box" style={{ fontFamily: 'var(--font-wire)', fontWeight: 700, fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', textDecoration: 'none', padding: '13px 22px', color: 'var(--paper-100)', border: 'none' }}>Read the lineup</a>
-          <a href="#craft" className="bs-btn bs-btn-line" style={{ fontFamily: 'var(--font-wire)', fontWeight: 700, fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', textDecoration: 'none', color: 'var(--ink-900)', borderBottom: '2px solid var(--ink-900)', paddingBottom: 3 }}>Our craft ↗</a>
+          <a href="#products" className="bs-btn ink-box-accent" style={{ fontFamily: 'var(--font-wire)', fontWeight: 700, fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', textDecoration: 'none', padding: '13px 22px', color: 'var(--paper-100)', border: 'none' }}>Read the lineup</a>
+          <a href="#club" className="bs-btn bs-btn-line" style={{ fontFamily: 'var(--font-wire)', fontWeight: 700, fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', textDecoration: 'none', color: 'var(--ink-900)', borderBottom: '2px solid var(--ink-900)', paddingBottom: 3 }}>Join the Club ↗</a>
         </div>
         <p style={{ fontFamily: 'var(--font-wire)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--ink-300)', margin: 'auto 0 0', paddingTop: 28 }}>Continued in the lineup, below the fold ↓</p>
       </div>
@@ -178,13 +171,44 @@ function Lead() {
 export function App() {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeHref, setActiveHref] = useState(NAV[0][0]);
 
   // createIcons runs after each render so icons in re-skinned sections resolve.
   useEffect(() => { createIcons({ icons: LUCIDE_ICONS }); });
 
+  // Scroll-spy: the active section is the last whose top has passed 50px from
+  // the top of the viewport; its nav link lights up.
+  useEffect(() => {
+    const onScroll = () => {
+      // Threshold sits 50px below the top, plus the mobile top bar's height when
+      // it's showing (0 on desktop, where the bar is display:none).
+      const bar = document.querySelector('.bs-topbar');
+      const threshold = 50 + (bar ? bar.getBoundingClientRect().height : 0);
+      let current = NAV[0][0];
+      for (const [href] of NAV) {
+        const el = document.querySelector(href);
+        if (el && el.getBoundingClientRect().top <= threshold) current = href;
+      }
+      // The last section (footer/Contact) can't reach the 50px line because the
+      // page bottoms out first — light it when scrolled to the bottom.
+      const doc = document.documentElement;
+      if (window.innerHeight + Math.ceil(window.scrollY) >= doc.scrollHeight - 2) {
+        current = NAV[NAV.length - 1][0];
+      }
+      setActiveHref((prev) => (prev === current ? prev : current));
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
   return (
     <div style={{ fontFamily: 'var(--font-body)', background: 'var(--paper-100)', color: 'var(--ink-900)' }}>
-      <LeftRail collapsed={collapsed} setCollapsed={setCollapsed} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
+      <LeftRail collapsed={collapsed} setCollapsed={setCollapsed} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} activeHref={activeHref} />
 
       {/* Mobile drawer backdrop */}
       <div className={'bs-backdrop' + (mobileOpen ? ' open' : '')} onClick={() => setMobileOpen(false)} aria-hidden="true"
@@ -198,8 +222,6 @@ export function App() {
         </div>
         <Products />
         <Club />
-        <Craft />
-        <WhereToBuy />
         <Wholesale />
         <MegaFooter />
       </div>

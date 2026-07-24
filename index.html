@@ -6,7 +6,7 @@
 <title>Stancraft Coffee Co</title>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 <style>
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 0; }
   html, body { margin: 0; background: var(--paper-100); color: var(--ink-900); overflow-x: hidden; }
   a { color: var(--accent); }
   a:hover { color: var(--accent-hover); }
@@ -66,6 +66,8 @@
   /* Below the breakpoint the rail goes off-canvas; a top bar drives it.
      (Viewport-based: this is about whether the rail fits beside content.) */
   @media (max-width: 860px) {
+    /* Anchored sections clear the sticky top bar */
+    html { scroll-padding-top: 64px; }
     /* Drawer slides in from the RIGHT: anchor right, edge border on the left. */
     .bs-rail { width: var(--rail-w) !important; left: auto !important; right: 0 !important; transform: translateX(100%); border-right: none !important; border-left: 3px double var(--ink-900); transition: transform 280ms var(--ease-standard); }
     .bs-rail.open { transform: translateX(0); }
@@ -73,10 +75,8 @@
     .bs-topbar { display: flex !important; }
   }
 
-  /* Masthead + lead stack when the content column gets tight */
+  /* Lead stacks when the content column gets tight */
   @container main (max-width: 720px) {
-    .bs-flag { grid-template-columns: 1fr !important; }
-    .bs-flag-side { display: none !important; }
     .bs-lead { grid-template-columns: 1fr !important; }
     .bs-lead > div { border-right: none !important; padding: 30px 22px 34px !important; }
     .bs-lead-cut { order: -1; min-height: 240px !important; border-bottom: 1px solid var(--ink-900); }

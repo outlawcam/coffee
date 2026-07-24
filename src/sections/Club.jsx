@@ -16,7 +16,7 @@ function Opt({ label, value, first }) {
 
 export function Club() {
   return (
-    <section id="club" className="sect" style={{ background: 'var(--paper-200)', padding: '96px 40px', borderTop: '1px solid var(--border-hairline)', scrollMarginTop: 72 }}>
+    <section id="club" className="sect" style={{ background: 'var(--paper-200)', padding: '96px 40px', borderTop: '1px solid var(--border-hairline)', scrollMarginTop: 0 }}>
       <div style={{ maxWidth: 620, margin: '0 auto', textAlign: 'center' }}>
         <p style={{ fontFamily: WIRE, fontWeight: 700, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-500)', margin: '0 0 14px' }}>The Club</p>
         <h2 className="h2" style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-fill)', WebkitTextStroke: '0.9px var(--ink-edge)', margin: '0 0 14px', lineHeight: 1.04 }}>Never run out of good coffee.</h2>
@@ -49,7 +49,7 @@ export function Club() {
         </p>
 
         <div style={{ textAlign: 'center' }}>
-          <a href="mailto:tyler@stancraftcoffee.com?subject=Coffee%20Club%20%E2%80%94%20reserve%20a%20seat" className="bs-btn ink-box" style={{ display: 'inline-block', fontFamily: WIRE, fontWeight: 700, fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', textDecoration: 'none', padding: '13px 26px', color: 'var(--paper-100)', border: 'none' }}>Reserve your seat →</a>
+          <a href="mailto:tyler@stancraftcoffee.com?subject=Coffee%20Club%20%E2%80%94%20reserve%20a%20seat" className="bs-btn ink-box-accent" style={{ display: 'inline-block', fontFamily: WIRE, fontWeight: 700, fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', textDecoration: 'none', padding: '13px 26px', color: 'var(--paper-100)', border: 'none' }}>Reserve your seat →</a>
         </div>
 
         {/* Approval stamp */}
