@@ -28,11 +28,23 @@ const SocialSquare = ({ href, label, glyph }) => (
   </a>
 );
 
-/* Toggle glyph: three rules + a chevron that points the way the rail will move. */
+/* Desktop rail collapse toggle: three rules + a chevron pointing the way the
+   rail will move. (The mobile open control uses the standard hamburger below.) */
 const ToggleGlyph = ({ collapsed }) => (
   <svg width="26" height="20" viewBox="0 0 30 22" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <line x1="2" y1="4" x2="20" y2="4" /><line x1="2" y1="11" x2="20" y2="11" /><line x1="2" y1="18" x2="14" y2="18" />
     <polyline points={collapsed ? '24,6 28,11 24,16' : '28,6 24,11 28,16'} />
+  </svg>
+);
+/* Standard hamburger (mobile menu open) + close (X). */
+const Hamburger = () => (
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+    <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+  </svg>
+);
+const CloseIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
   </svg>
 );
 
@@ -46,10 +58,10 @@ function LeftRail({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) {
 
       {/* Toggle — top, aligned right like the reference */}
       <div style={{ display: 'flex', justifyContent: collapsed ? 'center' : 'flex-end', marginBottom: collapsed ? 0 : 20 }}>
-        <button type="button" onClick={() => setCollapsed(c => !c)} aria-label={collapsed ? 'Expand navigation' : 'Collapse navigation'} aria-expanded={!collapsed}
+        <button type="button" onClick={() => mobileOpen ? setMobileOpen(false) : setCollapsed(c => !c)} aria-label={mobileOpen ? 'Close navigation' : (collapsed ? 'Expand navigation' : 'Collapse navigation')} aria-expanded={mobileOpen || !collapsed}
           className="bs-collapse-toggle"
           style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 40, height: 34, padding: 0, background: 'none', border: 'none', color: 'var(--ink-900)', cursor: 'pointer' }}>
-          <ToggleGlyph collapsed={collapsed} />
+          {mobileOpen ? <CloseIcon /> : <ToggleGlyph collapsed={collapsed} />}
         </button>
       </div>
 
@@ -94,7 +106,7 @@ function MobileBar({ onOpen }) {
     <div className="bs-topbar" style={{ display: 'none', position: 'sticky', top: 0, zIndex: 45, alignItems: 'center', justifyContent: 'space-between', padding: '12px 18px', background: 'var(--paper-100)', borderBottom: '3px double var(--ink-900)' }}>
       <span style={{ fontFamily: 'var(--font-head)', fontWeight: 900, fontSize: 22, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--ink-900)' }}>Stancraft</span>
       <button type="button" onClick={onOpen} aria-label="Open navigation" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 40, padding: 0, background: 'none', border: 'none', color: 'var(--ink-900)', cursor: 'pointer' }}>
-        <ToggleGlyph collapsed={true} />
+        <Hamburger />
       </button>
     </div>
   );

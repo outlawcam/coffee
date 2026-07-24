@@ -10,14 +10,15 @@ export function Seal({ size = 96, color = 'var(--accent)', style, className }) {
     <svg className={className} width={size} height={size} viewBox="0 0 100 100" role="img" aria-label="Stancraft Coffee Co. — Small Batch, Lufkin TX" style={{ display: 'block', ...style }}>
       <defs>
         <path id={topId} d="M 13 50 A 37 37 0 0 1 87 50" fill="none" />
-        <path id={botId} d="M 15 50 A 35 35 0 0 0 85 50" fill="none" />
+        <path id={botId} d="M 9 50 A 41 41 0 0 0 91 50" fill="none" />
       </defs>
       <circle cx="50" cy="50" r="47.5" fill="none" stroke={color} strokeWidth="1.3" />
       <circle cx="50" cy="50" r="44" fill="none" stroke={color} strokeWidth="0.5" />
       <circle cx="50" cy="50" r="30" fill="none" stroke={color} strokeWidth="0.9" />
-      <g fill={color} fontFamily="var(--font-wire)" fontWeight="700" fontSize="6.6" letterSpacing="1.1">
-        <text><textPath href={`#${topId}`} startOffset="50%" textAnchor="middle">STANCRAFT · COFFEE · CO.</textPath></text>
-        <text><textPath href={`#${botId}`} startOffset="50%" textAnchor="middle">SMALL BATCH · WHOLE BEAN</textPath></text>
+      {/* ring legend: Small Batch (top), Whole Bean (bottom) */}
+      <g fill={color} fontFamily="var(--font-wire)" fontWeight="700" fontSize="7" letterSpacing="1.4">
+        <text><textPath href={`#${topId}`} startOffset="50%" textAnchor="middle">SMALL BATCH</textPath></text>
+        <text><textPath href={`#${botId}`} startOffset="50%" textAnchor="middle">WHOLE BEAN</textPath></text>
       </g>
       {/* dot separators at the ring's sides */}
       <circle cx="9.5" cy="50" r="1.4" fill={color} />
