@@ -102,6 +102,9 @@
   @container main (max-width: 820px) {
     .grid-split { grid-template-columns: 1fr !important; }
     .grid-3 { grid-template-columns: 1fr !important; }
+    /* Club "how it works" steps: dividers go left→top when they stack */
+    .bs-step { border-left: none !important; border-top: 1px solid var(--ink-900); }
+    .bs-step-first { border-top: none !important; }
   }
   /* Batch labels drop to 1-up; the maker's seal steps down then out */
   @container main (max-width: 760px) { .bs-seal { width: 100px !important; height: 100px !important; } }
