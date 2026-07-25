@@ -32,7 +32,7 @@ export function MegaFooter() {
         <div className="grid-split" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'start' }}>
           {/* Brand + makers blurb */}
           <div style={{ maxWidth: 460 }}>
-            <img src={(window.__resources && window.__resources.logoWhite) || "../../assets/logo-stancraft-white.svg"} alt="Stancraft Coffee Co" style={{ height: 28, marginBottom: 20 }} />
+            <img src={(window.__resources && window.__resources.logoWhite) || "/assets/logo-new-white.svg"} alt="Stancraft Coffee Co" style={{ height: 44, marginBottom: 22 }} />
             <p style={{ fontFamily: 'var(--font-body)', fontSize: 16, lineHeight: 1.64, color: 'var(--ink-300)', margin: '0 0 18px' }}>
               Stancraft Coffee Co is a small-batch roaster and distributor built by a crew of former baristas and green buyers who got tired of stale coffee. We roast to order in small drums, source named lots by relationship, and ship whole bean so the cup you pour is the cup we tasted.
             </p>

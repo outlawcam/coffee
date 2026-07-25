@@ -38,7 +38,7 @@ export function Contact() {
             {/* Placeholder label sits BEHIND the slot; drop a `src` on the
                 image-slot and the photo covers it automatically. */}
             <span aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: WIRE, fontWeight: 700, fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--ink-300)' }}>Portrait</span>
-            <image-slot id="land-contact" shape="rect" fit="cover" placeholder="Portrait — the roaster" style={{ position: 'absolute', inset: 0, zIndex: 2 }}></image-slot>
+            <image-slot id="land-contact" shape="rect" fit="cover" src="/assets/craft.jpg" placeholder="Portrait — the roaster" style={{ position: 'absolute', inset: 0, zIndex: 2 }}></image-slot>
             <figcaption style={{ position: 'absolute', left: 0, right: 0, bottom: 0, zIndex: 3, fontFamily: WIRE, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--paper-100)', background: 'rgba(32,27,22,0.82)', padding: '7px 12px' }}>Fig. 3 — Come by the roastery.</figcaption>
           </figure>
         </div>

@@ -29,7 +29,7 @@ import { App } from './sections/App.jsx';
 
 window.__resources = {
   logoDark: '/assets/logo-stancraft.svg',
-  logoWhite: '/assets/logo-stancraft-white.svg',
+  logoWhite: '/assets/logo-new-white.svg',
   scaLogo: '/assets/sca-member-white.png',
 };
 

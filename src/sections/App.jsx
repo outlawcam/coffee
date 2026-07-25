@@ -6,6 +6,7 @@ import { Wholesale } from './Wholesale.jsx';
 import { Contact } from './Contact.jsx';
 import { MegaFooter } from './MegaFooter.jsx';
 import { TexasStamp } from './TexasStamp.jsx';
+import { Logo } from './Logo.jsx';
 
 const { useEffect, useState } = React;
 const LUCIDE_ICONS = { Check };
@@ -99,9 +100,7 @@ function LeftRail({ collapsed, setCollapsed, mobileOpen, setMobileOpen, activeHr
             <p style={{ ...wireLabel, fontSize: 11, letterSpacing: '0.2em', color: 'var(--ink-700)', margin: 0 }}>Proudly Roasted</p>
             <p style={{ fontFamily: 'var(--font-body)', fontStyle: 'italic', fontSize: 13, color: 'var(--ink-700)', margin: '3px 0 12px' }}>in</p>
             <TexasStamp width={118} />
-            <p style={{ fontFamily: "'Montserrat', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--accent)', margin: '14px 0 0' }}>
-              L<span style={{ verticalAlign: '0.32em', fontSize: '0.72em', borderBottom: '1.5px solid var(--accent)', paddingBottom: '1px', margin: '0 0.5px' }}>U</span>FKIN, TX
-            </p>
+            <p style={{ fontFamily: 'var(--font-head)', fontSize: 19, letterSpacing: '0.05em', textTransform: 'uppercase', color: 'var(--accent)', margin: '13px 0 0', lineHeight: 1 }}>Lufkin, TX</p>
           </div>
         </>
       )}
@@ -129,14 +128,15 @@ function Masthead() {
       {/* Top hairline dateline strip */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, padding: '7px 4px', borderBottom: '1px solid var(--ink-900)', flexWrap: 'wrap' }}>
         <span style={{ ...meta, color: 'var(--accent)' }}>Lufkin, Texas</span>
-        <span className="bs-dateline-mid" style={{ ...meta }}>The Stancraft Broadsheet</span>
+        <span className="bs-dateline-mid" style={{ ...meta }}>Small-Batch Coffee Roasters</span>
         <span style={{ ...meta }}>Vol. I · No. 1</span>
       </div>
 
-      {/* Nameplate */}
-      <div className="bs-flag" style={{ padding: '18px 26px', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: 'var(--font-head)', fontWeight: 900, fontSize: 'clamp(40px, 6vw, 78px)', letterSpacing: '0.02em', textTransform: 'uppercase', color: 'var(--ink-fill)', WebkitTextStroke: '1.5px var(--ink-edge)', margin: 0, lineHeight: 0.94 }}>Stancraft</h1>
-        <p style={{ fontFamily: 'var(--font-wire)', fontWeight: 700, fontSize: 12, letterSpacing: '0.34em', textTransform: 'uppercase', color: 'var(--ink-700)', margin: '10px 0 0' }}>Small-Batch Coffee Roasters</p>
+      {/* Nameplate — vectorized logo */}
+      <div className="bs-flag" style={{ padding: '22px 26px', textAlign: 'center' }}>
+        <div style={{ width: 'clamp(240px, 40vw, 440px)', margin: '0 auto' }}>
+          <Logo />
+        </div>
       </div>
     </header>
   );
