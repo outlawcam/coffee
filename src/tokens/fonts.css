@@ -3,3 +3,15 @@
  * Self-hosted via @fontsource, imported in src/main.jsx — do NOT re-add the
  * Google Fonts @import (keeps the build free of runtime CDN requests).
  */
+
+/* Flapjack — display face for headings + the logo/nameplate (broadsheet
+ * direction). Single weight declared across 100–900 so requesting bold/black
+ * uses the real glyphs rather than a synthesized faux-bold. */
+@font-face {
+  font-family: 'Flapjack';
+  src: url('../fonts/TAYFlapjack.woff2') format('woff2'),
+       url('../fonts/TAYFlapjack.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}

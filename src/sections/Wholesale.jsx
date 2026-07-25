@@ -13,7 +13,7 @@ export function Wholesale() {
         {/* Pitch */}
         <div>
           <p style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-500)', margin: '0 0 14px' }}>Wholesale</p>
-          <h2 className="h2" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-fill)', WebkitTextStroke: '0.9px var(--ink-edge)', margin: '0 0 18px', lineHeight: 1.06 }}>Pour Stancraft at your bar.</h2>
+          <h2 className="h2" style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-fill)', WebkitTextStroke: '0.9px var(--ink-edge)', margin: '0 0 18px', lineHeight: 1.06 }}>Pour Stancraft at your bar.</h2>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 18, lineHeight: 1.62, color: 'var(--ink-700)', margin: '0 0 28px', maxWidth: '46ch' }}>
             Cafés, offices, and restaurants: we roast to your order on a standing schedule, dial espresso with your team, and keep the origins on your menu honest. Whole bean, delivered fresh.
           </p>
@@ -34,7 +34,7 @@ export function Wholesale() {
               <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'var(--accent)', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 18 }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
               </div>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 26, color: 'var(--ink-900)', margin: '0 0 8px' }}>Inquiry received.</h3>
+              <h3 style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: 26, color: 'var(--ink-900)', margin: '0 0 8px' }}>Inquiry received.</h3>
               <p style={{ fontFamily: 'var(--font-body)', fontSize: 16, color: 'var(--ink-500)', margin: '0 0 22px' }}>
                 We'll be in touch within two business days, {form.name ? form.name.split(' ')[0] : 'thanks'}.
               </p>
@@ -42,7 +42,7 @@ export function Wholesale() {
             </div>
           ) : (
             <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 24, color: 'var(--ink-900)', margin: '0 0 2px' }}>Wholesale inquiry</h3>
+              <h3 style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: 24, color: 'var(--ink-900)', margin: '0 0 2px' }}>Wholesale inquiry</h3>
               <div className="grid-split" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                 <WInput label="Your name" value={form.name} onChange={set('name')} required placeholder="Jordan Vega" />
                 <WInput label="Business" value={form.business} onChange={set('business')} required placeholder="Meridian Café" />

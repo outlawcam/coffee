@@ -51,12 +51,14 @@
    * body = Spectral (editorial prose)
    * wire = Courier Prime (datelines, kickers, nav, prices, captions)
    * --font-display aliases to wire so DS component labels read as press copy. */
-  --font-head: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  /* head = Flapjack (headings + logo/nameplate), Playfair as fallback. */
+  --font-head: 'Flapjack', 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-body: 'Spectral', Georgia, 'Times New Roman', serif;
   --font-wire: 'Courier Prime', 'Courier New', ui-monospace, monospace;
-  /* Existing sections use --font-display for their headings; point it at the
-     Playfair nameplate face. Small labels get --font-wire via targeted edits. */
-  --font-display: var(--font-head);
+  /* display = the UI/label + DS-component face (kickers, buttons, inputs,
+     footer labels). Kept on Playfair, decoupled from --font-head so Flapjack
+     stays on headings/logo only. */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
 
   /* --- Flatten: broadsheet has no rounded corners --- */
   --radius-xs: 0;
