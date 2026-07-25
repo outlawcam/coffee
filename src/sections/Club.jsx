@@ -1,15 +1,23 @@
-// Coffee Club — a standing-order subscription, framed as a clip-out newspaper
-// subscription coupon. Stub: enrollment opens with the shop; CTA is an email.
+// Coffee Club — framed as a clip-out newspaper coupon. Still pre-launch: the
+// concept is tiered plans + a flavor questionnaire that matches you to a cup,
+// so the top boxes are a 3-step "how it works". Enrollment is Coming Soon.
 import React from 'react';
 import { Seal } from './Seal.jsx';
 
 const WIRE = 'var(--font-wire)';
 
-function Opt({ label, value, first }) {
+const STEPS = [
+  ['01', 'Choose a tier', 'From the occasional bag to the full club — pick the level that fits how you drink.'],
+  ['02', 'Set your taste', 'A short flavor questionnaire: roast, fruit or chocolate, and how adventurous you want to get.'],
+  ['03', 'Get your match', 'We recommend the cup that fits your profile and ship it, roasted to order, on your schedule.'],
+];
+
+function Step({ n, title, body, first }) {
   return (
-    <div style={{ padding: '14px 18px', borderLeft: first ? 'none' : '1px solid var(--ink-900)', textAlign: 'center' }}>
-      <p style={{ fontFamily: WIRE, fontWeight: 700, fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--ink-300)', margin: '0 0 6px' }}>{label}</p>
-      <p style={{ fontFamily: WIRE, fontWeight: 700, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--ink-900)', margin: 0, lineHeight: 1.5 }}>{value}</p>
+    <div style={{ padding: '16px 18px 18px', borderLeft: first ? 'none' : '1px solid var(--ink-900)' }}>
+      <p style={{ fontFamily: 'var(--font-head)', fontSize: 26, lineHeight: 1, color: 'var(--accent)', margin: '0 0 9px' }}>{n}</p>
+      <p style={{ fontFamily: WIRE, fontWeight: 700, fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--ink-900)', margin: '0 0 7px' }}>{title}</p>
+      <p style={{ fontFamily: 'var(--font-body)', fontSize: 14, lineHeight: 1.5, color: 'var(--ink-500)', margin: 0 }}>{body}</p>
     </div>
   );
 }
@@ -19,41 +27,50 @@ export function Club() {
     <section id="club" className="sect" style={{ background: 'var(--paper-200)', padding: '96px 40px', borderTop: '1px solid var(--border-hairline)', scrollMarginTop: 0 }}>
       <div style={{ maxWidth: 620, margin: '0 auto', textAlign: 'center' }}>
         <p style={{ fontFamily: WIRE, fontWeight: 700, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-500)', margin: '0 0 14px' }}>The Club</p>
-        <h2 className="h2" style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-fill)', WebkitTextStroke: '0.9px var(--ink-edge)', margin: '0 0 14px', lineHeight: 1.04 }}>Never run out of good coffee.</h2>
+        <h2 className="h2" style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: 40, letterSpacing: '-0.02em', color: 'var(--ink-fill)', WebkitTextStroke: '0.9px var(--ink-edge)', margin: '0 0 14px', lineHeight: 1.04 }}>Coffee, matched to your taste.</h2>
         <p style={{ fontFamily: 'var(--font-body)', fontSize: 18, lineHeight: 1.6, color: 'var(--ink-700)', margin: 0 }}>
-          A standing order for people who go through beans. Tell us how often and how much — we roast to your schedule and ship the day after it comes off the drum.
+          A membership built around your cup. Pick a tier, tell us how you take it, and we'll match you to the perfect roast — shipped on your schedule.
         </p>
       </div>
 
-      {/* Clip-out subscription coupon */}
+      {/* Clip-out coupon */}
       <div style={{ position: 'relative', maxWidth: 720, margin: '44px auto 0', background: 'var(--paper-000)', border: '2px dashed var(--ink-900)', padding: '38px 36px 32px' }}>
         {/* "clip here" scissors sitting on the dashed rule */}
-        <span aria-hidden="true" style={{ position: 'absolute', top: -13, left: 34, background: 'var(--paper-000)', padding: '0 8px', fontSize: 18, color: 'var(--ink-700)', transform: 'rotate(0deg)' }}>✁</span>
+        <span aria-hidden="true" style={{ position: 'absolute', top: -13, left: 34, background: 'var(--paper-000)', padding: '0 8px', fontSize: 18, color: 'var(--ink-700)' }}>✁</span>
 
         <div style={{ textAlign: 'center' }}>
-          <p style={{ fontFamily: WIRE, fontWeight: 700, fontSize: 11, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'var(--accent)', margin: '0 0 8px' }}>Standing Order</p>
+          <p style={{ fontFamily: WIRE, fontWeight: 700, fontSize: 11, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'var(--accent)', margin: '0 0 8px' }}>How it works</p>
           <h3 style={{ fontFamily: 'var(--font-head)', fontWeight: 900, fontSize: 34, letterSpacing: '0.02em', textTransform: 'uppercase', color: 'var(--ink-fill)', WebkitTextStroke: '1px var(--ink-edge)', margin: 0, lineHeight: 1 }}>Coffee Club</h3>
         </div>
 
         <div style={{ height: 1, background: 'var(--ink-900)', margin: '26px 0' }} />
 
-        {/* Options, set as a ruled spec strip */}
+        {/* Three steps */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', border: '1px solid var(--ink-900)' }}>
-          <Opt label="Deliver" value={<>Weekly<br />Biweekly<br />Monthly</>} first />
-          <Opt label="Per Drop" value={<>One or two<br />12 oz bags</>} />
-          <Opt label="Members" value={<>10% off<br />ships free</>} />
+          {STEPS.map(([n, title, body], i) => <Step key={n} n={n} title={title} body={body} first={i === 0} />)}
         </div>
 
-        <p style={{ fontFamily: 'var(--font-body)', fontSize: 15, lineHeight: 1.6, color: 'var(--ink-500)', textAlign: 'center', margin: '24px auto 22px', maxWidth: '46ch' }}>
-          Enrollment opens with the online store. Reserve a seat now and you'll be first in line when the club opens — no charge until it does.
+        {/* Top-tier perk callout */}
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, border: '1px solid var(--ink-900)', borderTop: 'none', padding: '13px 18px' }}>
+          <span style={{ flex: '0 0 auto', fontFamily: WIRE, fontWeight: 700, fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--accent)' }}>Top Tier</span>
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: 14, lineHeight: 1.5, color: 'var(--ink-700)' }}>
+            A quarterly bag of something extremely limited — plus a piece of Stancraft merch once a year.
+          </span>
+        </div>
+
+        <p style={{ fontFamily: WIRE, fontWeight: 700, fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--ink-300)', textAlign: 'center', margin: '24px 0 16px' }}>
+          Enrollment opens with the online store
         </p>
 
         <div style={{ textAlign: 'center' }}>
-          <a href="mailto:tyler@stancraftcoffee.com?subject=Coffee%20Club%20%E2%80%94%20reserve%20a%20seat" className="bs-btn ink-box-accent" style={{ display: 'inline-block', fontFamily: WIRE, fontWeight: 700, fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', textDecoration: 'none', padding: '13px 26px', color: 'var(--paper-100)', border: 'none' }}>Reserve your seat →</a>
+          <button type="button" disabled aria-disabled="true"
+            style={{ fontFamily: WIRE, fontWeight: 700, fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase', padding: '13px 26px', color: 'var(--ink-300)', background: 'transparent', border: '1px solid var(--ink-200)', cursor: 'not-allowed' }}>
+            Coming Soon
+          </button>
         </div>
 
         {/* Approval stamp */}
-        <Seal size={72} style={{ position: 'absolute', bottom: 18, right: 20, transform: 'rotate(-8deg)', opacity: 0.9 }} />
+        <Seal size={92} style={{ position: 'absolute', bottom: 18, right: 20, transform: 'rotate(-8deg)', opacity: 0.9 }} />
       </div>
     </section>
   );

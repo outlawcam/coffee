@@ -80,7 +80,7 @@ export function Products() {
     <section id="products" className="sect" style={{ position: 'relative', background: 'var(--paper-100)', padding: '96px 40px', scrollMarginTop: 0 }}>
       <div style={{ position: 'relative', maxWidth: 1200, margin: '0 auto' }}>
         {/* Maker's seal, stamped on the lineup sheet */}
-        <Seal className="bs-seal" size={128} style={{ position: 'absolute', top: -8, right: 0, transform: 'rotate(-7deg)', opacity: 0.92 }} />
+        <Seal className="bs-seal" size={168} style={{ position: 'absolute', top: -12, right: 0, transform: 'rotate(-7deg)', opacity: 0.92 }} />
 
         <div style={{ maxWidth: 620, marginBottom: 38 }}>
           <p style={{ fontFamily: WIRE, fontWeight: 700, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-500)', margin: '0 0 14px' }}>The lineup</p>
