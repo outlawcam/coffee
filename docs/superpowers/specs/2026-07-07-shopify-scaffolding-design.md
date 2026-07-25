@@ -125,6 +125,26 @@ No custom subagents are being defined yet — the existing shopify-plugin
 skills cover theme/Liquid development well. This can be revisited if a
 repeatable, project-specific task emerges (e.g. bulk content population).
 
+### Staying current with Shopify platform changes
+
+Dawn is forked at a point in time — Shopify updating Dawn upstream does not
+change our copy. But the underlying platform (Liquid objects/filters/tags,
+Online Store 2.0 JSON template schema, checkout extensibility APIs) evolves
+independently and can deprecate things our forked code relies on, and
+third-party app blocks can change their expected structure on their own
+update schedule. CLAUDE.md will include a short section instructing future
+sessions to:
+
+- Check `shopify.dev/changelog` before significant theme work, and always
+  after a Shopify CLI upgrade
+- Treat new `shopify theme check` warnings as the first signal of an
+  upstream/platform shift, especially ones that appear without any
+  corresponding change on our side
+- Record the Shopify CLI version in use, and re-run `theme check` after
+  upgrading it, reviewing new warnings before merging
+- If upstream Dawn changes are ever deliberately merged in, review the diff
+  against our customizations rather than merging blindly
+
 ## Testing / validation
 
 - `shopify theme check` in CI catches most theme-level errors automatically.
