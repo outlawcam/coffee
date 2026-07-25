@@ -3,6 +3,7 @@ import { createIcons, Check } from 'lucide';
 import { Products } from './Products.jsx';
 import { Club } from './Club.jsx';
 import { Wholesale } from './Wholesale.jsx';
+import { Contact } from './Contact.jsx';
 import { MegaFooter } from './MegaFooter.jsx';
 import { TexasStamp } from './TexasStamp.jsx';
 
@@ -223,6 +224,7 @@ export function App() {
         <Products />
         <Club />
         <Wholesale />
+        <Contact />
         <MegaFooter />
       </div>
     </div>
