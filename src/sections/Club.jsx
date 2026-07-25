@@ -14,7 +14,7 @@ const STEPS = [
 
 function Step({ n, title, body, first }) {
   return (
-    <div style={{ padding: '16px 18px 18px', borderLeft: first ? 'none' : '1px solid var(--ink-900)' }}>
+    <div className={'bs-step' + (first ? ' bs-step-first' : '')} style={{ padding: '16px 18px 18px', borderLeft: first ? 'none' : '1px solid var(--ink-900)' }}>
       <p style={{ fontFamily: 'var(--font-head)', fontSize: 26, lineHeight: 1, color: 'var(--accent)', margin: '0 0 9px' }}>{n}</p>
       <p style={{ fontFamily: WIRE, fontWeight: 700, fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--ink-900)', margin: '0 0 7px' }}>{title}</p>
       <p style={{ fontFamily: 'var(--font-body)', fontSize: 14, lineHeight: 1.5, color: 'var(--ink-500)', margin: 0 }}>{body}</p>
@@ -46,7 +46,7 @@ export function Club() {
         <div style={{ height: 1, background: 'var(--ink-900)', margin: '26px 0' }} />
 
         {/* Three steps */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', border: '1px solid var(--ink-900)' }}>
+        <div className="grid-3" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', border: '1px solid var(--ink-900)' }}>
           {STEPS.map(([n, title, body], i) => <Step key={n} n={n} title={title} body={body} first={i === 0} />)}
         </div>
 
