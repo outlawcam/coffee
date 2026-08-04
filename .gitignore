@@ -6,6 +6,7 @@ incoming
 .superpowers/
 # Excel lock files, created while a workbook is open
 ~$*
-# Full type collection dropped in for reference — unused by this design,
-# which is Montserrat-only.
+# Type collections dropped in for reference. This design is Montserrat-only —
+# both the Big Type collection and TAYFlapjack are unused, so the whole
+# directory is ignored rather than just the collection subfolder.
 src/fonts/

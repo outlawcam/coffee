@@ -10,72 +10,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-KFVLV9L8');</script>
 <!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Stancraft Coffee Co</title>
+<title>Stancraft Coffee Co — Small-Batch Coffee Roasters · Lufkin, TX</title>
+<meta name="description" content="Small-batch coffee, roasted to order in Lufkin, Texas — whole bean, named-origin lots. Browse the lineup, join the Coffee Club, or pour Stancraft at your café." />
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+
+<!-- Open Graph / social. NOTE: update the domain below if it isn't stancraftcoffee.com. -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Stancraft Coffee Co" />
+<meta property="og:title" content="Stancraft Coffee Co — Small-Batch Coffee Roasters" />
+<meta property="og:description" content="Small-batch coffee, roasted to order in Lufkin, Texas — whole bean, named-origin lots. Browse the lineup, join the Coffee Club, or pour Stancraft at your café." />
+<meta property="og:url" content="https://stancraftcoffee.com/" />
+<meta property="og:image" content="https://stancraftcoffee.com/assets/og.png" />
+<meta property="og:image:width" content="2400" />
+<meta property="og:image:height" content="1260" />
+<meta property="og:image:alt" content="Stancraft Coffee Co — Small-Batch Coffee Roasters, Lufkin, Texas" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Stancraft Coffee Co — Small-Batch Coffee Roasters" />
+<meta name="twitter:description" content="Small-batch coffee, roasted to order in Lufkin, Texas — whole bean, named-origin lots." />
+<meta name="twitter:image" content="https://stancraftcoffee.com/assets/og.png" />
 <style>
   /* scroll-padding-top clears the fixed masthead (~53px) so an anchor target
      lands below it instead of underneath it. */
   html { scroll-behavior: smooth; scroll-padding-top: 68px; }
-  html, body { margin: 0; background: var(--paper-100); }
+  html, body { margin: 0; background: var(--paper-100); color: var(--ink-900); }
   a { color: var(--accent); }
   a:hover { color: var(--accent-hover); }
-  .navlink { position: relative; transition: color var(--dur) var(--ease-standard); }
-  .navlink::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform var(--dur) var(--ease-standard); }
-  .navlink:hover::after { transform: scaleX(1); }
-  .navlink:hover { color: var(--accent) !important; }
+  ::selection { background: var(--ink-900); color: var(--paper-100); }
 
-  /* Buttons — the design-system Button renders inline styles with no hover, so
-     hover/press feedback lives here and uses !important to beat those inline
-     background/color values. */
-  .btn-primary, .btn-outline, .btn-outline-light, .btn-gold { transition: background var(--dur) var(--ease-standard), border-color var(--dur) var(--ease-standard), color var(--dur) var(--ease-standard), transform var(--dur-fast) var(--ease-standard); }
-  .btn-primary:hover { background: var(--red-600) !important; border-color: var(--red-600) !important; }
-  .btn-outline:hover { background: var(--ink-900) !important; color: var(--paper-100) !important; }
-  .btn-outline-light:hover { background: var(--paper-100) !important; color: var(--dark-900) !important; }
-  /* Gold CTA on dark backgrounds: light gold, darkening to harvest gold on hover. */
-  .btn-gold:hover { background: var(--gold-500) !important; border-color: var(--gold-500) !important; }
-  .btn-primary:active, .btn-outline:active, .btn-outline-light:active, .btn-gold:active { transform: translateY(1px); }
-
-  /* Text links */
-  .link-accent { transition: color var(--dur) var(--ease-standard); }
-  .link-accent:hover { color: var(--accent-hover) !important; }
-  .link-footer { transition: color var(--dur) var(--ease-standard); }
-  .link-footer:hover { color: var(--accent) !important; }
-  .link-footer:hover span { border-color: var(--accent) !important; }
-
-  /* Brew-method filter pills (unselected pills darken their border on hover) */
-  .brewpill:hover { border-color: var(--ink-900) !important; }
-
-  /* ---------- Responsive ---------- */
   img { max-width: 100%; }
-  input, select, textarea, button { box-sizing: border-box; }
-
-  /* Nav collapses into a hamburger + drawer below the breakpoint */
-  .nav-mobile { display: none; }
-  .drawer-link { transition: color var(--dur) var(--ease-standard); }
-  .drawer-link:hover { color: var(--accent) !important; }
-  @media (max-width: 768px) {
-    .nav-desktop { display: none !important; }
-    .nav-mobile { display: flex !important; }
-  }
-
-  /* Multi-column grids stack; gutters + headings shrink */
-  @media (max-width: 900px) {
-    .grid-products { grid-template-columns: repeat(2, 1fr) !important; }
-  }
-  @media (max-width: 768px) {
-    .appheader { padding-left: 22px !important; padding-right: 22px !important; }
-    .sect { padding: 60px 22px !important; }
-    .hero-sect { padding: 88px 22px 64px !important; }
-    .foot-inner { padding: 52px 22px 32px !important; }
-    .grid-split { grid-template-columns: 1fr !important; }
-    .grid-3 { grid-template-columns: 1fr !important; }
-    .h1 { font-size: 42px !important; }
-    .h2 { font-size: 30px !important; }
-    .hero-lead { font-size: 17px !important; }
-  }
-  @media (max-width: 540px) {
-    .h1 { font-size: 34px !important; }
-  }
+  /* min-width:0 lets controls shrink inside grid/flex tracks instead of
+     imposing their default intrinsic width (which forced overflow). Kept from
+     the broadsheet work — it is the same defence as Field.jsx's minWidth. */
+  input, select, textarea, button { box-sizing: border-box; min-width: 0; }
+  image-slot { display: block; width: 100%; height: 100%; }
 </style>
 </head>
 <body>
