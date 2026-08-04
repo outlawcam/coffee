@@ -2,3 +2,10 @@ node_modules
 dist
 .DS_Store
 incoming
+# Subagent-driven-development scratch (ledgers, briefs, review packages)
+.superpowers/
+# Excel lock files, created while a workbook is open
+~$*
+# Full type collection dropped in for reference — unused by this design,
+# which is Montserrat-only.
+src/fonts/

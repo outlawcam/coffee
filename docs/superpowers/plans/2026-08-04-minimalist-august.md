@@ -283,8 +283,14 @@ Then confirm at `http://localhost:5173`:
 
 - [ ] **Step 10: Commit**
 
+Stage explicit paths. Do **not** use `git add -A` — the working tree has
+untracked files (the price spreadsheet, `src/fonts/`) that must not be
+committed.
+
 ```bash
-git add -A
+git add src/tokens/palette-minimal.css src/components/Section.jsx \
+        src/sections/Intro.jsx src/sections/Footer.jsx \
+        src/sections/App.jsx src/styles.css src/main.jsx
 git commit -m "Minimalist August: palette, Intro, Footer; drop broadsheet sections
 
 Two-color ivory/ink override loaded last from styles.css, Montserrat
@@ -1181,12 +1187,17 @@ npm run build
 git status --short
 ```
 
-Expected: build exits 0; `git status` shows only the files this task touched.
+Expected: build exits 0. `git status` shows only
+`src/tokens/palette-minimal.css`, `src/sections/Coffees.jsx`, and
+`DESIGN-BRANCHES.md` as modified. The price spreadsheet may appear as
+untracked — leave it that way.
 
 - [ ] **Step 6: Commit**
 
+Stage explicit paths; do **not** use `git add -A`.
+
 ```bash
-git add -A
+git add src/tokens/palette-minimal.css src/sections/Coffees.jsx DESIGN-BRANCHES.md
 git commit -m "Responsive pass and branch documentation
 
 Headline scales to 34px below 700px. Adds design/minimalist-august to
