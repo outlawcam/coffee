@@ -55,8 +55,10 @@ export function Inquiry() {
     setSent(true);
   };
 
+  // `last` suppresses the bottom hairline — Inquiry is the final section and
+  // the Footer supplies its own top border.
   return (
-    <Section id="inquiry">
+    <Section id="inquiry" last>
       <div className="split-2" style={{ alignItems: 'start' }}>
         <div>
           {sent ? (

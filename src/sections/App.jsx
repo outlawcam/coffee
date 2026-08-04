@@ -11,9 +11,9 @@ export function App() {
     <div style={{ fontFamily: 'var(--font-body)', background: 'var(--paper-100)', color: 'var(--ink-900)' }}>
       <StickyHeader />
       <Intro />
+      <Coffees />
       <About />
       <Inquiry />
-      <Coffees />
       <Footer />
     </div>
   );

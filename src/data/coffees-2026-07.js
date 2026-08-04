@@ -26,7 +26,9 @@ export const COFFEES = [
     process: 'Washed', profile: 'mellow', sizes: THREE(20, 40, 92) },
 
   // --- Curious ---
-  { id: 'colombia-washed', name: 'Colombia', origin: 'Colombia',
+  // Sheet row reads just "Colombia, Washed"; the real name is below, confirmed
+  // by Tyler. The sheet was never updated.
+  { id: 'colombia-washed', name: 'Colombia Huila Pitalito', origin: 'Colombia',
     process: 'Washed', profile: 'curious', sizes: THREE(18, 38, 88) },
   { id: 'chechele', name: 'Ethiopia Yirgacheffe (Chechele)', origin: 'Ethiopia',
     process: 'Natural', profile: 'curious', sizes: THREE(22, 44, 100) },

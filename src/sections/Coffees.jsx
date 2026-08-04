@@ -61,7 +61,7 @@ export function Coffees() {
   const shown = activeMood ? MOODS.filter((m) => m.id === activeMood) : MOODS;
 
   return (
-    <Section id="coffees" last>
+    <Section id="coffees">
       <h2 className="sect-headline" style={{ fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.03em', margin: '0 0 44px' }}>
         A coffee for everyone.
       </h2>
