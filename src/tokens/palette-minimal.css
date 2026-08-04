@@ -40,3 +40,15 @@
 @media (max-width: 860px) {
   :root { --sect-pad-y: 64px; --sect-pad-x: 22px; }
 }
+
+/* Two-column section split — collapses below 860px. */
+.split-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .split-2 { grid-template-columns: 1fr; gap: 36px; }
+}
