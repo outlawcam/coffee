@@ -6,7 +6,9 @@
 <title>Stancraft Coffee Co</title>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 <style>
-  html { scroll-behavior: smooth; }
+  /* scroll-padding-top clears the fixed masthead (~53px) so an anchor target
+     lands below it instead of underneath it. */
+  html { scroll-behavior: smooth; scroll-padding-top: 68px; }
   html, body { margin: 0; background: var(--paper-100); }
   a { color: var(--accent); }
   a:hover { color: var(--accent-hover); }

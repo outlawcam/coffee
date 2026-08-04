@@ -82,3 +82,21 @@ a:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
+
+/* Sticky masthead reveal. The transitions live HERE rather than in the
+   component's inline style so the reduced-motion query below can actually
+   neutralize them — an inline `transition` beats any stylesheet rule. */
+.sticky-head {
+  transition: opacity 240ms ease, transform 240ms ease, visibility 240ms;
+}
+
+.sticky-head img {
+  transition: transform 240ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky-head,
+  .sticky-head img {
+    transition: none;
+  }
+}

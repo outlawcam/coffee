@@ -20,7 +20,9 @@ export function Intro() {
         borderBottom: '1px solid var(--border-hairline)',
       }}
     >
-      <h1 style={{ margin: 0 }}>
+      {/* id is the IntersectionObserver target for StickyHeader — when this
+          scrolls out of view the compact masthead takes over. */}
+      <h1 id="intro-logo" style={{ margin: 0 }}>
         <img
           src="/assets/logo-stancraft.svg"
           alt="Stancraft Coffee Co."

@@ -96,6 +96,36 @@ column below 860 px.
 
 ## Sections
 
+### 0. Sticky masthead
+
+Not a section — a fixed bar that keeps the wordmark on screen everywhere.
+
+While the Intro's wordmark is visible the bar is hidden. Once that wordmark
+scrolls out of view, the bar slides down from `translateY(-100%)` and stays,
+carrying a 24 px-tall logo on an opaque ivory ground with a bottom hairline.
+The logo settles from `scale(1.3)` to `scale(1)` as it arrives, so the handoff
+from the big hero mark reads as a shrink rather than a swap.
+
+`position: fixed`, not `sticky`: the page scrolls behind an opaque bar, and the
+header claims no space inside the Intro's 75vh.
+
+The trigger is an `IntersectionObserver` on the Intro's `<h1 id="intro-logo">`
+rather than a scroll listener — no work per scroll frame, and the trigger point
+is defined by the hero mark itself, so changing the hero's height needs no
+matching change in the header.
+
+The bar carries `visibility: hidden` while hidden, so its link leaves the tab
+order; `aria-hidden` keeps it out of the accessibility tree. Its logo has
+`alt=""` because the anchor's `aria-label` names the link and the Intro's `<h1>`
+already supplies the wordmark's accessible name — otherwise the mark is
+announced twice. Transitions live in `palette-minimal.css`, not inline, so
+`prefers-reduced-motion: reduce` can neutralize them; an inline `transition`
+would beat any stylesheet rule.
+
+Because the bar is opaque and fixed, `index.html` sets
+`scroll-padding-top: 68px` so anchor targets land below it rather than beneath
+it.
+
 ### 1. Intro
 
 Centered `logo-stancraft.svg` at ~440 px wide, then a black pill button
