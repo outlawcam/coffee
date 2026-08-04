@@ -12,7 +12,7 @@ export const CONTROL_STYLE = {
   border: '1px solid var(--border-hairline)',
   borderRadius: 'var(--radius-field)',
   padding: '11px 13px',
-  outline: 'none',
+  minWidth: 0,
 };
 
 export function Field({ label, htmlFor, children }) {

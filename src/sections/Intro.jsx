@@ -11,11 +11,13 @@ export function Intro() {
         borderBottom: '1px solid var(--border-hairline)',
       }}
     >
-      <img
-        src="/assets/logo-stancraft.svg"
-        alt="Stancraft Coffee Co."
-        style={{ width: 'min(440px, 82vw)', height: 'auto', display: 'block', margin: '0 auto' }}
-      />
+      <h1 style={{ margin: 0 }}>
+        <img
+          src="/assets/logo-stancraft.svg"
+          alt="Stancraft Coffee Co."
+          style={{ width: 'min(440px, 82vw)', height: 'auto', display: 'block', margin: '0 auto' }}
+        />
+      </h1>
       <a
         href="#coffees"
         style={{

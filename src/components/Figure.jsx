@@ -4,14 +4,14 @@ import React from 'react';
 
 export function Figure({ src, label, ratio = '3 / 4' }) {
   return (
-    <div
+    <span
       style={{
+        display: 'flex',
         width: '100%',
         aspectRatio: ratio,
         borderRadius: 'var(--radius-photo)',
         overflow: 'hidden',
         background: 'var(--photo-fpo)',
-        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
       }}
@@ -34,6 +34,6 @@ export function Figure({ src, label, ratio = '3 / 4' }) {
           {label}
         </span>
       )}
-    </div>
+    </span>
   );
 }

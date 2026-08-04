@@ -49,6 +49,11 @@ removes an import rather than adding one.
 
 Body line-height 1.65; headline line-height 1.05.
 
+Three sizes sit outside this scale on purpose: the Coffees mood blurb at
+15 px (secondary card copy, deliberately below body), the coffee-name row
+label at 17 px/700 (a label, not body), and the Inquiry success heading at
+28 px/800.
+
 ### Color
 
 Two colors carry the page:
@@ -185,10 +190,12 @@ narrows the list to that mood and dims the other two cards to 35% opacity.
 Selecting the active mood again clears back to showing everything. The three
 cards collapse to a single stacked column below 700 px.
 
-**Each coffee renders as one row:** name, process, then its size ladder as
-`12 oz $16 · 2 lb $36 · 5 lb $82`. The ladder wraps on narrow screens. This
-is the repo's first variant pattern — a product carries 1–3 size/price pairs
-rather than a single `price` number.
+**Each coffee renders as one row:** name, process, then its size ladder as a
+row of spaced flex entries (`12 oz $16`, `2 lb $36`, `5 lb $82`), each its own
+flex child with a gap between them rather than a single middot-joined string.
+This lets the ladder wrap cleanly, entry by entry, on narrow screens instead
+of breaking mid-string. This is the repo's first variant pattern — a product
+carries 1–3 size/price pairs rather than a single `price` number.
 
 Wholesale tier pricing is never rendered.
 

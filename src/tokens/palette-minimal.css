@@ -34,6 +34,7 @@
   --text-muted: var(--ink-500);
   --border-hairline: var(--ink-200);
   --accent: var(--ink-900);
+  --accent-hover: var(--ink-900);
   --focus-ring: var(--ink-900);
 }
 
@@ -69,4 +70,15 @@
 
 @media (max-width: 700px) {
   .sect-headline { font-size: 34px; }
+}
+
+/* Visible focus for keyboard users. CONTROL_STYLE no longer kills the outline;
+   this makes the ring intentional rather than UA-default. */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
 }

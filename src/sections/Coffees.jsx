@@ -79,7 +79,6 @@ export function Coffees() {
               style={{
                 display: 'block', textAlign: 'left', background: 'none', border: 'none',
                 padding: 0, cursor: 'pointer', fontFamily: 'var(--font-body)',
-                opacity: dim ? 0.35 : 1, transition: 'opacity 200ms ease',
               }}
             >
               <span style={{
@@ -91,7 +90,9 @@ export function Coffees() {
               <span style={{ display: 'block', fontSize: 15, lineHeight: 1.5, color: 'var(--ink-900)', marginBottom: 18 }}>
                 {m.blurb}
               </span>
-              <Figure label={m.photo} ratio="3 / 4" />
+              <span style={{ display: 'block', opacity: dim ? 0.35 : 1, transition: 'opacity 200ms ease' }}>
+                <Figure label={m.photo} ratio="3 / 4" />
+              </span>
             </button>
           );
         })}
