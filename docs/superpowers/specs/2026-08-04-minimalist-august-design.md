@@ -11,7 +11,9 @@ Montserrat throughout, ivory and ink, photography as the only color.
 
 ## Goals
 
-- Four sections, top to bottom: Intro, About, Inquiry, Coffees. No nav.
+- Four sections, top to bottom: Intro, Coffees, About, Inquiry. No nav.
+  The lineup sits directly under the Intro so "Shop here" lands on product
+  immediately, rather than after two sections of preamble.
 - Show the real product lineup — 11 coffees with size/price variants —
   without a cart, since there is no store yet.
 - Establish a variant pattern (product with 1–3 size/price rows) the repo
@@ -87,8 +89,11 @@ page, a rect commits something.
 Every section sits on the same ivory, separated by a single `1px` hairline at
 low contrast. Vertical padding 96 px desktop / 64 px mobile. The Intro is the
 exception: it occupies `75vh` with its contents centered vertically, so the
-wordmark holds the opening screen and the About section crests into view just
+wordmark holds the opening screen and the coffee lineup crests into view just
 below the fold. Content max-width 1120 px, centered.
+
+Inquiry is the final section and carries `last`, suppressing its bottom
+hairline because the Footer supplies its own top border.
 
 Two-column sections alternate which side holds text: About is text-left /
 photo-right, Inquiry is form-left / pitch-right. Both collapse to a single
@@ -141,7 +146,34 @@ Note: the SVG is a single-line horizontal lockup (viewBox `0 0 101.38 27.1`,
 aspect ≈ 3.7:1). The reference mockup stacks "STANCRAFT / COFFEE CO." on two
 lines. Using the supplied asset means one wide line. Accepted.
 
-### 2. About
+### 2. Coffees
+
+Headline "A coffee for everyone.", then three mood cards in a row: title,
+one-line description, photo below. Copy verbatim:
+
+- **Something mellow** — A flavorful and smooth cup, enjoyed by all.
+- **Something curious** — Need something a bit more dynamic? This is your bag.
+- **Something funky** — Be ready for an other-worldly cup of coffee.
+
+Each card is a real `<button>` with `aria-pressed`. Three photos are FPO
+placeholders.
+
+**Interaction.** Default state shows all 11 coffees grouped under all three
+mood headings, so the section informs before anyone clicks. Selecting a mood
+narrows the list to that mood and dims the other two cards to 35% opacity.
+Selecting the active mood again clears back to showing everything. The three
+cards collapse to a single stacked column below 700 px.
+
+**Each coffee renders as one row:** name, process, then its size ladder as a
+row of spaced flex entries (`12 oz $16`, `2 lb $36`, `5 lb $82`), each its own
+flex child with a gap between them rather than a single middot-joined string.
+This lets the ladder wrap cleanly, entry by entry, on narrow screens instead
+of breaking mid-string. This is the repo's first variant pattern — a product
+carries 1–3 size/price pairs rather than a single `price` number.
+
+Wholesale tier pricing is never rendered.
+
+### 3. About
 
 Text left, portrait right. Copy verbatim from the mockup:
 
@@ -157,7 +189,7 @@ The portrait is an FPO placeholder labeled "Photo of Tyler". `public/assets`
 has no photo of him, and an obvious gap is better than substituting
 `craft.jpg` and having a placeholder read as a finished choice.
 
-### 3. Inquiry
+### 4. Inquiry
 
 Form left, partnership pitch right. Pitch copy verbatim:
 
@@ -206,33 +238,6 @@ fixed now so that worker can adopt it without rework:
 `category` is one of `general` / `wholesale` / `support` / `product`.
 `inquiry` is the empty string when category is `general`.
 
-### 4. Coffees
-
-Headline "A coffee for everyone.", then three mood cards in a row: title,
-one-line description, photo below. Copy verbatim:
-
-- **Something mellow** — A flavorful and smooth cup, enjoyed by all.
-- **Something curious** — Need something a bit more dynamic? This is your bag.
-- **Something funky** — Be ready for an other-worldly cup of coffee.
-
-Each card is a real `<button>` with `aria-pressed`. Three photos are FPO
-placeholders.
-
-**Interaction.** Default state shows all 11 coffees grouped under all three
-mood headings, so the section informs before anyone clicks. Selecting a mood
-narrows the list to that mood and dims the other two cards to 35% opacity.
-Selecting the active mood again clears back to showing everything. The three
-cards collapse to a single stacked column below 700 px.
-
-**Each coffee renders as one row:** name, process, then its size ladder as a
-row of spaced flex entries (`12 oz $16`, `2 lb $36`, `5 lb $82`), each its own
-flex child with a gap between them rather than a single middot-joined string.
-This lets the ladder wrap cleanly, entry by entry, on narrow screens instead
-of breaking mid-string. This is the repo's first variant pattern — a product
-carries 1–3 size/price pairs rather than a single `price` number.
-
-Wholesale tier pricing is never rendered.
-
 ## Data
 
 `src/data/coffees-2026-07.js` replaces `src/data/coffees.js`, rebuilt from
@@ -255,7 +260,7 @@ Gram weights map to labels: 227 g → 8 oz, 340 g → 12 oz, 907 g → 2 lb,
 |---|---|---|---|---|
 | Brazilian Alta Mogiana | Brazil | Natural | mellow | 12 oz $16 · 2 lb $36 · 5 lb $82 |
 | Guatemala Huehuetenango | Guatemala | Washed | mellow | 12 oz $20 · 2 lb $40 · 5 lb $92 |
-| Colombia | Colombia | Washed | curious | 12 oz $18 · 2 lb $38 · 5 lb $88 |
+| Colombia Huila Pitalito | Colombia | Washed | curious | 12 oz $18 · 2 lb $38 · 5 lb $88 |
 | Ethiopia Yirgacheffe (Chechele) | Ethiopia | Natural | curious | 12 oz $22 · 2 lb $44 · 5 lb $100 |
 | Ethiopia Yirgacheffe (Chelbessa) | Ethiopia | Washed | curious | 12 oz $22 · 2 lb $44 · 5 lb $100 |
 | Kenya Nyeri | Kenya | Washed | curious | 12 oz $23 · 2 lb $46 · 5 lb $104 |
@@ -275,9 +280,10 @@ spreadsheet's favor:
 
 - **Added:** Brazilian Alta Mogiana, Kenya Nyeri.
 - **Dropped:** Guji Quabballe, EA Decaf — not in the July sheet.
-- **Renamed:** the sheet's "Colombia, Washed" is the coffee the old file
-  called "Huila Pitalito Supremo". Displayed as the sheet names it, since we
-  cannot confirm from the sheet alone that it is the same lot.
+- **Renamed:** the sheet's "Colombia, Washed" row is under-named — the sheet
+  was never updated. Tyler confirmed the coffee is **Colombia Huila Pitalito**,
+  which is what renders. (The old data file called it "Huila Pitalito
+  Supremo"; the confirmed name drops "Supremo".)
 - **Spelling:** the sheet's "Sharqui Haraz" is used over the old file's
   "Sharqi Haraz".
 
