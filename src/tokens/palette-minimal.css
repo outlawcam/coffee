@@ -52,3 +52,14 @@
 @media (max-width: 860px) {
   .split-2 { grid-template-columns: 1fr; gap: 36px; }
 }
+
+/* Three mood cards — stack below 700px. */
+.moods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+@media (max-width: 700px) {
+  .moods { grid-template-columns: 1fr; gap: 44px; }
+}

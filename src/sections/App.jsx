@@ -3,7 +3,7 @@ import { Intro } from './Intro.jsx';
 import { Footer } from './Footer.jsx';
 import { About } from './About.jsx';
 import { Inquiry } from './Inquiry.jsx';
-// import { Coffees } from './Coffees.jsx';   // Task 6
+import { Coffees } from './Coffees.jsx';
 
 export function App() {
   return (
@@ -11,7 +11,7 @@ export function App() {
       <Intro />
       <About />
       <Inquiry />
-      {/* <Coffees /> */}
+      <Coffees />
       <Footer />
     </div>
   );
