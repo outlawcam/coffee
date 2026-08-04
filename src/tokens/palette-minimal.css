@@ -1,0 +1,42 @@
+/* Stancraft Coffee — Minimalist August.
+ * Loaded LAST from styles.css so it overrides colors.css and
+ * palette-botanical.css. Two colors carry the page: ivory and ink. Cherry,
+ * gold, blue, and mulberry are deliberately unused — on a page this bare the
+ * photography supplies all the color, and a brand accent would fight it. */
+
+:root {
+  /* Ink & paper — the whole palette */
+  --ink-900: #1A1A1A;   /* all text, all buttons */
+  --ink-500: #6B635B;   /* secondary text, fine print */
+  --ink-200: #D8D2C6;   /* hairlines, input borders */
+  --paper-000: #FFFFFF; /* input fills */
+  --paper-100: #FBF8F1; /* page */
+  --photo-fpo: #EDE8DD; /* FPO placeholder fill */
+
+  /* Montserrat everywhere — Spectral is gone on this branch */
+  --font-display: 'Montserrat', system-ui, sans-serif;
+  --font-body: 'Montserrat', system-ui, sans-serif;
+
+  /* Shape — pill navigates, rect commits */
+  --radius-pill: 999px;
+  --radius-field: 6px;
+  --radius-photo: 14px;
+
+  /* Layout */
+  --shell-max: 1120px;
+  --sect-pad-y: 96px;
+  --sect-pad-x: 40px;
+
+  /* Semantic aliases the rest of the sheet may still reference */
+  --bg-page: var(--paper-100);
+  --text-strong: var(--ink-900);
+  --text-body: var(--ink-900);
+  --text-muted: var(--ink-500);
+  --border-hairline: var(--ink-200);
+  --accent: var(--ink-900);
+  --focus-ring: var(--ink-900);
+}
+
+@media (max-width: 860px) {
+  :root { --sect-pad-y: 64px; --sect-pad-x: 22px; }
+}
