@@ -408,7 +408,8 @@ spreadsheet.
 
 Open the spec's data table
 (`docs/superpowers/specs/2026-08-04-minimalist-august-design.md`, "Data"
-section) beside the file and confirm all 31 prices match. The assertions only
+section) beside the file and confirm all 29 prices match (9 coffees × 3 sizes,
+plus 2 co-ferments × 1 size). The assertions only
 spot-check one row; this catches a transposed digit anywhere else.
 
 - [ ] **Step 4: Commit**
