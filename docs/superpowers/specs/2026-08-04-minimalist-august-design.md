@@ -85,8 +85,10 @@ page, a rect commits something.
 ### Section rhythm
 
 Every section sits on the same ivory, separated by a single `1px` hairline at
-low contrast. Vertical padding 96 px desktop / 64 px mobile; Intro gets 150 px
-top. Content max-width 1120 px, centered.
+low contrast. Vertical padding 96 px desktop / 64 px mobile. The Intro is the
+exception: it occupies `75vh` with its contents centered vertically, so the
+wordmark holds the opening screen and the About section crests into view just
+below the fold. Content max-width 1120 px, centered.
 
 Two-column sections alternate which side holds text: About is text-left /
 photo-right, Inquiry is form-left / pitch-right. Both collapse to a single
@@ -97,7 +99,9 @@ column below 860 px.
 ### 1. Intro
 
 Centered `logo-stancraft.svg` at ~440 px wide, then a black pill button
-reading "Shop here".
+reading "Shop here". The section is `min-height: 75vh` with its contents
+centered on both axes — `min-height` rather than `height` so a short viewport
+grows the section instead of clipping the button.
 
 The button targets `#coffees` — an in-page scroll, not an outbound link,
 because there is no store yet and the coffees section is the closest thing to

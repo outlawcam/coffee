@@ -6,7 +6,16 @@ export function Intro() {
     <section
       id="top"
       style={{
-        padding: '150px var(--sect-pad-x) 96px',
+        // 75vh, centered. minHeight (not height) so a short viewport or a
+        // zoomed-in browser lets the content push the section taller instead
+        // of clipping it; borderBox keeps the padding inside the 75vh.
+        minHeight: '75vh',
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '64px var(--sect-pad-x)',
         textAlign: 'center',
         borderBottom: '1px solid var(--border-hairline)',
       }}
