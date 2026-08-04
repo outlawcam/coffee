@@ -62,7 +62,7 @@ export function Coffees() {
 
   return (
     <Section id="coffees" last>
-      <h2 style={{ fontWeight: 800, fontSize: 46, lineHeight: 1.05, letterSpacing: '-0.03em', margin: '0 0 44px' }}>
+      <h2 className="sect-headline" style={{ fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.03em', margin: '0 0 44px' }}>
         A coffee for everyone.
       </h2>
 

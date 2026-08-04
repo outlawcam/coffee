@@ -63,3 +63,10 @@
 @media (max-width: 700px) {
   .moods { grid-template-columns: 1fr; gap: 44px; }
 }
+
+/* Section headline — sized here rather than inline so the breakpoint can win. */
+.sect-headline { font-size: 46px; }
+
+@media (max-width: 700px) {
+  .sect-headline { font-size: 34px; }
+}
