@@ -1,17 +1,12 @@
 /* Stancraft Coffee — Webfonts.
- * Montserrat (headlines, CTAs, labels) + Spectral (body serif).
- * Self-hosted via @fontsource, imported in src/main.jsx — do NOT re-add the
- * Google Fonts @import (keeps the build free of runtime CDN requests).
+ * Montserrat only. Self-hosted via @fontsource, imported in src/main.jsx — do
+ * NOT re-add the Google Fonts @import (keeps the build free of runtime CDN
+ * requests).
+ *
+ * The Flapjack @font-face that lived here belonged to the broadsheet direction
+ * and was removed when the minimalist design replaced it: its files
+ * (src/fonts/TAYFlapjack.*) are gone, and because this file reaches the bundle
+ * through an @import url(), Vite passed the dead font URL straight through to
+ * the built CSS without erroring. Do not reintroduce a @font-face here without
+ * committing the font files alongside it.
  */
-
-/* Flapjack — display face for headings + the logo/nameplate (broadsheet
- * direction). Single weight declared across 100–900 so requesting bold/black
- * uses the real glyphs rather than a synthesized faux-bold. */
-@font-face {
-  font-family: 'Flapjack';
-  src: url('../fonts/TAYFlapjack.woff2') format('woff2'),
-       url('../fonts/TAYFlapjack.woff') format('woff');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}

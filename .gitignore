@@ -2,5 +2,11 @@ node_modules
 dist
 .DS_Store
 incoming
-# Full type collection dropped in for reference — only TAYFlapjack.* is used.
-src/fonts/Big_Type_Collection_Standard/
+# Subagent-driven-development scratch (ledgers, briefs, review packages)
+.superpowers/
+# Excel lock files, created while a workbook is open
+~$*
+# Type collections dropped in for reference. This design is Montserrat-only —
+# both the Big Type collection and TAYFlapjack are unused, so the whole
+# directory is ignored rather than just the collection subfolder.
+src/fonts/

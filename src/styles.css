@@ -6,5 +6,4 @@
 @import url("./tokens/flavors.css");
 @import url("./tokens/typography.css");
 @import url("./tokens/layout.css");
-/* Broadsheet direction — overrides the botanical palette/type. Keep LAST. */
-@import url("./tokens/palette-broadsheet.css");
+@import url("./tokens/palette-minimal.css");
