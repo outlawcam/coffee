@@ -16,7 +16,7 @@ export function About() {
             for the glory of God.
           </p>
         </div>
-        <Figure label="Photo of Tyler" ratio="4 / 5" />
+        <Figure src="/assets/tyler.jpg" label="Tyler logging a roast at the roaster" ratio="4 / 5" />
       </div>
     </Section>
   );
