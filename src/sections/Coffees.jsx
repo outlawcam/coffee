@@ -82,6 +82,9 @@ export function Coffees() {
         })}
       </div>
 
+      {/* Unconditional on purpose: a live region added to the DOM at the same
+          moment its content changes is often never announced. Do not gate this
+          on `shown` or `activeMood`. */}
       <div aria-live="polite">
         {shown.map((m) => <MoodGroup key={m.id} mood={m} />)}
       </div>
