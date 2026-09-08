@@ -23,3 +23,15 @@
 @media (max-width: 700px) {
   .moods { grid-template-columns: 1fr; gap: 44px; }
 }
+
+/* Section wrapper — vertical rhythm and the hairline between sections. */
+.section {
+  padding: var(--sect-pad-y) var(--sect-pad-x);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+/* Last section before the footer, which supplies its own top border. */
+.section--last { border-bottom: none; }
+
+/* Max-width shell, centered. */
+.shell { max-width: var(--shell-max); margin: 0 auto; }

@@ -8,7 +8,7 @@
 // Turnstile/SES worker can adopt it later: { name, email, category, inquiry, details }.
 import React from 'react';
 import { Section } from '../components/Section.jsx';
-import { Field, CONTROL_STYLE } from '../components/Field.jsx';
+import { Field } from '../components/Field.jsx';
 
 const CATEGORIES = [
   { id: 'general', label: 'General', options: [] },
@@ -85,11 +85,11 @@ export function Inquiry() {
           ) : (
             <form onSubmit={submit} noValidate={false}>
               <Field label="Your name" htmlFor="f-name">
-                <input id="f-name" type="text" required value={form.name} onChange={set('name')} style={CONTROL_STYLE} />
+                <input id="f-name" type="text" required value={form.name} onChange={set('name')} className="control" />
               </Field>
 
               <Field label="Email address" htmlFor="f-email">
-                <input id="f-email" type="email" required value={form.email} onChange={set('email')} style={CONTROL_STYLE} />
+                <input id="f-email" type="email" required value={form.email} onChange={set('email')} className="control" />
               </Field>
 
               <div style={{ marginBottom: 18 }}>
@@ -124,7 +124,7 @@ export function Inquiry() {
                     value={form.inquiry}
                     onChange={set('inquiry')}
                     required
-                    style={CONTROL_STYLE}
+                    className="control"
                   >
                     <option value="">Select one…</option>
                     {active.options.map((o) => (
@@ -140,7 +140,7 @@ export function Inquiry() {
                   rows={4}
                   value={form.details}
                   onChange={set('details')}
-                  style={{ ...CONTROL_STYLE, resize: 'vertical' }}
+                  className="control control--textarea"
                 />
               </Field>
 
