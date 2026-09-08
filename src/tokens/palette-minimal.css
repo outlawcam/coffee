@@ -8,7 +8,7 @@
   /* Ink & paper — the whole palette */
   --ink-900: #1A1A1A;   /* all text, all buttons */
   --ink-500: #6B635B;   /* secondary text, fine print */
-  --ink-200: #D8D2C6;   /* hairlines, input borders */
+  --ink-200: #D8D2C6;   /* hairlines only — control borders use --border-control */
   --paper-000: #FFFFFF; /* input fills */
   --paper-100: #FBF8F1; /* page */
   --photo-fpo: #EDE8DD; /* FPO placeholder fill */
