@@ -436,17 +436,21 @@ git commit -m "Extract Section, Field, and Figure styles into classes"
 
 ---
 
-### Task 4: Intro and Footer
+### Task 4: Intro, About, and Footer
 
 **Files:**
-- Modify: `src/sections/Intro.jsx`, `src/sections/Footer.jsx`
+- Modify: `src/sections/Intro.jsx`, `src/sections/About.jsx`, `src/sections/Footer.jsx`
 - Modify: `src/styles/components.css`
 
 **Interfaces:**
 - Consumes: `src/styles/components.css`.
-- Produces: `.intro`, `.intro__title`, `.intro__mark`, `.btn-pill`, `.site-footer`, `.site-footer__text`, `.site-footer__link`.
+- Produces: `.intro`, `.intro__title`, `.intro__mark`, `.btn-pill`, `.about__title`, `.about__body`, `.site-footer`, `.site-footer__text`, `.site-footer__link`.
 
-Red: Intro 4, Footer 3.
+Red: Intro 4, About 2, Footer 3.
+
+> **Note:** About was missing from the spec's class inventory. It is folded in
+> here because it is the same shape of work as Intro and Footer — a couple of
+> type-only elements. Without it the Task 8 gate cannot reach zero.
 
 - [ ] **Step 1: Add the rules**
 
@@ -488,6 +492,22 @@ Red: Intro 4, Footer 3.
   text-decoration: none;
   padding: 15px 32px;
   border-radius: var(--radius-pill);
+}
+
+/* About — bio copy left, portrait right. */
+.about__title {
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0 0 14px;
+  color: var(--ink-900);
+}
+
+.about__body {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 46ch;
+  color: var(--ink-900);
 }
 
 /* Footer — one hairline and the contact line. */
@@ -534,7 +554,37 @@ export function Intro() {
 }
 ```
 
-- [ ] **Step 3: Rewrite `src/sections/Footer.jsx`**
+- [ ] **Step 3: Rewrite `src/sections/About.jsx`**
+
+Leave the `<Figure>` line exactly as it is — Task 9 changes its props.
+
+```jsx
+// About — bio copy left, portrait right. Collapses to one column at 860px.
+import React from 'react';
+import { Section } from '../components/Section.jsx';
+import { Figure } from '../components/Figure.jsx';
+
+export function About() {
+  return (
+    <Section id="about">
+      <div className="split-2">
+        <div>
+          <h2 className="about__title">About us</h2>
+          <p className="about__body">
+            I'm Tyler, the owner and operator of the family-owned, Stancraft Coffee Company. This started
+            about 5 years ago as a hobby of mine and quickly became a passion project. I fell in love with
+            the art and nuance of roasting and delighted in serving guests my freshly-roasted coffee, all
+            for the glory of God.
+          </p>
+        </div>
+        <Figure src="/assets/tyler.jpg" label="Tyler logging a roast at the roaster" ratio="4 / 5" />
+      </div>
+    </Section>
+  );
+}
+```
+
+- [ ] **Step 4: Rewrite `src/sections/Footer.jsx`**
 
 ```jsx
 // Footer — one hairline and the contact line. Deliberately minimal.
@@ -555,20 +605,21 @@ export function Footer() {
 }
 ```
 
-- [ ] **Step 4: Verify**
+- [ ] **Step 5: Verify**
 
 ```bash
-grep -c "style={{" src/sections/Intro.jsx src/sections/Footer.jsx  # expect 0 each
-npm run build                                                       # expect exit 0
+grep -c "style={{" src/sections/Intro.jsx src/sections/About.jsx src/sections/Footer.jsx
+                                    # expect 0 for each of the three
+npm run build                       # expect exit 0
 ```
 
-In the browser: hero is still 75vh and centered, "Shop here" is still a dark pill, footer text is still centered and muted.
+In the browser: hero is still 75vh and centered, "Shop here" is still a dark pill, the About copy still wraps at the same measure beside the photo, footer text is still centered and muted.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
-git add src/sections/Intro.jsx src/sections/Footer.jsx src/styles/components.css
-git commit -m "Extract Intro and Footer styles into classes"
+git add src/sections/Intro.jsx src/sections/About.jsx src/sections/Footer.jsx src/styles/components.css
+git commit -m "Extract Intro, About, and Footer styles into classes"
 ```
 
 ---
