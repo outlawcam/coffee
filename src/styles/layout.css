@@ -1,2 +1,25 @@
 /* Stancraft Coffee — layout rules. Grids, shells, section rhythm.
  * Variables live in src/tokens/; this file holds rules only. */
+
+/* Two-column section split — collapses below 860px. */
+.split-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .split-2 { grid-template-columns: 1fr; gap: 36px; }
+}
+
+/* Three mood cards — stack below 700px. */
+.moods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+@media (max-width: 700px) {
+  .moods { grid-template-columns: 1fr; gap: 44px; }
+}
