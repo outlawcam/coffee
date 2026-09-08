@@ -287,8 +287,8 @@ To `src/styles/components.css`:
   color: var(--ink-900);
 }
 
-/* Shared control styling for input, select, and textarea. Replaces the
-   CONTROL_STYLE object that Field.jsx used to export. */
+/* Shared control styling for input, select, and textarea. Applied by the
+   caller; Field.jsx renders only the label. */
 .control {
   width: 100%;
   box-sizing: border-box;
