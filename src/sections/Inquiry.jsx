@@ -8,7 +8,7 @@
 // Turnstile/SES worker can adopt it later: { name, email, category, inquiry, details }.
 import React from 'react';
 import { Section } from '../components/Section.jsx';
-import { Field, CONTROL_STYLE } from '../components/Field.jsx';
+import { Field } from '../components/Field.jsx';
 
 const CATEGORIES = [
   { id: 'general', label: 'General', options: [] },
@@ -41,6 +41,11 @@ const EMPTY = { name: '', email: '', category: 'general', inquiry: '', details: 
 export function Inquiry() {
   const [form, setForm] = React.useState(EMPTY);
   const [sent, setSent] = React.useState(false);
+  const sentRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (sent && sentRef.current) sentRef.current.focus();
+  }, [sent]);
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -59,25 +64,20 @@ export function Inquiry() {
   // the Footer supplies its own top border.
   return (
     <Section id="inquiry" last>
-      <div className="split-2" style={{ alignItems: 'start' }}>
+      <div className="split-2 split-2--top">
         <div>
           {sent ? (
             <div>
-              <h2 style={{ fontWeight: 800, fontSize: 28, letterSpacing: '-0.02em', margin: '0 0 12px' }}>
+              <h2 className="sent__title" ref={sentRef} tabIndex={-1}>
                 Thanks{form.name ? `, ${form.name.split(' ')[0]}` : ''}.
               </h2>
-              <p style={{ fontSize: 17, lineHeight: 1.65, margin: '0 0 24px', color: 'var(--ink-500)' }}>
+              <p className="sent__body">
                 Your note is with us. We'll be in touch within two business days.
               </p>
               <button
                 type="button"
                 onClick={() => { setForm(EMPTY); setSent(false); }}
-                style={{
-                  fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 13, letterSpacing: '0.08em',
-                  textTransform: 'uppercase', color: 'var(--ink-900)', background: 'none',
-                  border: '1px solid var(--ink-900)', borderRadius: 'var(--radius-field)',
-                  padding: '13px 26px', cursor: 'pointer',
-                }}
+                className="btn-outline"
               >
                 Send another
               </button>
@@ -85,18 +85,18 @@ export function Inquiry() {
           ) : (
             <form onSubmit={submit} noValidate={false}>
               <Field label="Your name" htmlFor="f-name">
-                <input id="f-name" type="text" required value={form.name} onChange={set('name')} style={CONTROL_STYLE} />
+                <input id="f-name" type="text" required value={form.name} onChange={set('name')} className="control" />
               </Field>
 
               <Field label="Email address" htmlFor="f-email">
-                <input id="f-email" type="email" required value={form.email} onChange={set('email')} style={CONTROL_STYLE} />
+                <input id="f-email" type="email" required value={form.email} onChange={set('email')} className="control" />
               </Field>
 
-              <div style={{ marginBottom: 18 }}>
-                <span style={{ display: 'block', fontWeight: 700, fontSize: 13, marginBottom: 9, color: 'var(--ink-900)' }}>
+              <div className="seg">
+                <span className="seg__label">
                   Inquiry
                 </span>
-                <div role="group" aria-label="Inquiry category" style={{ display: 'flex', flexWrap: 'wrap', gap: 20, marginBottom: 14 }}>
+                <div role="group" aria-label="Inquiry category" className="seg__list">
                   {CATEGORIES.map((c) => {
                     const on = c.id === form.category;
                     return (
@@ -105,13 +105,7 @@ export function Inquiry() {
                         type="button"
                         aria-pressed={on}
                         onClick={pickCategory(c.id)}
-                        style={{
-                          fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 12,
-                          letterSpacing: '0.06em', textTransform: 'uppercase',
-                          color: on ? 'var(--ink-900)' : 'var(--ink-500)',
-                          background: 'none', border: 'none', padding: '0 0 5px', cursor: 'pointer',
-                          borderBottom: on ? '2px solid var(--ink-900)' : '2px solid transparent',
-                        }}
+                        className={on ? 'seg__item seg__item--on' : 'seg__item'}
                       >
                         {c.label}
                       </button>
@@ -124,7 +118,7 @@ export function Inquiry() {
                     value={form.inquiry}
                     onChange={set('inquiry')}
                     required
-                    style={CONTROL_STYLE}
+                    className="control"
                   >
                     <option value="">Select one…</option>
                     {active.options.map((o) => (
@@ -140,18 +134,13 @@ export function Inquiry() {
                   rows={4}
                   value={form.details}
                   onChange={set('details')}
-                  style={{ ...CONTROL_STYLE, resize: 'vertical' }}
+                  className="control control--textarea"
                 />
               </Field>
 
               <button
                 type="submit"
-                style={{
-                  width: '100%', fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 13,
-                  letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--paper-100)',
-                  background: 'var(--ink-900)', border: 'none', borderRadius: 'var(--radius-field)',
-                  padding: '15px 20px', cursor: 'pointer', marginTop: 4,
-                }}
+                className="btn-block"
               >
                 Submit
               </button>
@@ -160,10 +149,10 @@ export function Inquiry() {
         </div>
 
         <div>
-          <h2 style={{ fontWeight: 700, fontSize: 14, margin: '0 0 16px', color: 'var(--ink-900)' }}>
+          <h2 className="pitch__title">
             Interested in partnering with Stancraft?
           </h2>
-          <p style={{ fontSize: 20, lineHeight: 1.55, margin: 0, maxWidth: '30ch', color: 'var(--ink-900)' }}>
+          <p className="pitch__body">
             Whether it be for your café, your restaurant, or your startup coffee cart, we'd love to provide
             you with some of the highest quality coffee to serve to your guests.
           </p>

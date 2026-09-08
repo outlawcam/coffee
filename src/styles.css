@@ -7,3 +7,8 @@
 @import url("./tokens/typography.css");
 @import url("./tokens/layout.css");
 @import url("./tokens/palette-minimal.css");
+
+/* Rules. Must come after tokens — these consume the custom properties above. */
+@import url("./styles/base.css");
+@import url("./styles/layout.css");
+@import url("./styles/components.css");

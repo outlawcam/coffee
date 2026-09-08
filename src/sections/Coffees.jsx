@@ -19,10 +19,10 @@ const MOODS = [
 
 function SizeLadder({ sizes }) {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 18px', marginTop: 6 }}>
+    <div className="sizes">
       {sizes.map((s) => (
-        <span key={s.label} style={{ fontSize: 15, color: 'var(--ink-500)', whiteSpace: 'nowrap' }}>
-          <span style={{ fontWeight: 700, color: 'var(--ink-900)' }}>{s.label}</span>
+        <span key={s.label} className="sizes__item">
+          <span className="sizes__label">{s.label}</span>
           {' '}${s.price}
         </span>
       ))}
@@ -33,20 +33,14 @@ function SizeLadder({ sizes }) {
 function MoodGroup({ mood }) {
   const list = COFFEES.filter((c) => c.profile === mood.id);
   return (
-    <div style={{ marginTop: 48 }}>
-      <h3 style={{
-        fontWeight: 700, fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase',
-        color: 'var(--ink-500)', margin: '0 0 4px', paddingBottom: 12,
-        borderBottom: '1px solid var(--border-hairline)',
-      }}>
-        {mood.title}
-      </h3>
-      <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+    <div className="mood-group">
+      <h3 className="mood-group__title">{mood.title}</h3>
+      <ul className="coffee-list">
         {list.map((c) => (
-          <li key={c.id} style={{ padding: '18px 0', borderBottom: '1px solid var(--border-hairline)' }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: '0 12px' }}>
-              <span style={{ fontWeight: 700, fontSize: 17, color: 'var(--ink-900)' }}>{c.name}</span>
-              <span style={{ fontSize: 14, color: 'var(--ink-500)' }}>{c.process}</span>
+          <li key={c.id} className="coffee-row">
+            <div className="coffee-row__head">
+              <span className="coffee-row__name">{c.name}</span>
+              <span className="coffee-row__process">{c.process}</span>
             </div>
             <SizeLadder sizes={c.sizes} />
           </li>
@@ -62,7 +56,7 @@ export function Coffees() {
 
   return (
     <Section id="coffees">
-      <h2 className="sect-headline" style={{ fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.03em', margin: '0 0 44px' }}>
+      <h2 className="sect-headline">
         A coffee for everyone.
       </h2>
 
@@ -76,28 +70,37 @@ export function Coffees() {
               type="button"
               aria-pressed={on}
               onClick={() => setActiveMood(on ? null : m.id)}
-              style={{
-                display: 'block', textAlign: 'left', background: 'none', border: 'none',
-                padding: 0, cursor: 'pointer', fontFamily: 'var(--font-body)',
-              }}
+              className="mood-card"
             >
-              <span style={{
-                display: 'block', fontWeight: 700, fontSize: 14, letterSpacing: '0.04em',
-                textTransform: 'uppercase', color: 'var(--ink-900)', marginBottom: 6,
-              }}>
-                {m.title}
-              </span>
-              <span style={{ display: 'block', fontSize: 15, lineHeight: 1.5, color: 'var(--ink-900)', marginBottom: 18 }}>
-                {m.blurb}
-              </span>
-              <span style={{ display: 'block', opacity: dim ? 0.35 : 1, transition: 'opacity 200ms ease' }}>
-                <Figure label={m.photo} ratio="3 / 4" />
+              <span className="mood-card__title">{m.title}</span>
+              <span className="mood-card__blurb">{m.blurb}</span>
+              <span className={dim ? 'mood-card__photo mood-card__photo--dim' : 'mood-card__photo'}>
+                <Figure fpoLabel={m.photo} ratio="3 / 4" />
               </span>
             </button>
           );
         })}
       </div>
 
+      {/* MoodGroup children are keyed by mood.id, so a filter change that
+          leaves one mood on screen keeps that DOM node — React only adds or
+          removes the others. A wrapper with aria-live="polite" watches for
+          child mutations, and default aria-relevant ("additions text") never
+          announces removals: all-moods -> one-mood removes two groups and
+          adds nothing, so nothing is announced, while one-mood -> all-moods
+          adds two groups and reads out every heading, name and price in
+          both, in full. Silent in the direction that matters most, and
+          maximally verbose in the other.
+
+          Instead, a visually-hidden status region carries a short summary
+          string that is replaced outright on every toggle, in both
+          directions, independent of what React does or doesn't retain in
+          the DOM below it. */}
+      <p className="sr-only" role="status">
+        {activeMood
+          ? `Showing ${COFFEES.filter((c) => c.profile === activeMood).length} coffees — ${MOODS.find((m) => m.id === activeMood).title}`
+          : `Showing all ${COFFEES.length} coffees`}
+      </p>
       {shown.map((m) => <MoodGroup key={m.id} mood={m} />)}
     </Section>
   );

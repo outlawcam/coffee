@@ -1,0 +1,394 @@
+/* Stancraft Coffee — component rules. One block per UI component.
+ * Variables live in src/tokens/; this file holds rules only. */
+
+/* Section headline — sized here rather than inline so the breakpoint can win. */
+.sect-headline {
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0 0 44px;
+}
+
+@media (max-width: 700px) {
+  .sect-headline { font-size: 34px; }
+}
+
+/* Visible focus for keyboard users. Nothing suppresses the outline any more;
+   this makes the ring intentional rather than UA-default. */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Sticky masthead. position:fixed rather than sticky on purpose: the page
+   scrolls behind an opaque bar, and the header claims no space in the
+   Intro's 75vh. */
+.sticky-head {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  padding: 14px var(--sect-pad-x);
+  background: var(--paper-100);
+  border-bottom: 1px solid var(--border-hairline);
+  /* Hidden resting state. visibility (not pointer-events) so the link leaves
+     the tab order while hidden; it still animates, since visibility is
+     discretely animatable and flips to visible at the start of the reveal. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-100%);
+  transition: opacity 240ms ease, transform 240ms ease, visibility 240ms;
+}
+
+.sticky-head.is-stuck {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.sticky-head__link { display: flex; }
+
+/* Settles from slightly oversized down to its resting size, so the handoff
+   from the hero mark reads as a shrink rather than a swap. */
+.sticky-head__mark {
+  height: 24px;
+  width: auto;
+  display: block;
+  transform: scale(1.3);
+  transition: transform 240ms ease;
+}
+
+.sticky-head.is-stuck .sticky-head__mark { transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky-head,
+  .sticky-head__mark {
+    transition: none;
+  }
+}
+
+/* Form field: label above control. */
+.field { margin-bottom: 18px; }
+
+.field__label {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 7px;
+  color: var(--ink-900);
+}
+
+/* Shared control styling for input, select, and textarea. Applied by the
+   caller; Field.jsx renders only the label. */
+.control {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink-900);
+  background: var(--paper-000);
+  border: 1px solid var(--border-control, var(--border-hairline));
+  border-radius: var(--radius-field);
+  padding: 11px 13px;
+  min-width: 0;
+}
+
+.control--textarea { resize: vertical; }
+
+/* Photo frame. Holds either an image or a labeled FPO placeholder. */
+.figure {
+  display: flex;
+  width: 100%;
+  border-radius: var(--radius-photo);
+  overflow: hidden;
+  background: var(--photo-fpo);
+  align-items: center;
+  justify-content: center;
+}
+
+.figure__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.figure__fpo {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  text-align: center;
+  padding: 0 18px;
+  line-height: 1.6;
+}
+
+.figure--3x4 { aspect-ratio: 3 / 4; }
+.figure--4x5 { aspect-ratio: 4 / 5; }
+
+/* Intro — 75vh centered hero. This section IS the header; there is no nav. */
+.intro {
+  /* min-height, not height: a short viewport or a zoomed-in browser lets
+     content push the section taller instead of clipping it. */
+  min-height: 75vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px var(--sect-pad-x);
+  text-align: center;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.intro__title { margin: 0; }
+
+.intro__mark {
+  width: min(440px, 82vw);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Pill CTA — pill navigates, rect commits. */
+.btn-pill {
+  display: inline-block;
+  margin-top: 56px;
+  background: var(--ink-900);
+  color: var(--paper-100);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 32px;
+  border-radius: var(--radius-pill);
+}
+
+/* About — bio copy left, portrait right. */
+.about__title {
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0 0 14px;
+  color: var(--ink-900);
+}
+
+.about__body {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 46ch;
+  color: var(--ink-900);
+}
+
+/* Footer — one hairline and the contact line. */
+.site-footer {
+  border-top: 1px solid var(--border-hairline);
+  padding: 44px var(--sect-pad-x);
+  text-align: center;
+}
+
+.site-footer__text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--ink-500);
+}
+
+.site-footer__link {
+  color: var(--ink-900);
+  text-decoration: none;
+}
+
+/* Mood card — a whole filter button, image included. */
+.mood-card {
+  display: block;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.mood-card__title {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-900);
+  margin-bottom: 6px;
+}
+
+.mood-card__blurb {
+  display: block;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-900);
+  margin-bottom: 18px;
+}
+
+/* Transition lives here, not inline, so prefers-reduced-motion can win. */
+.mood-card__photo {
+  display: block;
+  opacity: 1;
+  transition: opacity 200ms ease;
+}
+
+.mood-card__photo--dim { opacity: 0.35; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mood-card__photo { transition: none; }
+}
+
+/* Mood group — one heading plus its coffees. */
+.mood-group { margin-top: 48px; }
+
+.mood-group__title {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  margin: 0 0 4px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.coffee-list { list-style: none; margin: 0; padding: 0; }
+
+.coffee-row {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.coffee-row__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 12px;
+}
+
+.coffee-row__name { font-weight: 700; font-size: 17px; color: var(--ink-900); }
+.coffee-row__process { font-size: 14px; color: var(--ink-500); }
+
+/* Size/price ladder. */
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin-top: 6px;
+}
+
+.sizes__item { font-size: 15px; color: var(--ink-500); white-space: nowrap; }
+.sizes__label { font-weight: 700; color: var(--ink-900); }
+
+/* Post-submit confirmation panel. */
+.sent__title {
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+
+.sent__body {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0 0 24px;
+  color: var(--ink-500);
+}
+
+/* Outline button — secondary to .btn-pill and .btn-block. */
+.btn-outline {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-900);
+  background: none;
+  border: 1px solid var(--ink-900);
+  border-radius: var(--radius-field);
+  padding: 13px 26px;
+  cursor: pointer;
+}
+
+/* Full-width submit. Rect commits. */
+.btn-block {
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper-100);
+  background: var(--ink-900);
+  border: none;
+  border-radius: var(--radius-field);
+  padding: 15px 20px;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+/* Segmented category selector. */
+.seg { margin-bottom: 18px; }
+
+.seg__label {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 9px;
+  color: var(--ink-900);
+}
+
+.seg__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 14px;
+}
+
+.seg__item {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  background: none;
+  border: none;
+  padding: 0 0 5px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.seg__item--on {
+  color: var(--ink-900);
+  border-bottom-color: var(--ink-900);
+}
+
+/* Partnership pitch, right column. */
+.pitch__title {
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0 0 16px;
+  color: var(--ink-900);
+}
+
+.pitch__body {
+  font-size: 20px;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 30ch;
+  color: var(--ink-900);
+}

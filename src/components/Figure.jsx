@@ -1,38 +1,22 @@
 // Photo frame. Renders `src` when given, else a labeled FPO placeholder so an
 // intentionally-empty slot reads as a gap rather than a finished choice.
+//
+// `alt` and `fpoLabel` are separate on purpose. A placeholder's caption is
+// visual scaffolding, not a description of a photo, so it must not become
+// alt text once a real photo lands here. The caption is also aria-hidden:
+// with no `src` there is no <img> at all, so the caption would otherwise
+// reach the accessible name as visible text content — which is how
+// "Mellow — portrait" ended up in every mood button's name.
 import React from 'react';
 
-export function Figure({ src, label, ratio = '3 / 4' }) {
+export function Figure({ src, alt = '', fpoLabel, ratio = '3 / 4' }) {
+  const ratioClass = ratio === '4 / 5' ? 'figure--4x5' : 'figure--3x4';
   return (
-    <span
-      style={{
-        display: 'flex',
-        width: '100%',
-        aspectRatio: ratio,
-        borderRadius: 'var(--radius-photo)',
-        overflow: 'hidden',
-        background: 'var(--photo-fpo)',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
+    <span className={`figure ${ratioClass}`}>
       {src ? (
-        <img src={src} alt={label} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+        <img src={src} alt={alt} className="figure__img" />
       ) : (
-        <span
-          style={{
-            fontWeight: 700,
-            fontSize: 12,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            color: 'var(--ink-500)',
-            textAlign: 'center',
-            padding: '0 18px',
-            lineHeight: 1.6,
-          }}
-        >
-          {label}
-        </span>
+        <span className="figure__fpo" aria-hidden="true">{fpoLabel}</span>
       )}
     </span>
   );

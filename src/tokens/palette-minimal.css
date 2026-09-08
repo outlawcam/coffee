@@ -8,7 +8,7 @@
   /* Ink & paper — the whole palette */
   --ink-900: #1A1A1A;   /* all text, all buttons */
   --ink-500: #6B635B;   /* secondary text, fine print */
-  --ink-200: #D8D2C6;   /* hairlines, input borders */
+  --ink-200: #D8D2C6;   /* hairlines only — control borders use --border-control */
   --paper-000: #FFFFFF; /* input fills */
   --paper-100: #FBF8F1; /* page */
   --photo-fpo: #EDE8DD; /* FPO placeholder fill */
@@ -33,6 +33,11 @@
   --text-body: var(--ink-900);
   --text-muted: var(--ink-500);
   --border-hairline: var(--ink-200);
+  /* Interactive control borders. --ink-200 measures 1.42:1 against paper and
+     fails WCAG 1.4.11 (3:1 for UI components). This is the lightest value
+     that clears it: 3.64:1 on the white input fill, 3.43:1 on paper.
+     Decorative section hairlines keep --ink-200 and are exempt. */
+  --border-control: #8F8574;
   --accent: var(--ink-900);
   --accent-hover: var(--ink-900);
   --focus-ring: var(--ink-900);
@@ -40,63 +45,4 @@
 
 @media (max-width: 860px) {
   :root { --sect-pad-y: 64px; --sect-pad-x: 22px; }
-}
-
-/* Two-column section split — collapses below 860px. */
-.split-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
-}
-
-@media (max-width: 860px) {
-  .split-2 { grid-template-columns: 1fr; gap: 36px; }
-}
-
-/* Three mood cards — stack below 700px. */
-.moods {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-}
-
-@media (max-width: 700px) {
-  .moods { grid-template-columns: 1fr; gap: 44px; }
-}
-
-/* Section headline — sized here rather than inline so the breakpoint can win. */
-.sect-headline { font-size: 46px; }
-
-@media (max-width: 700px) {
-  .sect-headline { font-size: 34px; }
-}
-
-/* Visible focus for keyboard users. CONTROL_STYLE no longer kills the outline;
-   this makes the ring intentional rather than UA-default. */
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
-button:focus-visible,
-a:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
-}
-
-/* Sticky masthead reveal. The transitions live HERE rather than in the
-   component's inline style so the reduced-motion query below can actually
-   neutralize them — an inline `transition` beats any stylesheet rule. */
-.sticky-head {
-  transition: opacity 240ms ease, transform 240ms ease, visibility 240ms;
-}
-
-.sticky-head img {
-  transition: transform 240ms ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sticky-head,
-  .sticky-head img {
-    transition: none;
-  }
 }
