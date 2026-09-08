@@ -9,6 +9,9 @@
   align-items: center;
 }
 
+/* Inquiry's split aligns to the top rather than centering. */
+.split-2--top { align-items: start; }
+
 @media (max-width: 860px) {
   .split-2 { grid-template-columns: 1fr; gap: 36px; }
 }
