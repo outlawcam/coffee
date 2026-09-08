@@ -1,2 +1,10 @@
+# Report-Only on purpose: the tags configured inside container GTM-KFVLV9L8 are
+# not visible from this repo and may reach domains this policy does not list.
+# Flip to Content-Security-Policy once the console stays quiet on the deployed
+# site. Verified against the built dist/ with the enforcing header: 20/20 runs
+# clean.
+#   frame-src        — required by GTM's <noscript> iframe
+#   img-src …googletagmanager — GTM's own GA4 diagnostics beacon (/a?v=3…)
+#   style-src 'self' — GTM Preview Mode will break under this; deliberate
 /*
   Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src https://www.googletagmanager.com; base-uri 'none'; form-action 'self'; object-src 'none'; frame-ancestors 'none'
