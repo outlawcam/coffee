@@ -35,10 +35,17 @@ The canonical check, used throughout:
 
 ```bash
 grep -c "style={{" <file>        # per-file count
-grep -rn "style={{" src | wc -l  # whole-tree count, must reach 0
+grep -rn "style={{" src --exclude-dir=vendor | wc -l  # whole-tree count, must reach 0
 ```
 
 Starting whole-tree count: **47**.
+
+`--exclude-dir=vendor` is required, not optional. `src/vendor/_ds_bundle.js`
+is compiled third-party output containing one `style={{`, it is never edited
+by this plan, and after Task 8 it is not imported — so it never executes and
+never emits an inline style attribute. Without the exclusion the gate is
+unsatisfiable and an implementer would be pushed toward editing vendor code
+to reach zero.
 
 ---
 
@@ -1199,7 +1206,7 @@ the After block above.
 - [ ] **Step 4: Verify — this is the Phase 1 gate**
 
 ```bash
-grep -rn "style={{" src | wc -l    # MUST be 0
+grep -rn "style={{" src --exclude-dir=vendor | wc -l    # MUST be 0
 grep -c 'style="' index.html       # MUST be 0
 grep -c "<style>" index.html       # MUST be 0
 npm run build                      # expect exit 0
@@ -1213,7 +1220,7 @@ ls -la dist/assets/index-*.js
 
 Full page pass in the browser: every section renders, nothing has moved, nothing has changed color.
 
-**If the tree count is not 0, do not proceed to Phase 3.** Find the stragglers with `grep -rn "style={{" src`.
+**If the tree count is not 0, do not proceed to Phase 3.** Find the stragglers with `grep -rn "style={{" src --exclude-dir=vendor`.
 
 - [ ] **Step 5: Commit**
 
@@ -1535,7 +1542,7 @@ git commit -m "Announce filter changes and move focus on submit"
 
 ## Phase 3 — CSP
 
-**Gate:** `grep -rn "style={{" src | wc -l` must return **0** before starting. If it does not, Phase 1 is incomplete.
+**Gate:** `grep -rn "style={{" src --exclude-dir=vendor | wc -l` must return **0** before starting. If it does not, Phase 1 is incomplete.
 
 ### Task 14: Move the GTM bootstrap out of index.html
 
@@ -1663,7 +1670,7 @@ npm run dev
 - [ ] **Step 2: Run the full mechanical check**
 
 ```bash
-grep -rn "style={{" src | wc -l     # 0
+grep -rn "style={{" src --exclude-dir=vendor | wc -l     # 0
 grep -c 'style="' index.html        # 0
 grep -c "<style>" index.html        # 0
 grep -c "<script>" index.html       # 0
