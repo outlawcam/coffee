@@ -416,7 +416,44 @@ import { Field } from '../components/Field.jsx';
 
 Then replace each `style={CONTROL_STYLE}` with `className="control"`, and the textarea's `style={{ ...CONTROL_STYLE, resize: 'vertical' }}` with `className="control control--textarea"`. Four controls total: `#f-name`, `#f-email`, the `<select>`, and `#f-details`.
 
-- [ ] **Step 6: Verify**
+- [ ] **Step 6: Update the two comments that referenced CONTROL_STYLE**
+
+Deleting `CONTROL_STYLE` strands two comments that name it. Both live in
+`src/styles/` and were moved verbatim in Tasks 1-2 precisely so this edit
+would happen here, in the task that causes the staleness.
+
+In `src/styles/base.css`, the `input, select, textarea, button` comment ends:
+
+```
+   imposing their default intrinsic width (which forced overflow). Kept from
+   the broadsheet work — it is the same defence as Field.jsx's minWidth. */
+```
+
+Change the last clause to point at where that defence now lives:
+
+```
+   imposing their default intrinsic width (which forced overflow). Kept from
+   the broadsheet work — it is the same defence as .control's min-width. */
+```
+
+In `src/styles/components.css`, the focus-visible comment reads:
+
+```
+/* Visible focus for keyboard users. CONTROL_STYLE no longer kills the outline;
+   this makes the ring intentional rather than UA-default. */
+```
+
+Change it to:
+
+```
+/* Visible focus for keyboard users. Nothing suppresses the outline any more;
+   this makes the ring intentional rather than UA-default. */
+```
+
+Leave the `.sticky-head` comment about inline `transition` alone — it is
+still true and still the reason this plan exists.
+
+- [ ] **Step 7: Verify**
 
 ```bash
 grep -rn "CONTROL_STYLE" src | wc -l   # expect 0
@@ -427,7 +464,7 @@ npm run build                           # expect exit 0
 
 In the browser: the About photo still fills a 4:5 frame, the Coffees placeholders are 3:4, and all four form controls look unchanged.
 
-- [ ] **Step 7: Commit**
+- [ ] **Step 8: Commit**
 
 ```bash
 git add src/components/ src/styles/ src/sections/Inquiry.jsx
