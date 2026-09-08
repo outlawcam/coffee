@@ -2,7 +2,13 @@
  * Variables live in src/tokens/; this file holds rules only. */
 
 /* Section headline — sized here rather than inline so the breakpoint can win. */
-.sect-headline { font-size: 46px; }
+.sect-headline {
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0 0 44px;
+}
 
 @media (max-width: 700px) {
   .sect-headline { font-size: 34px; }
@@ -202,3 +208,87 @@ a:focus-visible {
   color: var(--ink-900);
   text-decoration: none;
 }
+
+/* Mood card — a whole filter button, image included. */
+.mood-card {
+  display: block;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.mood-card__title {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-900);
+  margin-bottom: 6px;
+}
+
+.mood-card__blurb {
+  display: block;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-900);
+  margin-bottom: 18px;
+}
+
+/* Transition lives here, not inline, so prefers-reduced-motion can win. */
+.mood-card__photo {
+  display: block;
+  opacity: 1;
+  transition: opacity 200ms ease;
+}
+
+.mood-card__photo--dim { opacity: 0.35; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mood-card__photo { transition: none; }
+}
+
+/* Mood group — one heading plus its coffees. */
+.mood-group { margin-top: 48px; }
+
+.mood-group__title {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  margin: 0 0 4px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.coffee-list { list-style: none; margin: 0; padding: 0; }
+
+.coffee-row {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.coffee-row__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 12px;
+}
+
+.coffee-row__name { font-weight: 700; font-size: 17px; color: var(--ink-900); }
+.coffee-row__process { font-size: 14px; color: var(--ink-500); }
+
+/* Size/price ladder. */
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin-top: 6px;
+}
+
+.sizes__item { font-size: 15px; color: var(--ink-500); white-space: nowrap; }
+.sizes__label { font-weight: 700; color: var(--ink-900); }
