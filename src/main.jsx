@@ -1,6 +1,5 @@
 import './vendor/react-global.js';
-import './vendor/image-slot.js';   // register OUR shim first
-import './vendor/_ds_bundle.js';   // its guarded image-slot registration now no-ops
+import './vendor/image-slot.js';
 
 import './styles.css';
 import '@fontsource/montserrat/400.css';

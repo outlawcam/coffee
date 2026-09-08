@@ -18,3 +18,10 @@ image-slot { display: block; width: 100%; height: 100%; }
 
 /* GTM's noscript iframe. Was an inline style attribute in index.html. */
 .gtm-noscript { display: none; visibility: hidden; }
+
+/* App shell. */
+.app {
+  font-family: var(--font-body);
+  background: var(--paper-100);
+  color: var(--ink-900);
+}
