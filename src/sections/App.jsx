@@ -9,11 +9,14 @@ import { Coffees } from './Coffees.jsx';
 export function App() {
   return (
     <div className="app">
+      <a href="#main" className="skip-link">Skip to content</a>
       <StickyHeader />
-      <Intro />
-      <Coffees />
-      <About />
-      <Inquiry />
+      <main id="main">
+        <Intro />
+        <Coffees />
+        <About />
+        <Inquiry />
+      </main>
       <Footer />
     </div>
   );
