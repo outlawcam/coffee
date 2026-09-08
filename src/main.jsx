@@ -1,3 +1,4 @@
+import './gtm.js';
 import './vendor/react-global.js';
 import './vendor/image-slot.js';
 
