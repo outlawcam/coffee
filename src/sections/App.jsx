@@ -11,7 +11,7 @@ export function App() {
     <div className="app">
       <a href="#main" className="skip-link">Skip to content</a>
       <StickyHeader />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <Intro />
         <Coffees />
         <About />
