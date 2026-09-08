@@ -1627,7 +1627,7 @@ One header per policy, on a single line — `_headers` does not support line con
 
 ```
 /*
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; img-src 'self' data: https://www.google-analytics.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src https://www.googletagmanager.com; base-uri 'none'; form-action 'self'; object-src 'none'; frame-ancestors 'none'
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src https://www.googletagmanager.com; base-uri 'none'; form-action 'self'; object-src 'none'; frame-ancestors 'none'
 ```
 
 Report-Only deliberately: whatever tags are configured inside container `GTM-KFVLV9L8` are not visible from this repo and may reach domains this policy does not list. Report-Only surfaces them without breaking analytics on a live site.
