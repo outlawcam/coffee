@@ -2,8 +2,13 @@
  * so that style-src can drop 'unsafe-inline' (see Phase 3). */
 
 /* scroll-padding-top clears the fixed masthead (~53px) so an anchor target
-   lands below it instead of underneath it. */
-html { scroll-behavior: smooth; scroll-padding-top: 68px; }
+   lands below it instead of underneath it. Applies regardless of motion
+   preference — it is layout, not animation. */
+html { scroll-padding-top: 68px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 html, body { margin: 0; background: var(--paper-100); color: var(--ink-900); }
 a { color: var(--accent); }
 a:hover { color: var(--accent-hover); }
