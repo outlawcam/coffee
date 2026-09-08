@@ -42,17 +42,9 @@ export function Inquiry() {
   const [form, setForm] = React.useState(EMPTY);
   const [sent, setSent] = React.useState(false);
   const sentRef = React.useRef(null);
-  const nameRef = React.useRef(null);
 
-  // Both directions of this toggle unmount the currently-focused element
-  // (the confirmation heading, or the Submit button before it), which drops
-  // focus to <body> and restarts the next Tab from the skip link. Move
-  // focus explicitly on both transitions: to the confirmation heading on
-  // false -> true (submit), and back to the first field on true -> false
-  // ("Send another").
   React.useEffect(() => {
     if (sent && sentRef.current) sentRef.current.focus();
-    if (!sent && nameRef.current) nameRef.current.focus();
   }, [sent]);
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -93,7 +85,7 @@ export function Inquiry() {
           ) : (
             <form onSubmit={submit} noValidate={false}>
               <Field label="Your name" htmlFor="f-name">
-                <input id="f-name" ref={nameRef} type="text" required value={form.name} onChange={set('name')} className="control" />
+                <input id="f-name" type="text" required value={form.name} onChange={set('name')} className="control" />
               </Field>
 
               <Field label="Email address" htmlFor="f-email">
