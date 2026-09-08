@@ -82,12 +82,26 @@ export function Coffees() {
         })}
       </div>
 
-      {/* Unconditional on purpose: a live region added to the DOM at the same
-          moment its content changes is often never announced. Do not gate this
-          on `shown` or `activeMood`. */}
-      <div aria-live="polite">
-        {shown.map((m) => <MoodGroup key={m.id} mood={m} />)}
-      </div>
+      {/* MoodGroup children are keyed by mood.id, so a filter change that
+          leaves one mood on screen keeps that DOM node — React only adds or
+          removes the others. A wrapper with aria-live="polite" watches for
+          child mutations, and default aria-relevant ("additions text") never
+          announces removals: all-moods -> one-mood removes two groups and
+          adds nothing, so nothing is announced, while one-mood -> all-moods
+          adds two groups and reads out every heading, name and price in
+          both, in full. Silent in the direction that matters most, and
+          maximally verbose in the other.
+
+          Instead, a visually-hidden status region carries a short summary
+          string that is replaced outright on every toggle, in both
+          directions, independent of what React does or doesn't retain in
+          the DOM below it. */}
+      <p className="sr-only" role="status">
+        {activeMood
+          ? `Showing ${COFFEES.filter((c) => c.profile === activeMood).length} coffees — ${MOODS.find((m) => m.id === activeMood).title}`
+          : `Showing all ${COFFEES.length} coffees`}
+      </p>
+      {shown.map((m) => <MoodGroup key={m.id} mood={m} />)}
     </Section>
   );
 }
