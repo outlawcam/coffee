@@ -1693,7 +1693,7 @@ Present these for them to confirm in their own browser:
 | Form control borders | Visibly darker (the one intended change) |
 | Section hairlines | Unchanged, still light |
 | Tab from page load | "Skip to content" appears first |
-| Skip link, then Enter | Focus lands in `<main>`; next Tab goes to "Shop here", not the masthead. **A browser-default focus outline appears around the content area — deliberate, see ruling R8. Say if you want it suppressed.** |
+| Skip link, then Enter | Focus lands in `<main>`; next Tab goes to "Shop here", not the masthead. **A browser-default focus outline appears around the content area. This is deliberate: skip-link activation is keyboard-only, so WCAG 2.4.7 applies and the ring is the only confirmation a sighted keyboard user gets that the skip worked. Suppressing it with `main:focus { outline: none }` is one line if you disagree.** |
 | Sticky masthead | Hidden at top, slides in past the hero, not tabbable while hidden |
 | Mood filter | Dims other two, narrows the list, restores on second click |
 | Form submit | Thank-you panel, focus lands on "Thanks" |
