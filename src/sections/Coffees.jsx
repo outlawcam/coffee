@@ -75,7 +75,7 @@ export function Coffees() {
               <span className="mood-card__title">{m.title}</span>
               <span className="mood-card__blurb">{m.blurb}</span>
               <span className={dim ? 'mood-card__photo mood-card__photo--dim' : 'mood-card__photo'}>
-                <Figure label={m.photo} ratio="3 / 4" />
+                <Figure fpoLabel={m.photo} ratio="3 / 4" />
               </span>
             </button>
           );
