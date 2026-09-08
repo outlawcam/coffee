@@ -8,8 +8,8 @@ export function About() {
     <Section id="about">
       <div className="split-2">
         <div>
-          <h2 style={{ fontWeight: 700, fontSize: 14, margin: '0 0 14px', color: 'var(--ink-900)' }}>About us</h2>
-          <p style={{ fontSize: 17, lineHeight: 1.65, margin: 0, maxWidth: '46ch', color: 'var(--ink-900)' }}>
+          <h2 className="about__title">About us</h2>
+          <p className="about__body">
             I'm Tyler, the owner and operator of the family-owned, Stancraft Coffee Company. This started
             about 5 years ago as a hobby of mine and quickly became a passion project. I fell in love with
             the art and nuance of roasting and delighted in serving guests my freshly-roasted coffee, all

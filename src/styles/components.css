@@ -96,3 +96,77 @@ a:focus-visible {
 
 .figure--3x4 { aspect-ratio: 3 / 4; }
 .figure--4x5 { aspect-ratio: 4 / 5; }
+
+/* Intro — 75vh centered hero. This section IS the header; there is no nav. */
+.intro {
+  /* min-height, not height: a short viewport or a zoomed-in browser lets
+     content push the section taller instead of clipping it. */
+  min-height: 75vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px var(--sect-pad-x);
+  text-align: center;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.intro__title { margin: 0; }
+
+.intro__mark {
+  width: min(440px, 82vw);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Pill CTA — pill navigates, rect commits. */
+.btn-pill {
+  display: inline-block;
+  margin-top: 56px;
+  background: var(--ink-900);
+  color: var(--paper-100);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 32px;
+  border-radius: var(--radius-pill);
+}
+
+/* About — bio copy left, portrait right. */
+.about__title {
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0 0 14px;
+  color: var(--ink-900);
+}
+
+.about__body {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 46ch;
+  color: var(--ink-900);
+}
+
+/* Footer — one hairline and the contact line. */
+.site-footer {
+  border-top: 1px solid var(--border-hairline);
+  padding: 44px var(--sect-pad-x);
+  text-align: center;
+}
+
+.site-footer__text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--ink-500);
+}
+
+.site-footer__link {
+  color: var(--ink-900);
+  text-decoration: none;
+}
