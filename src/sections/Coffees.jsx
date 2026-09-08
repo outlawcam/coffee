@@ -82,7 +82,9 @@ export function Coffees() {
         })}
       </div>
 
-      {shown.map((m) => <MoodGroup key={m.id} mood={m} />)}
+      <div aria-live="polite">
+        {shown.map((m) => <MoodGroup key={m.id} mood={m} />)}
+      </div>
     </Section>
   );
 }

@@ -41,6 +41,11 @@ const EMPTY = { name: '', email: '', category: 'general', inquiry: '', details: 
 export function Inquiry() {
   const [form, setForm] = React.useState(EMPTY);
   const [sent, setSent] = React.useState(false);
+  const sentRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (sent && sentRef.current) sentRef.current.focus();
+  }, [sent]);
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -63,7 +68,7 @@ export function Inquiry() {
         <div>
           {sent ? (
             <div>
-              <h2 className="sent__title">
+              <h2 className="sent__title" ref={sentRef} tabIndex={-1}>
                 Thanks{form.name ? `, ${form.name.split(' ')[0]}` : ''}.
               </h2>
               <p className="sent__body">
