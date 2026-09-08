@@ -1346,7 +1346,7 @@ export function App() {
     <div className="app">
       <a href="#main" className="skip-link">Skip to content</a>
       <StickyHeader />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <Intro />
         <Coffees />
         <About />
@@ -1359,6 +1359,11 @@ export function App() {
 ```
 
 `StickyHeader` (a `<header>`) and `Footer` (a `<footer>`) stay outside `<main>` — they are page-level landmarks, not content.
+
+`tabIndex={-1}` on `<main>` is required, not decorative. Without it, following
+the skip link moves the scroll position but leaves `document.activeElement` on
+`<body>`, so the next Tab resumes from the skip link rather than from the top
+of the content — which is the entire thing the skip link exists to prevent.
 
 - [ ] **Step 3: Verify**
 
@@ -1688,6 +1693,7 @@ Present these for them to confirm in their own browser:
 | Form control borders | Visibly darker (the one intended change) |
 | Section hairlines | Unchanged, still light |
 | Tab from page load | "Skip to content" appears first |
+| Skip link, then Enter | Focus lands in `<main>`; next Tab goes to "Shop here", not the masthead. **A browser-default focus outline appears around the content area — deliberate, see ruling R8. Say if you want it suppressed.** |
 | Sticky masthead | Hidden at top, slides in past the hero, not tabbable while hidden |
 | Mood filter | Dims other two, narrows the list, restores on second click |
 | Form submit | Thank-you panel, focus lands on "Thanks" |
