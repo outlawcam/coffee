@@ -179,6 +179,16 @@ textarea borders become visibly darker.
 
 ### 2. `Figure`'s label leaks into accessible names
 
+> **Correction (made during implementation).** The mechanism described below
+> is wrong. When `src` is absent, `Figure` renders no `<img>` at all — the
+> caption is a visible `<span>`, so it reaches the accessible name as text
+> *content*, never as alt text. Verified with before/after accessibility
+> snapshots: the prop split alone leaves the button's name byte-identical.
+> The leak is real; the cause is not the shared prop. The actual fix is
+> `aria-hidden="true"` on the placeholder span, which is decorative
+> scaffolding. The prop split is still worth keeping, because it prevents
+> alt-abuse once real photos replace the placeholders.
+
 `Figure` uses a single `label` prop for both the FPO placeholder caption
 and the `img` alt. `Coffees.jsx:94` passes `m.photo`, so each mood
 button currently announces as:
