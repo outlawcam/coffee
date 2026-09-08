@@ -36,43 +36,18 @@ export function StickyHeader() {
     <header
       className={stuck ? 'sticky-head is-stuck' : 'sticky-head'}
       aria-hidden={!stuck}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 50,
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '14px var(--sect-pad-x)',
-        background: 'var(--paper-100)',
-        borderBottom: '1px solid var(--border-hairline)',
-        opacity: stuck ? 1 : 0,
-        transform: stuck ? 'translateY(0)' : 'translateY(-100%)',
-        // visibility (not pointer-events) so the link leaves the tab order
-        // while hidden; it still animates, since visibility is discretely
-        // animatable and flips to visible at the start of the reveal.
-        visibility: stuck ? 'visible' : 'hidden',
-      }}
     >
       <a
         href="#top"
         aria-label="Stancraft Coffee Co. — back to top"
-        style={{ display: 'flex' }}
+        className="sticky-head__link"
       >
         {/* alt="" — the anchor's aria-label names this link, and the Intro's
             <h1> already carries the wordmark's accessible name. */}
         <img
           src="/assets/logo-stancraft.svg"
           alt=""
-          style={{
-            height: 24,
-            width: 'auto',
-            display: 'block',
-            // Settles from slightly oversized down to its resting size, so the
-            // handoff from the hero mark reads as a shrink rather than a swap.
-            transform: stuck ? 'scale(1)' : 'scale(1.3)',
-          }}
+          className="sticky-head__mark"
         />
       </a>
     </header>
