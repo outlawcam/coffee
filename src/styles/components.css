@@ -8,7 +8,8 @@
   .sect-headline { font-size: 34px; }
 }
 
-/* Visible focus for keyboard users. */
+/* Visible focus for keyboard users. CONTROL_STYLE no longer kills the outline;
+   this makes the ring intentional rather than UA-default. */
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
@@ -18,8 +19,9 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
-/* Sticky masthead reveal. Transitions live here, not inline, so the
-   reduced-motion query can neutralize them. */
+/* Sticky masthead reveal. The transitions live HERE rather than in the
+   component's inline style so the reduced-motion query below can actually
+   neutralize them — an inline `transition` beats any stylesheet rule. */
 .sticky-head {
   transition: opacity 240ms ease, transform 240ms ease, visibility 240ms;
 }
