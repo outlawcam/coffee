@@ -1,58 +1,25 @@
-// Coffees — three mood cards that filter the lineup below them.
+// Coffees — a text filter row over a grid of bag-label cards.
 //
-// Default state lists all 11 coffees under all three moods, so the section is
-// informative with no interaction. Clicking a mood narrows to it and dims the
-// other two; clicking the active mood again clears back to everything.
+// Replaces the three mood cards (mellow / curious / funky), which both filtered
+// the lineup and carried the section's photography. The filters are now plain
+// text and single-select: "All" is the resting state rather than a cleared one,
+// so clicking the active filter does nothing instead of toggling back off.
 import React from 'react';
 import { Section } from '../components/Section.jsx';
-import { Figure } from '../components/Figure.jsx';
-import { COFFEES } from '../data/coffees-2026-07.js';
+import { CoffeeCard } from '../components/CoffeeCard.jsx';
+import { COFFEES } from '../data/coffees.js';
 
-const MOODS = [
-  { id: 'mellow', title: 'Something mellow', blurb: 'A flavorful and smooth cup, enjoyed by all.',
-    photo: 'Mellow — portrait' },
-  { id: 'curious', title: 'Something curious', blurb: 'Need something a bit more dynamic? This is your bag.',
-    photo: 'Curious — portrait' },
-  { id: 'funky', title: 'Something funky', blurb: 'Be ready for an other-worldly cup of coffee.',
-    photo: 'Funky — portrait' },
+const FILTERS = [
+  { id: 'all', label: 'All', match: () => true },
+  { id: 'organic', label: 'Organic', match: (c) => c.organic },
+  { id: 'non-organic', label: 'Non-Organic', match: (c) => !c.organic },
+  { id: 'favorites', label: "Roaster's Favorites", match: (c) => !!c.roastersFav },
 ];
 
-function SizeLadder({ sizes }) {
-  return (
-    <div className="sizes">
-      {sizes.map((s) => (
-        <span key={s.label} className="sizes__item">
-          <span className="sizes__label">{s.label}</span>
-          {' '}${s.price}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-function MoodGroup({ mood }) {
-  const list = COFFEES.filter((c) => c.profile === mood.id);
-  return (
-    <div className="mood-group">
-      <h3 className="mood-group__title">{mood.title}</h3>
-      <ul className="coffee-list">
-        {list.map((c) => (
-          <li key={c.id} className="coffee-row">
-            <div className="coffee-row__head">
-              <span className="coffee-row__name">{c.name}</span>
-              <span className="coffee-row__process">{c.process}</span>
-            </div>
-            <SizeLadder sizes={c.sizes} />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 export function Coffees() {
-  const [activeMood, setActiveMood] = React.useState(null);
-  const shown = activeMood ? MOODS.filter((m) => m.id === activeMood) : MOODS;
+  const [active, setActive] = React.useState('all');
+  const filter = FILTERS.find((f) => f.id === active);
+  const shown = COFFEES.filter(filter.match);
 
   return (
     <Section id="coffees">
@@ -60,48 +27,33 @@ export function Coffees() {
         A coffee for everyone.
       </h2>
 
-      <div className="moods">
-        {MOODS.map((m) => {
-          const on = activeMood === m.id;
-          const dim = activeMood !== null && !on;
-          return (
-            <button
-              key={m.id}
-              type="button"
-              aria-pressed={on}
-              onClick={() => setActiveMood(on ? null : m.id)}
-              className="mood-card"
-            >
-              <span className="mood-card__title">{m.title}</span>
-              <span className="mood-card__blurb">{m.blurb}</span>
-              <span className={dim ? 'mood-card__photo mood-card__photo--dim' : 'mood-card__photo'}>
-                <Figure fpoLabel={m.photo} ratio="3 / 4" />
-              </span>
-            </button>
-          );
-        })}
+      <div className="filters" role="group" aria-label="Filter coffees">
+        {FILTERS.map((f) => (
+          <button
+            key={f.id}
+            type="button"
+            aria-pressed={active === f.id}
+            onClick={() => setActive(f.id)}
+            className="filter"
+          >
+            {f.label}
+          </button>
+        ))}
       </div>
 
-      {/* MoodGroup children are keyed by mood.id, so a filter change that
-          leaves one mood on screen keeps that DOM node — React only adds or
-          removes the others. A wrapper with aria-live="polite" watches for
-          child mutations, and default aria-relevant ("additions text") never
-          announces removals: all-moods -> one-mood removes two groups and
-          adds nothing, so nothing is announced, while one-mood -> all-moods
-          adds two groups and reads out every heading, name and price in
-          both, in full. Silent in the direction that matters most, and
-          maximally verbose in the other.
-
-          Instead, a visually-hidden status region carries a short summary
-          string that is replaced outright on every toggle, in both
-          directions, independent of what React does or doesn't retain in
-          the DOM below it. */}
+      {/* A short summary string, replaced outright on every change. The grid
+          below can't carry this itself: aria-relevant defaults to "additions
+          text", so narrowing the list removes cards and announces nothing.
+          See the long-form note in git history at 025e89a. */}
       <p className="sr-only" role="status">
-        {activeMood
-          ? `Showing ${COFFEES.filter((c) => c.profile === activeMood).length} coffees — ${MOODS.find((m) => m.id === activeMood).title}`
-          : `Showing all ${COFFEES.length} coffees`}
+        {active === 'all'
+          ? `Showing all ${shown.length} coffees`
+          : `Showing ${shown.length} ${shown.length === 1 ? 'coffee' : 'coffees'} — ${filter.label}`}
       </p>
-      {shown.map((m) => <MoodGroup key={m.id} mood={m} />)}
+
+      <ul className="bags">
+        {shown.map((c) => <CoffeeCard key={c.id} coffee={c} />)}
+      </ul>
     </Section>
   );
 }
