@@ -209,89 +209,161 @@ a:focus-visible {
   text-decoration: none;
 }
 
-/* Mood card — a whole filter button, image included. */
-.mood-card {
-  display: block;
-  text-align: left;
+/* Filter row — plain text, single-select. */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  margin-bottom: 40px;
+}
+
+.filter {
   background: none;
   border: none;
-  padding: 0;
+  padding: 0 0 3px;
   cursor: pointer;
   font-family: var(--font-body);
-}
-
-.mood-card__title {
-  display: block;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink-900);
-  margin-bottom: 6px;
-}
-
-.mood-card__blurb {
-  display: block;
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--ink-900);
-  margin-bottom: 18px;
-}
-
-/* Transition lives here, not inline, so prefers-reduced-motion can win. */
-.mood-card__photo {
-  display: block;
-  opacity: 1;
-  transition: opacity 200ms ease;
-}
-
-.mood-card__photo--dim { opacity: 0.35; }
-
-@media (prefers-reduced-motion: reduce) {
-  .mood-card__photo { transition: none; }
-}
-
-/* Mood group — one heading plus its coffees. */
-.mood-group { margin-top: 48px; }
-
-.mood-group__title {
   font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink-500);
-  margin: 0 0 4px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-hairline);
+  border-bottom: 2px solid transparent;
 }
 
-.coffee-list { list-style: none; margin: 0; padding: 0; }
-
-.coffee-row {
-  padding: 18px 0;
-  border-bottom: 1px solid var(--border-hairline);
+/* The active filter is the only one in full ink, underscored. Colour alone
+   would not carry it — the rule is the non-colour cue. */
+.filter[aria-pressed="true"] {
+  color: var(--ink-900);
+  border-bottom-color: var(--ink-900);
 }
 
-.coffee-row__head {
+/* Bag cards — the lineup grid. */
+.bags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+@media (max-width: 980px) {
+  .bags { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 620px) {
+  .bags { grid-template-columns: 1fr; }
+}
+
+/* The label's outer rule, drawn as a box inside a box. */
+.bag {
+  border: 2px solid var(--ink-900);
+  padding: 7px;
+  background: var(--paper-000);
+}
+
+.bag__frame {
+  border: 1px solid var(--ink-900);
+  padding: 20px 16px 0;
+  height: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+/* Set like the wordmark: heavy, tight, centred, all caps. */
+.bag__name {
+  margin: 0 0 18px;
+  font-weight: 800;
+  font-size: 17px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--ink-900);
+  /* Reserve two lines so a one-line name doesn't lift its tiles above the
+     two-line names beside it. Longer names still push their own card down,
+     but the common 1-vs-2 case stops looking ragged. */
+  min-height: 2.3em;
+}
+
+/* The label's two-up tile row. */
+.bag__tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.bag__tile {
+  border: 1px solid var(--ink-900);
+  padding: 12px 8px;
+  min-height: 118px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.bag__map { margin: 0 auto; }
+
+.bag__tile-label {
+  margin: 0;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: var(--ink-900);
+}
+
+/* The process tile has no artwork above it, so its label centres on its own. */
+.bag__tile-label--solo { font-size: 13px; }
+
+.bag__tile-sub {
+  display: block;
+  margin-top: 3px;
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--ink-500);
+}
+
+.bag__notes {
+  margin: 16px 0 18px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-900);
+  flex: 1;
+}
+
+/* Reversed footer bar — the "† SOLI DEO GLORIA! †" slot. Pulled out to the
+   frame's padding edge so it reads as a band, not a boxed line. */
+.bag__price {
+  margin: 0 -16px;
+  padding: 11px 16px;
+  background: var(--ink-900);
+  color: var(--paper-100);
+  display: flex;
   align-items: baseline;
-  gap: 0 12px;
-}
-
-.coffee-row__name { font-weight: 700; font-size: 17px; color: var(--ink-900); }
-.coffee-row__process { font-size: 14px; color: var(--ink-500); }
-
-/* Size/price ladder. */
-.sizes {
-  display: flex;
+  justify-content: center;
+  gap: 14px;
   flex-wrap: wrap;
-  gap: 4px 18px;
-  margin-top: 6px;
 }
 
-.sizes__item { font-size: 15px; color: var(--ink-500); white-space: nowrap; }
-.sizes__label { font-weight: 700; color: var(--ink-900); }
+.bag__price-amount {
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+}
+
+.bag__fav {
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
 
 /* Post-submit confirmation panel. */
 .sent__title {
