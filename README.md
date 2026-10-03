@@ -40,13 +40,22 @@ for local development.
 3. Save & deploy. Add a custom domain later under the project's **Domains &
    Routes** (Settings) tab if desired.
 
-## Content follow-ups (remaining placeholders)
+## Content follow-ups
 
-- `src/sections/WhereToBuy.jsx` — real café names + shop URLs, and the
-  farmer's-market info link (still `href="#"`). The order-by-email address is
-  set (`tyler@stancraftcoffee.com`).
-- Per-coffee photos: the coffee cards currently share the bean placeholder;
-  drop real per-card photos by setting `src` on each `land-<coffeeId>` slot.
+Owner input needed, in rough priority order:
 
-Done: hero + Our Craft photos, email (`tyler@stancraftcoffee.com`), and the
-Facebook/Instagram links.
+- **Confirmation email copy** (`worker/index.js`, `confirmation()`). The
+  current wording is a placeholder written to be replaced. It restates the
+  two-business-days promise the form makes, which is a commitment Tyler has to
+  keep — so the text should be his, not ours.
+- **Ethiopia Guji Dambi Uddo has no process.** The supplied lineup omitted it,
+  so the card's process tile falls back to "Single Origin". Correct it in
+  `src/data/coffees.js` if the lot is washed, natural or honey.
+- **Roaster's favourites.** Only Kenya Nyeri Gatomboya carries `roastersFav`,
+  so that filter shows a single card. Add the flag to others if more qualify.
+- **No social links.** The botanical and broadsheet designs carried
+  Facebook/Instagram; this one has none. The footer is the address and the
+  email only. Add them if wanted.
+
+Per-coffee photography is no longer a placeholder — the cards use the ink
+origin stamp (`src/components/LocationStamp.jsx`) by design, not a photo slot.
