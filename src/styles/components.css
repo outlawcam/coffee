@@ -464,3 +464,13 @@ a:focus-visible {
   max-width: 30ch;
   color: var(--ink-900);
 }
+
+/* Submit failure. Sits above the button so it is read before the retry. */
+.form-error {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-900);
+  border-left: 2px solid var(--ink-900);
+  padding-left: 12px;
+}

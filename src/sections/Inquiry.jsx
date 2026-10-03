@@ -36,12 +36,61 @@ const CATEGORIES = [
   ] },
 ];
 
+// Public by design — Turnstile site keys are meant to ship in the client.
+//
+// The real key is bound to stancraftcoffee.com in the Turnstile dashboard and
+// returns error 110200 ("unknown domain") anywhere else, which would make the
+// form untestable locally. On localhost we use Cloudflare's documented
+// always-passes test key, the pair of the test SECRET in .dev.vars.example.
+// Both halves of the gate are therefore stubbed together or real together —
+// never one of each, which would fail in a confusing way.
+const SITE_KEY_PROD = '0x4AAAAAAD_U2FzIwipap6AT';
+const SITE_KEY_TEST = '1x00000000000000000000AA';
+const SITE_KEY =
+  typeof location !== 'undefined' && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+    ? SITE_KEY_TEST
+    : SITE_KEY_PROD;
+
 const EMPTY = { name: '', email: '', category: 'general', inquiry: '', details: '' };
 
 export function Inquiry() {
   const [form, setForm] = React.useState(EMPTY);
   const [sent, setSent] = React.useState(false);
+  const [sending, setSending] = React.useState(false);
+  const [error, setError] = React.useState('');
+  const [token, setToken] = React.useState('');
   const sentRef = React.useRef(null);
+  const widgetRef = React.useRef(null);
+  const widgetId = React.useRef(null);
+  // Synchronous guard. `sending` state lags a render behind, so three fast
+  // clicks all read it as false and fire three requests; a ref flips now.
+  const inFlight = React.useRef(false);
+
+  // Turnstile must be rendered explicitly, not via its implicit DOM scan: that
+  // scan runs once when api.js loads, and this form is mounted by React after
+  // it, so an auto-rendered widget would never appear. Re-runs when `sent`
+  // flips back on "Send another", because the form — and the widget with it —
+  // unmounts while the confirmation panel is up.
+  React.useEffect(() => {
+    if (sent) { widgetId.current = null; return; }
+
+    let cancelled = false;
+    let timer;
+
+    const render = () => {
+      if (cancelled || widgetId.current !== null || !widgetRef.current) return;
+      if (!window.turnstile) { timer = setTimeout(render, 50); return; }
+      widgetId.current = window.turnstile.render(widgetRef.current, {
+        sitekey: SITE_KEY,
+        callback: setToken,
+        'error-callback': () => setToken(''),
+        'expired-callback': () => setToken(''),
+      });
+    };
+    render();
+
+    return () => { cancelled = true; clearTimeout(timer); };
+  }, [sent]);
 
   React.useEffect(() => {
     if (sent && sentRef.current) sentRef.current.focus();
@@ -55,9 +104,34 @@ export function Inquiry() {
 
   const active = CATEGORIES.find((c) => c.id === form.category);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    setSent(true);
+    if (inFlight.current) return; // The disabled attribute lags; this does not.
+    inFlight.current = true;
+    setSending(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ ...form, token }),
+      });
+      const body = await res.json().catch(() => ({ ok: false }));
+      if (!body.ok) throw new Error(body.error || 'send');
+      setSent(true);
+    } catch (err) {
+      setError(
+        err.message === 'turnstile'
+          ? "That verification didn't go through. Reload the page and try again."
+          : "Something went wrong sending that. Try again, or email tyler@stancraftcoffee.com directly."
+      );
+      window.turnstile?.reset(widgetId.current ?? undefined);
+      setToken('');
+    } finally {
+      inFlight.current = false;
+      setSending(false);
+    }
   };
 
   // `last` suppresses the bottom hairline — Inquiry is the final section and
@@ -132,17 +206,25 @@ export function Inquiry() {
                 <textarea
                   id="f-details"
                   rows={4}
+                  required
                   value={form.details}
                   onChange={set('details')}
                   className="control control--textarea"
                 />
               </Field>
 
+              <div ref={widgetRef} className="turnstile" />
+
+              {error && (
+                <p role="alert" className="form-error">{error}</p>
+              )}
+
               <button
                 type="submit"
                 className="btn-block"
+                disabled={sending}
               >
-                Submit
+                {sending ? 'Sending…' : 'Submit'}
               </button>
             </form>
           )}
