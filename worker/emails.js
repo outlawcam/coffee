@@ -96,9 +96,9 @@ Roasted to order in Lufkin, Texas
 
 // --- Confirmation, to the submitter -------------------------------------
 //
-// NOTE: this copy is a placeholder for Tyler's wording, not final. It keeps
-// the two-business-days promise the form already makes on screen, because
-// that is a commitment he has to keep — the rest is his to rewrite.
+// The two-business-days line is a promise the form already makes on screen.
+// Change it here without changing the form — or the other way round — and the
+// visitor is told two different things.
 
 export function confirmation(env, d) {
   const label = LABELS[d.category];
