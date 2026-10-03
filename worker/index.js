@@ -161,6 +161,48 @@ function notification(env, d) {
   };
 }
 
+// Copy is a PLACEHOLDER for Tyler's wording, not final. It restates the
+// two-business-days promise the form already makes, because that is a
+// commitment he has to keep.
+function confirmation(env, d) {
+  const label = LABELS[d.category];
+  const first = d.name.split(' ')[0];
+  const subject = 'We got your note — Stancraft Coffee Co.';
+
+  const text = [
+    `Thanks, ${first}.`,
+    '',
+    "Your note is with us and we'll be in touch within two business days.",
+    '',
+    'Here\u2019s what you sent:',
+    '',
+    `Category: ${label}`,
+    `Reason:   ${d.inquiry || '—'}`,
+    '',
+    d.details,
+    '',
+    '— Stancraft Coffee Co., Lufkin, TX',
+  ].join('\n');
+
+  const html =
+    `<p>Thanks, ${esc(first)}.</p>` +
+    `<p>Your note is with us and we&rsquo;ll be in touch within two business days.</p>` +
+    `<p><strong>Here&rsquo;s what you sent:</strong></p>` +
+    `<p><strong>Category:</strong> ${esc(label)}<br>` +
+    `<strong>Reason:</strong> ${esc(d.inquiry || '—')}</p>` +
+    `<p style="white-space:pre-wrap">${esc(d.details)}</p>` +
+    `<p>— Stancraft Coffee Co., Lufkin, TX</p>`;
+
+  return {
+    from: env.INQUIRY_FROM,
+    to: [d.email],
+    reply_to: [env.INQUIRY_TO], // Customer hits reply, reaches Tyler.
+    subject,
+    text,
+    html,
+  };
+}
+
 async function handleInquiry(request, env) {
   const { data, error } = await readInquiry(request);
   if (error) return json({ ok: false, error }, error === 'too_large' ? 413 : 400);
@@ -173,6 +215,14 @@ async function handleInquiry(request, env) {
     console.error('owner send failed', owner.status, owner.detail);
     return json({ ok: false, error: 'send' }, 502);
   }
+
+  // Best-effort, deliberately. The owner notification already landed, so the
+  // inquiry is not lost. Reporting failure here would be false and would
+  // prompt the visitor to submit again. Two sequential sends rather than
+  // Resend's batch endpoint for exactly this reason: batch is atomic, so a
+  // confirmation that fails validation would take the notification with it.
+  const reply = await sendEmail(env, confirmation(env, data));
+  if (!reply.ok) console.error('confirmation send failed', reply.status, reply.detail);
 
   return json({ ok: true });
 }
