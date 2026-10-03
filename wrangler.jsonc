@@ -17,5 +17,12 @@
   "vars": {
     "INQUIRY_FROM": "Stancraft Coffee Co. <hello@stancraftcoffee.com>",
     "INQUIRY_TO": "tyler@stancraftcoffee.com"
+  },
+  // Workers Logs are off by default, so console.error in the Worker went
+  // nowhere and a Turnstile rejection could not be diagnosed at all. Declared
+  // here rather than toggled in the dashboard for the same reason as vars:
+  // the config file is what a deploy applies.
+  "observability": {
+    "enabled": true
   }
 }
