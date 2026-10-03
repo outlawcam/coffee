@@ -1,0 +1,11 @@
+# Copy to .dev.vars and fill in. .dev.vars is gitignored; this file is not.
+# Production values live in the Cloudflare dashboard on the deploying
+# account (16bd82b3...), NOT here and NOT in wrangler.jsonc.
+
+# Resend API key, from the account that owns the verified sending domain.
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxx
+
+# Turnstile secret key, paired with the site key in index.html.
+# For local testing without a real key, Cloudflare's documented
+# always-passes test secret is: 1x0000000000000000000000000000000AA
+TURNSTILE_SECRET_KEY=0x4xxxxxxxxxxxxxxxxxxxxxxxxx

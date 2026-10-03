@@ -10,3 +10,6 @@ incoming
 # both the Big Type collection and TAYFlapjack are unused, so the whole
 # directory is ignored rather than just the collection subfolder.
 src/fonts/
+# Local Worker secrets — wrangler dev reads this. Never commit it.
+# The committed template is .dev.vars.example.
+.dev.vars
