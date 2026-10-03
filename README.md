@@ -16,13 +16,17 @@ npm run preview  # serve the built dist/
 
 Every push to `main` on `github.com/outlawcam/coffee` builds and deploys.
 
-This is a **static-assets deploy**: `wrangler.jsonc` declares `assets.directory:
-./dist` with no server-side Worker (`main` is intentionally omitted), so
-`wrangler deploy` uploads the built `dist/` directly. This is what the connected
-Cloudflare project runs as its deploy command. (An explicit `wrangler.jsonc` is
-required — without it, `wrangler deploy` tries to auto-configure the Cloudflare
-Vite plugin, which needs Vite ≥ 6; we pin Vite 5, so we route it to a plain
-static-assets deploy instead.)
+This deploy serves static assets **through a Worker**: `wrangler.jsonc`
+declares `main: worker/index.js` plus `assets.directory: ./dist` with an
+`ASSETS` binding, so `wrangler deploy` uploads both. Routing is asset-first —
+static files are served without invoking the Worker, and only `/api/inquiry`
+executes code. (An explicit `wrangler.jsonc` is still required: without it,
+`wrangler deploy` tries to auto-configure the Cloudflare Vite plugin, which
+needs Vite ≥ 6, and we pin Vite 5.)
+
+Secrets for the inquiry endpoint (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`)
+are set in the Cloudflare dashboard. Copy `.dev.vars.example` to `.dev.vars`
+for local development.
 
 **One-time setup (manual, in the Cloudflare dashboard — cannot be scripted):**
 
