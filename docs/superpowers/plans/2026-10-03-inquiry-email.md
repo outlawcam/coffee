@@ -28,8 +28,8 @@
 None of this is in a task because none of it is in the repo — but Task 4 onward cannot be verified until it is done, and Task 7 will fail without it.
 
 1. **Tyler's Resend account verifies `stancraftcoffee.com`.** Verification does not transfer between accounts; a verified copy on anyone else's account does not help production. His account's DKIM records must exist on the domain.
-2. **Edit the existing SPF record — do not add a second one.** It currently reads `v=spf1 include:_spf.google.com ~all`. A domain may have only one SPF record; publishing a second TXT breaks SPF for Google Workspace mail too. Add Resend's `include:` to the existing record.
-3. **Do NOT enable Cloudflare Email _Routing_ on the domain.** MX points at Google Workspace and Routing takes over MX, which would break company email. Email _Sending_ is a different product and is safe.
+2. **Leave the root SPF record alone.** Issue #6 warns that SPF must be edited rather than added, because a domain may have only one SPF record. That rule is per *hostname*, and Resend places its SPF on a `send.` subdomain — so `stancraftcoffee.com`'s `v=spf1 include:_spf.google.com ~all` is untouched and Resend's SPF lands on `send.stancraftcoffee.com`. No conflict, no edit. Editing the Google record here would be needless risk.
+3. **Do NOT enable Cloudflare Email _Routing_ on the domain.** MX points at Google Workspace and Routing takes over the **root** MX, which would break company email. Note this is distinct from the `send.` MX record Resend asks for — that is a different hostname and does not disturb Google's. Email _Sending_ is a different product and is safe.
 4. **`hello@stancraftcoffee.com` needs a Google Workspace alias.** Resend only needs the domain verified to *send* as `hello@`, and `reply_to` keeps replies flowing to the right humans — but without an alias the address is a hole if anyone writes to it directly. Not Cloudflare forwarding, for reason 3.
 5. **A Turnstile widget exists**, giving a **site key** (public, goes in `index.html` at Task 6 Step 3) and a **secret key** (goes in `.dev.vars` and the Cloudflare dashboard).
 

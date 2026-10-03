@@ -192,10 +192,16 @@ Both of these can break mail that currently works. Carried from issue #6.
   points at Google Workspace; Routing takes over MX and would break company
   email. Email _Sending_ is a different product, needs only SPF/DKIM, and is
   safe.
-- **SPF must be edited, not added.** The record is
-  `v=spf1 include:_spf.google.com ~all`. A domain may have only one SPF
-  record; a second TXT breaks SPF for Google mail too. Add Resend's `include:`
-  to the existing record.
+- **Leave the root SPF record alone.** Issue #6 says SPF must be edited rather
+  than added, since a domain may have only one SPF record. True, but the rule
+  is per *hostname* and Resend places SPF on a `send.` subdomain — so
+  `stancraftcoffee.com`'s `v=spf1 include:_spf.google.com ~all` stays as it
+  is and Resend's lands on `send.stancraftcoffee.com`. Editing the Google
+  record would be needless risk to working mail.
+- **The `send.` MX record Resend asks for is not a conflict.** Google
+  Workspace holds the **root** MX; Resend's is on a subdomain. Different
+  hostnames, both valid at once. This is why the Email Routing warning above
+  is specifically about Routing, which takes the root.
 - **`hello@` needs a Google Workspace alias**, not Cloudflare forwarding —
   same reason. Resend only needs the domain verified to *send* as `hello@`,
   but without an alias the address is a hole if anyone writes to it directly.
