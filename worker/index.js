@@ -98,6 +98,69 @@ async function verifyTurnstile(token, ip, env) {
   return out.success === true;
 }
 
+// One POST to Resend. No SDK: a single endpoint does not justify a
+// dependency, and avoiding it keeps nodejs_compat off.
+async function sendEmail(env, payload) {
+  let res;
+  try {
+    res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${env.RESEND_API_KEY}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+  } catch (err) {
+    return { ok: false, status: 0, detail: String(err && err.message) };
+  }
+  if (!res.ok) {
+    // 422 = unverified domain or bad address; 429 = rate limit (free tier
+    // is 100/day). Both must surface as a clean failure, never a throw.
+    const detail = await res.text().catch(() => '');
+    return { ok: false, status: res.status, detail };
+  }
+  return { ok: true };
+}
+
+const LABELS = {
+  general: 'General',
+  wholesale: 'Wholesale',
+  support: 'Customer Support',
+  product: 'Product',
+};
+
+function notification(env, d) {
+  const label = LABELS[d.category];
+  const subject = oneLine(d.inquiry ? `Inquiry — ${label}: ${d.inquiry}` : `Inquiry — ${label}`);
+
+  const text = [
+    `Name:     ${d.name}`,
+    `Email:    ${d.email}`,
+    `Category: ${label}`,
+    `Reason:   ${d.inquiry || '—'}`,
+    '',
+    d.details,
+  ].join('\n');
+
+  const html =
+    `<h2>${esc(subject)}</h2>` +
+    `<p><strong>Name:</strong> ${esc(d.name)}<br>` +
+    `<strong>Email:</strong> ${esc(d.email)}<br>` +
+    `<strong>Category:</strong> ${esc(label)}<br>` +
+    `<strong>Reason:</strong> ${esc(d.inquiry || '—')}</p>` +
+    `<p style="white-space:pre-wrap">${esc(d.details)}</p>`;
+
+  return {
+    from: env.INQUIRY_FROM,
+    to: [env.INQUIRY_TO],
+    reply_to: [d.email], // Tyler hits reply, reaches the customer.
+    subject,
+    text,
+    html,
+  };
+}
+
 async function handleInquiry(request, env) {
   const { data, error } = await readInquiry(request);
   if (error) return json({ ok: false, error }, error === 'too_large' ? 413 : 400);
@@ -105,5 +168,11 @@ async function handleInquiry(request, env) {
   const ok = await verifyTurnstile(data.token, request.headers.get('CF-Connecting-IP'), env);
   if (!ok) return json({ ok: false, error: 'turnstile' }, 400);
 
-  return json({ ok: false, error: 'unimplemented' }, 501);
+  const owner = await sendEmail(env, notification(env, data));
+  if (!owner.ok) {
+    console.error('owner send failed', owner.status, owner.detail);
+    return json({ ok: false, error: 'send' }, 502);
+  }
+
+  return json({ ok: true });
 }
