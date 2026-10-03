@@ -6,6 +6,11 @@
 // Only paths with no matching asset do, which in practice is /api/inquiry
 // plus anything mistyped.
 
+// `oneLine` strips CR/LF from anything destined for a header (Subject,
+// display names) — a newline in `name` would otherwise inject real headers.
+// It lives with the templates because that is what it protects.
+import { confirmation, notification, oneLine } from './emails.js';
+
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), {
     status,
@@ -21,13 +26,6 @@ const CATEGORIES = ['general', 'wholesale', 'support', 'product'];
 // Categories other than `general` render a dropdown, so a reason is required
 // for them and meaningless for general. Mirrors CATEGORIES in Inquiry.jsx.
 const NEEDS_REASON = new Set(['wholesale', 'support', 'product']);
-
-// Strip CR/LF from anything destined for a header (Subject, display names).
-// A newline in `name` would otherwise inject real headers.
-const oneLine = (s) => String(s).replace(/[\r\n]+/g, ' ').trim();
-
-const esc = (s) =>
-  String(s).replace(/[<>&"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]));
 
 export default {
   async fetch(request, env, ctx) {
@@ -146,86 +144,6 @@ async function sendEmail(env, payload) {
     return { ok: false, status: res.status, detail };
   }
   return { ok: true };
-}
-
-const LABELS = {
-  general: 'General',
-  wholesale: 'Wholesale',
-  support: 'Customer Support',
-  product: 'Product',
-};
-
-function notification(env, d) {
-  const label = LABELS[d.category];
-  const subject = oneLine(d.inquiry ? `Inquiry — ${label}: ${d.inquiry}` : `Inquiry — ${label}`);
-
-  const text = [
-    `Name:     ${d.name}`,
-    `Email:    ${d.email}`,
-    `Category: ${label}`,
-    `Reason:   ${d.inquiry || '—'}`,
-    '',
-    d.details,
-  ].join('\n');
-
-  const html =
-    `<h2>${esc(subject)}</h2>` +
-    `<p><strong>Name:</strong> ${esc(d.name)}<br>` +
-    `<strong>Email:</strong> ${esc(d.email)}<br>` +
-    `<strong>Category:</strong> ${esc(label)}<br>` +
-    `<strong>Reason:</strong> ${esc(d.inquiry || '—')}</p>` +
-    `<p style="white-space:pre-wrap">${esc(d.details)}</p>`;
-
-  return {
-    from: env.INQUIRY_FROM,
-    to: [env.INQUIRY_TO],
-    reply_to: [d.email], // Tyler hits reply, reaches the customer.
-    subject,
-    text,
-    html,
-  };
-}
-
-// Copy is a PLACEHOLDER for Tyler's wording, not final. It restates the
-// two-business-days promise the form already makes, because that is a
-// commitment he has to keep.
-function confirmation(env, d) {
-  const label = LABELS[d.category];
-  const first = d.name.split(' ')[0];
-  const subject = 'We got your note — Stancraft Coffee Co.';
-
-  const text = [
-    `Thanks, ${first}.`,
-    '',
-    "Your note is with us and we'll be in touch within two business days.",
-    '',
-    'Here\u2019s what you sent:',
-    '',
-    `Category: ${label}`,
-    `Reason:   ${d.inquiry || '—'}`,
-    '',
-    d.details,
-    '',
-    '— Stancraft Coffee Co., Lufkin, TX',
-  ].join('\n');
-
-  const html =
-    `<p>Thanks, ${esc(first)}.</p>` +
-    `<p>Your note is with us and we&rsquo;ll be in touch within two business days.</p>` +
-    `<p><strong>Here&rsquo;s what you sent:</strong></p>` +
-    `<p><strong>Category:</strong> ${esc(label)}<br>` +
-    `<strong>Reason:</strong> ${esc(d.inquiry || '—')}</p>` +
-    `<p style="white-space:pre-wrap">${esc(d.details)}</p>` +
-    `<p>— Stancraft Coffee Co., Lufkin, TX</p>`;
-
-  return {
-    from: env.INQUIRY_FROM,
-    to: [d.email],
-    reply_to: [env.INQUIRY_TO], // Customer hits reply, reaches Tyler.
-    subject,
-    text,
-    html,
-  };
 }
 
 async function handleInquiry(request, env, ctx) {
