@@ -44,10 +44,6 @@ for local development.
 
 Owner input needed, in rough priority order:
 
-- **Confirmation email copy** (`worker/index.js`, `confirmation()`). The
-  current wording is a placeholder written to be replaced. It restates the
-  two-business-days promise the form makes, which is a commitment Tyler has to
-  keep — so the text should be his, not ours.
 - **Ethiopia Guji Dambi Uddo has no process.** The supplied lineup omitted it,
   so the card's process tile falls back to "Single Origin". Correct it in
   `src/data/coffees.js` if the lot is washed, natural or honey.
