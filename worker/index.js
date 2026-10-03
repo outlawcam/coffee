@@ -91,15 +91,18 @@ async function readInquiry(request) {
   return { data };
 }
 
-async function verifyTurnstile(token, ip, env) {
+async function verifyTurnstile(token, env) {
   if (!token) return false;
   const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
     method: 'POST',
     headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    // remoteip is optional and deliberately omitted. Cloudflare documents no
+    // behaviour for a mismatch, and it is one more thing that can disagree —
+    // a visitor solving over IPv6 while the Worker reports IPv4, say. The
+    // token alone is the proof of work.
     body: new URLSearchParams({
       secret: env.TURNSTILE_SECRET_KEY || '',
       response: token,
-      remoteip: ip || '',
     }),
     signal: AbortSignal.timeout(10_000),
   }).catch(() => null);
@@ -229,7 +232,7 @@ async function handleInquiry(request, env, ctx) {
   const { data, error } = await readInquiry(request);
   if (error) return json({ ok: false, error }, error === 'too_large' ? 413 : 400);
 
-  const ok = await verifyTurnstile(data.token, request.headers.get('CF-Connecting-IP'), env);
+  const ok = await verifyTurnstile(data.token, env);
   if (!ok) return json({ ok: false, error: 'turnstile' }, 400);
 
   const owner = await sendEmail(env, notification(env, data));
