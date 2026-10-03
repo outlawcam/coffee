@@ -124,10 +124,15 @@ existing `esc()` helper in `worker/index.js` carries over.
 
 ### Spam gating
 
-Turnstile, carried forward from `worker/index.js` on
-`design/broadsheet-side-nav`. That half is provider-agnostic — a POST to
-`challenges.cloudflare.com/turnstile/v0/siteverify` — and transfers unchanged.
-The SES half is replaced entirely.
+Turnstile: a POST to
+`challenges.cloudflare.com/turnstile/v0/siteverify` with the token and the
+caller's `CF-Connecting-IP`.
+
+Written fresh rather than lifted from `worker/index.js` on
+`design/broadsheet-side-nav`. That file was the earlier reference, but the
+broadsheet direction is abandoned and the verify call is a short, documented
+API request — carrying a dead branch forward as a dependency costs more than
+rewriting fifteen lines. Nothing in this work now depends on that branch.
 
 Without a gate, any caller can make Resend send mail to an arbitrary address
 with Stancraft's domain in the From. The cost of that is domain reputation,
@@ -238,9 +243,12 @@ No test framework, consistent with prior work on this repo.
 
 - **The deploy model change is unproven here.** Mitigated by a preview deploy
   before merge.
-- **`worker/index.js` exists only on the local `design/broadsheet-side-nav`
-  branch** — two unpushed commits, `139c387` and `2d9faba`. It is the source
-  of the Turnstile half. Push it somewhere before this work starts; a lost
-  laptop currently loses it. Flagged as the blocker in issue #6.
+- ~~`worker/index.js` is only on a local branch~~ — **resolved, not a
+  blocker.** Issue #6 lists this as the blocker to clear first, on the
+  assumption that file would be reused. The broadsheet direction is abandoned
+  and the Turnstile call is written fresh instead, so nothing here depends on
+  `design/broadsheet-side-nav` and it can be deleted with the other losing
+  branches. Issue #6 and `DESIGN-BRANCHES.md` both still describe it as
+  blocking and should be corrected.
 - **Tyler controls the Resend account but not this repo.** Any config he
   rotates must be communicated, since the repo cannot read it.
