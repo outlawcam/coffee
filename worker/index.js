@@ -103,8 +103,19 @@ async function verifyTurnstile(token, ip, env) {
     }),
     signal: AbortSignal.timeout(10_000),
   }).catch(() => null);
-  if (!res) return false;
+  if (!res) {
+    console.error('turnstile siteverify unreachable');
+    return false;
+  }
   const out = await res.json().catch(() => ({ success: false }));
+  if (out.success !== true) {
+    // Log why. Without this a rejection is indistinguishable from any other,
+    // and the codes are the only thing that separates a key mismatch
+    // (invalid-input-secret) from an expired or reused token
+    // (timeout-or-duplicate) from a bad token (invalid-input-response).
+    // These codes name configuration state, not user data — safe to log.
+    console.error('turnstile rejected:', JSON.stringify(out['error-codes'] || out));
+  }
   return out.success === true;
 }
 
