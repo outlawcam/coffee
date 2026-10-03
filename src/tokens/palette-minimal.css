@@ -41,6 +41,10 @@
   --accent: var(--ink-900);
   --accent-hover: var(--ink-900);
   --focus-ring: var(--ink-900);
+  /* Solid-button hover fill. A visible lift off --ink-900 without leaving the
+     ink range, so the paper-coloured label stays legible: 11.29:1 against
+     --paper-100, well clear of the 4.5:1 this 13px bold text needs. */
+  --btn-hover: #3A3632;
 }
 
 @media (max-width: 860px) {

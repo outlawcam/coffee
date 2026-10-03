@@ -6,6 +6,7 @@
 #   frame-src        — required by GTM's <noscript> iframe
 #   img-src …googletagmanager — GTM's own GA4 diagnostics beacon (/a?v=3…)
 #   style-src 'self' — GTM Preview Mode will break under this; deliberate
+#   script-src/frame-src …challenges.cloudflare.com — Turnstile widget + its iframe
 #
 # No report-uri or report-to is configured below, so nothing is collected
 # anywhere: violations surface only in the console of whoever has DevTools
@@ -13,4 +14,4 @@
 # matching Reporting-Endpoints header) to collect reports instead of relying
 # on someone watching.
 /*
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src https://www.googletagmanager.com; base-uri 'none'; form-action 'self'; object-src 'none'; frame-ancestors 'none'
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com; frame-src https://www.googletagmanager.com https://challenges.cloudflare.com; base-uri 'none'; form-action 'self'; object-src 'none'; frame-ancestors 'none'

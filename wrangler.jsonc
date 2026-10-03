@@ -2,7 +2,27 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "coffee",
   "compatibility_date": "2026-07-10",
+  "main": "worker/index.js",
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  // Non-secret config. These MUST live here, not in the dashboard:
+  // `wrangler deploy` deletes all vars before applying the ones in this
+  // file, so a dashboard-set var is wiped by the next push to main.
+  //
+  // Secrets (NOT here): RESEND_API_KEY, TURNSTILE_SECRET_KEY
+  //   local -> .dev.vars ; prod -> Cloudflare dashboard (account 16bd82b3...)
+  // Secrets are never deleted by a deploy.
+  "vars": {
+    "INQUIRY_FROM": "Stancraft Coffee Co. <hello@stancraftcoffee.com>",
+    "INQUIRY_TO": "tyler@stancraftcoffee.com"
+  },
+  // Workers Logs are off by default, so console.error in the Worker went
+  // nowhere and a Turnstile rejection could not be diagnosed at all. Declared
+  // here rather than toggled in the dashboard for the same reason as vars:
+  // the config file is what a deploy applies.
+  "observability": {
+    "enabled": true
   }
 }
