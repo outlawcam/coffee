@@ -12,4 +12,7 @@ incoming
 src/fonts/
 # Local Worker secrets — wrangler dev reads this. Never commit it.
 # The committed template is .dev.vars.example.
-.dev.vars
+.dev.vars*
+!.dev.vars.example
+# Wrangler local state and build scratch.
+.wrangler/

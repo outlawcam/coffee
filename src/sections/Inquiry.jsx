@@ -46,8 +46,17 @@ const CATEGORIES = [
 // never one of each, which would fail in a confusing way.
 const SITE_KEY_PROD = '0x4AAAAAAD_U2FzIwipap6AT';
 const SITE_KEY_TEST = '1x00000000000000000000AA';
+
+// Non-production hosts are listed, not inferred. An unrecognised hostname
+// falls through to the production key and fails loudly with 110200 — which is
+// the right failure for a security control. Inverting this (test key unless
+// the host is known-production) would mean a domain change silently downgrades
+// the gate to a key that accepts everything.
+const isNonProdHost = (h) =>
+  h === 'localhost' || h === '127.0.0.1' || h.endsWith('.workers.dev');
+
 const SITE_KEY =
-  typeof location !== 'undefined' && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+  typeof location !== 'undefined' && isNonProdHost(location.hostname)
     ? SITE_KEY_TEST
     : SITE_KEY_PROD;
 
@@ -72,14 +81,32 @@ export function Inquiry() {
   // flips back on "Send another", because the form — and the widget with it —
   // unmounts while the confirmation panel is up.
   React.useEffect(() => {
-    if (sent) { widgetId.current = null; return; }
+    if (sent) {
+      // Tokens are single-use. Drop the spent one and tear the widget down so
+      // the remount gets a fresh challenge rather than a consumed token.
+      if (widgetId.current !== null) window.turnstile?.remove(widgetId.current);
+      widgetId.current = null;
+      setToken('');
+      return;
+    }
 
     let cancelled = false;
     let timer;
+    let waited = 0;
 
     const render = () => {
       if (cancelled || widgetId.current !== null || !widgetRef.current) return;
-      if (!window.turnstile) { timer = setTimeout(render, 50); return; }
+      if (!window.turnstile) {
+        // api.js is third-party and routinely blocked by filter lists. Give up
+        // after 10s with a message rather than polling forever behind a form
+        // that can never be submitted.
+        if ((waited += 50) > 10000) {
+          setError('Could not load the verification widget. Email tyler@stancraftcoffee.com directly.');
+          return;
+        }
+        timer = setTimeout(render, 50);
+        return;
+      }
       widgetId.current = window.turnstile.render(widgetRef.current, {
         sitekey: SITE_KEY,
         callback: setToken,
@@ -122,9 +149,12 @@ export function Inquiry() {
       setSent(true);
     } catch (err) {
       setError(
-        err.message === 'turnstile'
-          ? "That verification didn't go through. Reload the page and try again."
-          : "Something went wrong sending that. Try again, or email tyler@stancraftcoffee.com directly."
+        {
+          turnstile: "That verification didn't go through. Reload the page and try again.",
+          too_large: 'That message is too long to send. Trim it and try again.',
+          invalid: 'Please check your name, email address and message, then try again.',
+        }[err.message] ||
+          'Something went wrong sending that. Try again, or email tyler@stancraftcoffee.com directly.'
       );
       window.turnstile?.reset(widgetId.current ?? undefined);
       setToken('');
@@ -207,6 +237,7 @@ export function Inquiry() {
                   id="f-details"
                   rows={4}
                   required
+                  maxLength={4000}
                   value={form.details}
                   onChange={set('details')}
                   className="control control--textarea"
@@ -222,7 +253,7 @@ export function Inquiry() {
               <button
                 type="submit"
                 className="btn-block"
-                disabled={sending}
+                disabled={sending || !token}
               >
                 {sending ? 'Sending…' : 'Submit'}
               </button>

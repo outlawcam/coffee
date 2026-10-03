@@ -30,12 +30,12 @@ const esc = (s) =>
   String(s).replace(/[<>&"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]));
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
     if (url.pathname === '/api/inquiry') {
       if (request.method !== 'POST') return json({ ok: false, error: 'method' }, 405);
-      return handleInquiry(request, env);
+      return handleInquiry(request, env, ctx);
     }
 
     return env.ASSETS.fetch(request);
@@ -52,8 +52,9 @@ async function readInquiry(request) {
   } catch {
     return { error: 'invalid' };
   }
-  // content-length can be absent or lie; check the real thing too.
-  if (raw.length > MAX_BODY) return { error: 'too_large' };
+  // content-length can be absent or lie; check the real thing too. Bytes, not
+  // UTF-16 units — multi-byte text would otherwise pass at ~3x the cap.
+  if (new TextEncoder().encode(raw).length > MAX_BODY) return { error: 'too_large' };
 
   let body;
   try {
@@ -63,7 +64,15 @@ async function readInquiry(request) {
   }
   if (!body || typeof body !== 'object') return { error: 'invalid' };
 
-  const f = (k) => String(body[k] ?? '').trim().slice(0, MAX_FIELD);
+  // Reject an over-long field rather than shortening it. Quietly dropping the
+  // tail of `details` would hand Tyler half a lead while telling the visitor
+  // it sent whole, which breaks the spec's first goal. It also risks splitting
+  // a surrogate pair on the way out.
+  for (const k of ['name', 'email', 'category', 'inquiry', 'details']) {
+    if (String(body[k] ?? '').length > MAX_FIELD) return { error: 'too_large' };
+  }
+
+  const f = (k) => String(body[k] ?? '').trim();
   const data = {
     name: oneLine(f('name')),
     email: oneLine(f('email')),
@@ -92,6 +101,7 @@ async function verifyTurnstile(token, ip, env) {
       response: token,
       remoteip: ip || '',
     }),
+    signal: AbortSignal.timeout(10_000),
   }).catch(() => null);
   if (!res) return false;
   const out = await res.json().catch(() => ({ success: false }));
@@ -110,6 +120,7 @@ async function sendEmail(env, payload) {
         'content-type': 'application/json',
       },
       body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(10_000),
     });
   } catch (err) {
     return { ok: false, status: 0, detail: String(err && err.message) };
@@ -203,7 +214,7 @@ function confirmation(env, d) {
   };
 }
 
-async function handleInquiry(request, env) {
+async function handleInquiry(request, env, ctx) {
   const { data, error } = await readInquiry(request);
   if (error) return json({ ok: false, error }, error === 'too_large' ? 413 : 400);
 
@@ -221,8 +232,15 @@ async function handleInquiry(request, env) {
   // prompt the visitor to submit again. Two sequential sends rather than
   // Resend's batch endpoint for exactly this reason: batch is atomic, so a
   // confirmation that fails validation would take the notification with it.
-  const reply = await sendEmail(env, confirmation(env, data));
-  if (!reply.ok) console.error('confirmation send failed', reply.status, reply.detail);
+  // Dispatched with waitUntil so it runs AFTER the response is sent. Awaiting
+  // it would let a hung confirmation hold the authoritative reply hostage: the
+  // browser would eventually show a send failure for an inquiry that already
+  // reached Tyler, and the visitor would submit again — the duplicate this
+  // asymmetry exists to prevent.
+  const deliverConfirmation = sendEmail(env, confirmation(env, data)).then((reply) => {
+    if (!reply.ok) console.error('confirmation send failed', reply.status, reply.detail);
+  });
+  if (ctx && typeof ctx.waitUntil === 'function') ctx.waitUntil(deliverConfirmation);
 
   return json({ ok: true });
 }
